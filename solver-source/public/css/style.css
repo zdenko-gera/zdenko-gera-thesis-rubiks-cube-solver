@@ -1,0 +1,123 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100lvh;
+    position: relative;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    background-color: darkgray;
+}
+
+.side {
+    height: 6rem;
+    width: 6rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 0.1rem solid black;
+    margin: 0;
+    background-color: #222;
+}
+
+.sticker {
+    width: 30%;
+    height: 30%;
+    margin: 0;
+    background-color: #aaa;
+}
+
+.sticker:hover {
+    background-color: #888;
+    box-shadow: inset 0 0 0.3rem black;
+    cursor: pointer;
+}
+
+#cube-container {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    margin-inline: auto;
+}
+
+.alone-side {
+    margin-top: 6.2rem;
+}
+
+#color-picker {
+    border: 1px solid #565656;
+    width: fit-content;
+    height: fit-content;
+    float: left;
+    background-color: #ddd;
+}
+
+.color-sample {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.3rem;
+}
+
+#white-color-picker {
+    background-color: white;
+}
+
+#orange-color-picker {
+    background-color: orange;
+}
+
+#blue-color-picker {
+    background-color: blue;
+}
+
+#yellow-color-picker {
+    background-color: yellow;
+}
+
+#red-color-picker {
+    background-color: red;
+}
+
+#green-color-picker {
+    background-color: green;
+}
+
+.active-color-sample {
+    box-shadow: inset 0 0 0.5rem black;
+}
+
+
+
+
+.white-middle-sticker {
+    background-color: white;
+}
+
+.orange-middle-sticker {
+    background-color: orange;
+}
+
+.blue-middle-sticker {
+    background-color: blue;
+}
+
+.yellow-middle-sticker {
+    background-color: yellow;
+}
+
+.red-middle-sticker {
+    background-color: red;
+}
+
+.green-middle-sticker {
+    background-color: green;
+}
