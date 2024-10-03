@@ -16,6 +16,7 @@
         <header>
             <h1>Rubik's cube solver</h1>
             <div>
+                <a href={{ route('events.index') }}>Események</a>
                 <a href={{ route('login') }}>Bejelentkezés</a>
                 <a href={{ route('register') }}>Regisztráció</a>
             </div>

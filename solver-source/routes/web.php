@@ -11,6 +11,9 @@ Route::get('/cubeInputs', function () {
     return view('cubeInputs');
 });
 
+Route::get('/events', [\App\Http\Controllers\EventController::class, 'index'])->name('events.index');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
