@@ -7,6 +7,17 @@
     @endif
     <h2>Rekordjaim</h2>
     @if (count($personalRecords) > 0)
+    @foreach($personalRecords as $record)
+        <div class="py-12">
+            {{ $record->cubeType }} -
+            {{ $record->hour }}óra
+            {{ $record->min }}perc
+            {{ $record->sec }}mp
+            {{ $record->msec }}ms -
+            {{ $record->created_at }}
+            <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Törlés</a>
+        </div>
+
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -27,16 +38,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    @foreach($personalRecords as $record)
-        <div class="py-12">
-            {{ $record->cubeType }} -
-            {{ $record->hour }}óra
-            {{ $record->min }}perc
-            {{ $record->sec }}mp
-            {{ $record->msec }}ms -
-            {{ $record->created_at }}
-            <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Törlés</a>
         </div>
     @endforeach
     @else

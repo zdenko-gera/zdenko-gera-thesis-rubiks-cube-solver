@@ -21,7 +21,7 @@ Route::get('/event/{id}', [RubikEventController::class, 'view'])->name('rubikEve
 //END-events ***
 
 //records ***
-
+Route::get('/ranking', [PersonalRecordController::class, 'ranking'])->name('personalRecords.ranking');
 //END-records ***
 
 

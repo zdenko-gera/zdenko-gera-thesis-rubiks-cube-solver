@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Rubiks cube solver'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,8 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    //'timezone' => env('APP_TIMEZONE', 'UTC'),
+    'timezone' => 'Europe/Budapest',
 
     /*
     |--------------------------------------------------------------------------

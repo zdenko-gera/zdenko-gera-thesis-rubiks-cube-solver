@@ -16,7 +16,8 @@ return new class extends Migration
             $table->tinyInteger('hour')->default(0);
             $table->tinyInteger('min')->default(0);
             $table->tinyInteger('sec')->default(0);
-            $table->tinyInteger('msec')->default(0);
+            $table->smallInteger('msec')->default(0);
+            $table->double('sumTimeInMsec')->default(0);
             $table->string('cubeType');
             $table->string('email');
             $table->foreign('email')->references('email')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
