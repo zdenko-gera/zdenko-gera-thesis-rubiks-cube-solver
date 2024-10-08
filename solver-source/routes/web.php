@@ -16,6 +16,9 @@ Route::get('/events', [RubikEventController::class, 'index'])->name('rubikEvents
 Route::get('/add-event', [RubikEventController::class, 'create'])->name('rubikEvents.create');
 Route::post('/add-event', [RubikEventController::class, 'store'])->name('rubikEvents.store');
 
+Route::get('/event/{id}', [RubikEventController::class, 'view'])->name('rubikEvents.view');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

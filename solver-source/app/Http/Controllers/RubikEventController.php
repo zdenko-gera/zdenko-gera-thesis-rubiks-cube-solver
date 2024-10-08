@@ -57,4 +57,11 @@ class RubikEventController extends Controller
 
         return view('index')->with(['success' => 'Esemény sikeresen mentve.']);
     }
+
+    public function view(string $id)
+    {
+        $rubikEvent = RubikEvent::find($id);
+
+        return view('rubikEvents.show', ['rubikEvent' => $rubikEvent]);
+    }
 }
