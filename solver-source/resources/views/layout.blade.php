@@ -9,14 +9,17 @@
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
 <!-- <div id="app"></div> -->
 <header>
-    <h1><a href="/">Rubik's cube solver</a></h1>
+    <h3><a href="/">Rubik's cube solver</a></h3>
     <div>
         <a href={{ route('rubikEvents.create') }}>+Esemény</a>
         <a href={{ route('rubikEvents.index') }}>Események</a>
+        <a href={{ route('personalRecords.create') }}>+Rekord</a>
+        @auth <a href={{ route('personalRecords.mine') }}>Rekordjaim</a> @endauth
         <a href={{ route('cubeInputs') }}>Kocka</a>
         <a href={{ route('login') }}>Bejelentkezés</a>
         <a href={{ route('register') }}>Regisztráció</a>

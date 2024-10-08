@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rubikEvents', function (Blueprint $table) {
+        Schema::create('rubik_events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description');
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rubikEvents');
+        Schema::dropIfExists('rubik_events');
     }
 };
