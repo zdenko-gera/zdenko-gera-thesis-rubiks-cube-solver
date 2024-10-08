@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class RubikEvent extends Model
 {
     use HasFactory;
 
@@ -20,7 +20,6 @@ class Event extends Model
       'city',
       'street',
       'houseNumber',
-      'email',
       'fromDate',
       'untilDate',
       // 'numberOfFavs',

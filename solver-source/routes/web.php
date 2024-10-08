@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RubikEventController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -9,9 +10,11 @@ Route::get('/', function () {
 
 Route::get('/cubeInputs', function () {
     return view('cubeInputs');
-});
+})->name('cubeInputs');
 
-Route::get('/events', [\App\Http\Controllers\EventController::class, 'index'])->name('events.index');
+Route::get('/events', [RubikEventController::class, 'index'])->name('rubikEvents.index');
+Route::get('/add-event', [RubikEventController::class, 'create'])->name('rubikEvents.create');
+Route::post('/add-event', [RubikEventController::class, 'store'])->name('rubikEvents.store');
 
 
 Route::get('/dashboard', function () {
