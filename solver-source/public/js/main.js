@@ -66,11 +66,12 @@ $('document').ready(function() {
 
         let cube = new Cube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
         console.log(cube.isSolved());
+        cube.front(false);
     });
 });
 
 class Sticker {
-    #color = null;
+    color = null;
     static get WHITE() { return 'rgb(255, 255, 255)'; }
     static get BLUE() { return 'rgb(0, 0, 255)'; }
     static get RED() { return 'rgb(255, 0, 0)'; }
@@ -82,12 +83,8 @@ class Sticker {
         this.color = color;
     }
 
-    set color(color) {
-        this.#color = color;
-    }
-
     getColor() {
-        return this.#color;
+        return this.color;
     }
 }
 
@@ -198,5 +195,72 @@ class Cube {
         }
 
         return isSolved;
+    }
+
+    front(backwards) {
+        // PIROS OLDAL ELFORGATÁSA
+        let tmpRedSide = structuredClone(this.redSide);
+        let tmpWhiteSide = structuredClone(this.whiteSide);
+        let tmpBlueSide = structuredClone(this.blueSide);
+        let tmpYellowSide = structuredClone(this.yellowSide);
+        let tmpGreenSide = structuredClone(this.greenSide);
+
+        if (backwards) {
+            this.redSide.stickers[6].color = tmpRedSide.stickers[0].color;
+            this.redSide.stickers[3].color = tmpRedSide.stickers[1].color;
+            this.redSide.stickers[0].color = tmpRedSide.stickers[2].color;
+            this.redSide.stickers[7].color = tmpRedSide.stickers[3].color;
+            this.redSide.stickers[1].color = tmpRedSide.stickers[5].color;
+            this.redSide.stickers[8].color = tmpRedSide.stickers[6].color;
+            this.redSide.stickers[5].color = tmpRedSide.stickers[7].color;
+            this.redSide.stickers[2].color = tmpRedSide.stickers[8].color;
+        } else {
+            this.redSide.stickers[0].color = tmpRedSide.stickers[6].color;
+            this.redSide.stickers[1].color = tmpRedSide.stickers[3].color;
+            this.redSide.stickers[2].color = tmpRedSide.stickers[0].color;
+            this.redSide.stickers[3].color = tmpRedSide.stickers[7].color;
+            this.redSide.stickers[5].color = tmpRedSide.stickers[1].color;
+            this.redSide.stickers[6].color = tmpRedSide.stickers[8].color;
+            this.redSide.stickers[7].color = tmpRedSide.stickers[5].color;
+            this.redSide.stickers[8].color = tmpRedSide.stickers[2].color;
+
+
+            this.blueSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
+            this.blueSide.stickers[7].color = tmpWhiteSide.stickers[7].color;
+            this.blueSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
+
+            this.yellowSide.stickers[0].color = tmpBlueSide.stickers[8].color;
+            this.yellowSide.stickers[1].color = tmpBlueSide.stickers[7].color;
+            this.yellowSide.stickers[2].color = tmpBlueSide.stickers[6].color;
+
+            this.greenSide.stickers[6].color = tmpYellowSide.stickers[2].color;
+            this.greenSide.stickers[7].color = tmpYellowSide.stickers[1].color;
+            this.greenSide.stickers[8].color = tmpYellowSide.stickers[0].color;
+
+            this.whiteSide.stickers[6].color = tmpGreenSide.stickers[6].color;
+            this.whiteSide.stickers[7].color = tmpGreenSide.stickers[7].color;
+            this.whiteSide.stickers[8].color = tmpGreenSide.stickers[8].color;
+        }
+
+        let redChildren = document.getElementById('red-side').children;
+        for (let i = 0; i < 9; i++) {
+            redChildren[i].style.backgroundColor = this.redSide.stickers[i].getColor();
+        }
+        let blueChildren = document.getElementById('blue-side').children;
+        for (let i = 6; i < 9; i++) {
+            blueChildren[i].style.backgroundColor = this.blueSide.stickers[i].getColor();
+        }
+        let greenChildren = document.getElementById('green-side').children;
+        for (let i = 0; i < 9; i++) {
+            greenChildren[i].style.backgroundColor = this.greenSide.stickers[i].getColor();
+        }
+        let yellowChildren = document.getElementById('yellow-side').children;
+        for (let i = 0; i < 9; i++) {
+            yellowChildren[i].style.backgroundColor = this.yellowSide.stickers[i].getColor();
+        }
+        let whiteChildren = document.getElementById('white-side').children;
+        for (let i = 0; i < 9; i++) {
+            whiteChildren[i].style.backgroundColor = this.whiteSide.stickers[i].getColor();
+        }
     }
 }
