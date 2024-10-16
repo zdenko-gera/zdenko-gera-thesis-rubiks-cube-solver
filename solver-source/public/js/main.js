@@ -66,7 +66,7 @@ $('document').ready(function() {
 
         let cube = new Cube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
         console.log(cube.isSolved());
-        cube.front(false);
+        cube.front(true);
     });
 });
 
@@ -214,6 +214,22 @@ class Cube {
             this.redSide.stickers[8].color = tmpRedSide.stickers[6].color;
             this.redSide.stickers[5].color = tmpRedSide.stickers[7].color;
             this.redSide.stickers[2].color = tmpRedSide.stickers[8].color;
+
+            this.greenSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
+            this.greenSide.stickers[7].color = tmpWhiteSide.stickers[7].color;
+            this.greenSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
+
+            this.yellowSide.stickers[0].color = tmpGreenSide.stickers[8].color;
+            this.yellowSide.stickers[1].color = tmpGreenSide.stickers[7].color;
+            this.yellowSide.stickers[2].color = tmpGreenSide.stickers[6].color;
+
+            this.blueSide.stickers[6].color = tmpYellowSide.stickers[2].color;
+            this.blueSide.stickers[7].color = tmpYellowSide.stickers[1].color;
+            this.blueSide.stickers[8].color = tmpYellowSide.stickers[0].color;
+
+            this.whiteSide.stickers[6].color = tmpBlueSide.stickers[6].color;
+            this.whiteSide.stickers[7].color = tmpBlueSide.stickers[7].color;
+            this.whiteSide.stickers[8].color = tmpBlueSide.stickers[8].color;
         } else {
             this.redSide.stickers[0].color = tmpRedSide.stickers[6].color;
             this.redSide.stickers[1].color = tmpRedSide.stickers[3].color;
@@ -223,7 +239,6 @@ class Cube {
             this.redSide.stickers[6].color = tmpRedSide.stickers[8].color;
             this.redSide.stickers[7].color = tmpRedSide.stickers[5].color;
             this.redSide.stickers[8].color = tmpRedSide.stickers[2].color;
-
 
             this.blueSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
             this.blueSide.stickers[7].color = tmpWhiteSide.stickers[7].color;
