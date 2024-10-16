@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
+<body>
 <!-- <div id="app"></div> -->
 <header>
     <h3><a href="/">Rubik's cube solver</a></h3>
@@ -31,3 +31,6 @@
 <footer>
 
 </footer>
+
+</body>
+</html>

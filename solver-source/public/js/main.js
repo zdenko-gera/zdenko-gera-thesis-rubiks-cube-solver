@@ -1,4 +1,4 @@
-$('document').ready(function() {
+/*$('document').ready(function() {
     var selectedColor = null;
 
     $('.color-sample').click(function(e) {
@@ -89,3 +89,4 @@ class Cube {
         }
     }
 }
+*/

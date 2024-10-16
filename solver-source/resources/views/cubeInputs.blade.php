@@ -1,6 +1,5 @@
 @extends('layout')
 @section('content')
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
 <!-- <div id="app"></div> -->
 <aside>
     <div id="color-picker">
@@ -87,10 +86,6 @@
     </div>
     <button id="submit-cube-button">Kezdés</button>
 </main>
-<footer>
-
-</footer>
-
 <script>
     $('document').ready(function() {
         var selectedColor = null;
