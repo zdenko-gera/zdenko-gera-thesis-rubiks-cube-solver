@@ -15,6 +15,11 @@ header {
     background-color: darkgray;
 }
 
+body {
+    /*background-color: #222222 !important;
+    color: #ccc !important;*/
+}
+
 .side {
     height: 6rem;
     width: 6rem;
@@ -120,4 +125,16 @@ header {
 
 .green-middle-sticker {
     background-color: green;
+}
+
+.msg-bubble {
+    display: none;
+    width: fit-content;
+    height: fit-content;
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    color: white;
+    padding: 1rem;
+    border-radius: 1rem;
 }
