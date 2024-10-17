@@ -1,6 +1,32 @@
 $('document').ready(function() {
-    var selectedColor = null;
+    $('#fill-to-solved-state').click(function(e) {
+        let redChildren = document.getElementById('red-side').children;
+        for (let i = 0; i < 9; i++) {
+            redChildren[i].style.backgroundColor = 'rgb(255, 0 , 0)';
+        }
+        let blueChildren = document.getElementById('blue-side').children;
+        for (let i = 0; i < 9; i++) {
+            blueChildren[i].style.backgroundColor = 'rgb(0, 0, 255)';
+        }
+        let greenChildren = document.getElementById('green-side').children;
+        for (let i = 0; i < 9; i++) {
+            greenChildren[i].style.backgroundColor = 'rgb(0, 128, 0)';
+        }
+        let yellowChildren = document.getElementById('yellow-side').children;
+        for (let i = 0; i < 9; i++) {
+            yellowChildren[i].style.backgroundColor = 'rgb(255, 255, 0)';
+        }
+        let whiteChildren = document.getElementById('white-side').children;
+        for (let i = 0; i < 9; i++) {
+            whiteChildren[i].style.backgroundColor = 'rgb(255, 255, 255)';
+        }
+        let orangeChildren = document.getElementById('orange-side').children;
+        for (let i = 0; i < 9; i++) {
+            orangeChildren[i].style.backgroundColor = 'rgb(255, 165, 0)';
+        }
+    });
 
+    var selectedColor = null;
     // *** SZÍNEZÉS ***
     $('.color-sample').click(function(e) {
         e.stopPropagation();
@@ -65,8 +91,24 @@ $('document').ready(function() {
 
 
         let cube = new Cube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
-        console.log(cube.isSolved());
-        cube.front(true);
+        cube.isSolved();
+
+
+        $('#right').click(function(e) {
+            cube.right(false);
+        });
+
+        $('#right-backwards').click(function(e) {
+            cube.right(true);
+        });
+
+        $('#front').click(function(e) {
+            cube.front(false);
+        });
+
+        $('#front-backwards').click(function(e) {
+            cube.front(true);
+        });
     });
 });
 
@@ -121,6 +163,33 @@ class Cube {
             this.orangeSide = orangeSide;
             this.blueSide = blueSide;
             this.yellowSide = yellowSide;
+    }
+
+    reRenderCube() {
+        let redChildren = document.getElementById('red-side').children;
+        for (let i = 0; i < 9; i++) {
+            redChildren[i].style.backgroundColor = this.redSide.stickers[i].getColor();
+        }
+        let blueChildren = document.getElementById('blue-side').children;
+        for (let i = 0; i < 9; i++) {
+            blueChildren[i].style.backgroundColor = this.blueSide.stickers[i].getColor();
+        }
+        let greenChildren = document.getElementById('green-side').children;
+        for (let i = 0; i < 9; i++) {
+            greenChildren[i].style.backgroundColor = this.greenSide.stickers[i].getColor();
+        }
+        let yellowChildren = document.getElementById('yellow-side').children;
+        for (let i = 0; i < 9; i++) {
+            yellowChildren[i].style.backgroundColor = this.yellowSide.stickers[i].getColor();
+        }
+        let whiteChildren = document.getElementById('white-side').children;
+        for (let i = 0; i < 9; i++) {
+            whiteChildren[i].style.backgroundColor = this.whiteSide.stickers[i].getColor();
+        }
+        let orangeChildren = document.getElementById('orange-side').children;
+        for (let i = 0; i < 9; i++) {
+            orangeChildren[i].style.backgroundColor = this.orangeSide.stickers[i].getColor();
+        }
     }
 
     isSolved() {
@@ -198,7 +267,7 @@ class Cube {
     }
 
     front(backwards) {
-        // PIROS OLDAL ELFORGATÁSA
+        let iteration = 1;
         let tmpRedSide = structuredClone(this.redSide);
         let tmpWhiteSide = structuredClone(this.whiteSide);
         let tmpBlueSide = structuredClone(this.blueSide);
@@ -206,31 +275,10 @@ class Cube {
         let tmpGreenSide = structuredClone(this.greenSide);
 
         if (backwards) {
-            this.redSide.stickers[6].color = tmpRedSide.stickers[0].color;
-            this.redSide.stickers[3].color = tmpRedSide.stickers[1].color;
-            this.redSide.stickers[0].color = tmpRedSide.stickers[2].color;
-            this.redSide.stickers[7].color = tmpRedSide.stickers[3].color;
-            this.redSide.stickers[1].color = tmpRedSide.stickers[5].color;
-            this.redSide.stickers[8].color = tmpRedSide.stickers[6].color;
-            this.redSide.stickers[5].color = tmpRedSide.stickers[7].color;
-            this.redSide.stickers[2].color = tmpRedSide.stickers[8].color;
+            iteration = 3;
+        }
 
-            this.greenSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
-            this.greenSide.stickers[7].color = tmpWhiteSide.stickers[7].color;
-            this.greenSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
-
-            this.yellowSide.stickers[0].color = tmpGreenSide.stickers[8].color;
-            this.yellowSide.stickers[1].color = tmpGreenSide.stickers[7].color;
-            this.yellowSide.stickers[2].color = tmpGreenSide.stickers[6].color;
-
-            this.blueSide.stickers[6].color = tmpYellowSide.stickers[2].color;
-            this.blueSide.stickers[7].color = tmpYellowSide.stickers[1].color;
-            this.blueSide.stickers[8].color = tmpYellowSide.stickers[0].color;
-
-            this.whiteSide.stickers[6].color = tmpBlueSide.stickers[6].color;
-            this.whiteSide.stickers[7].color = tmpBlueSide.stickers[7].color;
-            this.whiteSide.stickers[8].color = tmpBlueSide.stickers[8].color;
-        } else {
+        for (let i = 0; i < iteration; i++) {
             this.redSide.stickers[0].color = tmpRedSide.stickers[6].color;
             this.redSide.stickers[1].color = tmpRedSide.stickers[3].color;
             this.redSide.stickers[2].color = tmpRedSide.stickers[0].color;
@@ -255,27 +303,62 @@ class Cube {
             this.whiteSide.stickers[6].color = tmpGreenSide.stickers[6].color;
             this.whiteSide.stickers[7].color = tmpGreenSide.stickers[7].color;
             this.whiteSide.stickers[8].color = tmpGreenSide.stickers[8].color;
+
+            tmpRedSide = structuredClone(this.redSide);
+            tmpWhiteSide = structuredClone(this.whiteSide);
+            tmpBlueSide = structuredClone(this.blueSide);
+            tmpYellowSide = structuredClone(this.yellowSide);
+            tmpGreenSide = structuredClone(this.greenSide);
+        }
+        this.reRenderCube();
+        return this;
+    }
+
+    right(backwards) {
+        let iteration = 1;
+        let tmpRedSide = structuredClone(this.redSide);
+        let tmpWhiteSide = structuredClone(this.whiteSide);
+        let tmpBlueSide = structuredClone(this.blueSide);
+        let tmpYellowSide = structuredClone(this.yellowSide);
+        let tmpOrangeSide = structuredClone(this.orangeSide);
+
+        if (backwards) {
+            iteration = 3;
         }
 
-        let redChildren = document.getElementById('red-side').children;
-        for (let i = 0; i < 9; i++) {
-            redChildren[i].style.backgroundColor = this.redSide.stickers[i].getColor();
+        for (let i = 0; i < iteration; i++) {
+            this.blueSide.stickers[6].color = tmpBlueSide.stickers[0].color;
+            this.blueSide.stickers[3].color = tmpBlueSide.stickers[1].color;
+            this.blueSide.stickers[0].color = tmpBlueSide.stickers[2].color;
+            this.blueSide.stickers[7].color = tmpBlueSide.stickers[3].color;
+            this.blueSide.stickers[1].color = tmpBlueSide.stickers[5].color;
+            this.blueSide.stickers[8].color = tmpBlueSide.stickers[6].color;
+            this.blueSide.stickers[5].color = tmpBlueSide.stickers[7].color;
+            this.blueSide.stickers[2].color = tmpBlueSide.stickers[8].color;
+
+            this.orangeSide.stickers[2].color = tmpWhiteSide.stickers[2].color;
+            this.orangeSide.stickers[5].color = tmpWhiteSide.stickers[5].color;
+            this.orangeSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
+
+            this.yellowSide.stickers[2].color = tmpOrangeSide.stickers[2].color;
+            this.yellowSide.stickers[5].color = tmpOrangeSide.stickers[5].color;
+            this.yellowSide.stickers[8].color = tmpOrangeSide.stickers[8].color;
+
+            this.redSide.stickers[2].color = tmpYellowSide.stickers[2].color;
+            this.redSide.stickers[5].color = tmpYellowSide.stickers[5].color;
+            this.redSide.stickers[8].color = tmpYellowSide.stickers[8].color;
+
+            this.whiteSide.stickers[2].color = tmpRedSide.stickers[2].color;
+            this.whiteSide.stickers[5].color = tmpRedSide.stickers[5].color;
+            this.whiteSide.stickers[8].color = tmpRedSide.stickers[8].color;
+
+            tmpRedSide = structuredClone(this.redSide);
+            tmpWhiteSide = structuredClone(this.whiteSide);
+            tmpBlueSide = structuredClone(this.blueSide);
+            tmpYellowSide = structuredClone(this.yellowSide);
+            tmpOrangeSide = structuredClone(this.orangeSide);
         }
-        let blueChildren = document.getElementById('blue-side').children;
-        for (let i = 6; i < 9; i++) {
-            blueChildren[i].style.backgroundColor = this.blueSide.stickers[i].getColor();
-        }
-        let greenChildren = document.getElementById('green-side').children;
-        for (let i = 0; i < 9; i++) {
-            greenChildren[i].style.backgroundColor = this.greenSide.stickers[i].getColor();
-        }
-        let yellowChildren = document.getElementById('yellow-side').children;
-        for (let i = 0; i < 9; i++) {
-            yellowChildren[i].style.backgroundColor = this.yellowSide.stickers[i].getColor();
-        }
-        let whiteChildren = document.getElementById('white-side').children;
-        for (let i = 0; i < 9; i++) {
-            whiteChildren[i].style.backgroundColor = this.whiteSide.stickers[i].getColor();
-        }
+        this.reRenderCube();
+        return this;
     }
 }
