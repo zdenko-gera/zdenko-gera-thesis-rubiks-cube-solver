@@ -85,14 +85,22 @@
     </div>
     <button id="front">F</button>
     <button id="front-backwards">F'</button>
+    <br>
+    <button id="back">B</button>
+    <button id="back-backwards">B'</button>
+    <br>
     <button id="right">R</button>
     <button id="right-backwards">R'</button>
+    <br>
     <button id="left">L</button>
     <button id="left-backwards">L'</button>
+    <br>
     <button id="down">D</button>
     <button id="down-backwards">D'</button>
+    <br>
     <button id="up">U</button>
     <button id="up-backwards">U'</button>
+    <br>
     <button id="submit-cube-button">Kezdés</button>
     <button id="fill-to-solved-state">TESZT KITÖLTÉS</button>
 </main>
