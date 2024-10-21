@@ -2,19 +2,19 @@ $('document').ready(function() {
     $('#fill-to-solved-state').click(function(e) {
         let redChildren = document.getElementById('red-side').children;
         for (let i = 0; i < 9; i++) {
-            redChildren[i].style.backgroundColor = 'rgb(255, 0 , 0)';
+            redChildren[i].style.backgroundColor = 'rgb(219, 88, 86)';
         }
         let blueChildren = document.getElementById('blue-side').children;
         for (let i = 0; i < 9; i++) {
-            blueChildren[i].style.backgroundColor = 'rgb(0, 0, 255)';
+            blueChildren[i].style.backgroundColor = 'rgb(162, 191, 254)';
         }
         let greenChildren = document.getElementById('green-side').children;
         for (let i = 0; i < 9; i++) {
-            greenChildren[i].style.backgroundColor = 'rgb(0, 128, 0)';
+            greenChildren[i].style.backgroundColor = 'rgb(134, 213, 134)';
         }
         let yellowChildren = document.getElementById('yellow-side').children;
         for (let i = 0; i < 9; i++) {
-            yellowChildren[i].style.backgroundColor = 'rgb(255, 255, 0)';
+            yellowChildren[i].style.backgroundColor = 'rgb(255, 255, 153)';
         }
         let whiteChildren = document.getElementById('white-side').children;
         for (let i = 0; i < 9; i++) {
@@ -22,7 +22,7 @@ $('document').ready(function() {
         }
         let orangeChildren = document.getElementById('orange-side').children;
         for (let i = 0; i < 9; i++) {
-            orangeChildren[i].style.backgroundColor = 'rgb(255, 165, 0)';
+            orangeChildren[i].style.backgroundColor = 'rgb(255, 150, 65)';
         }
     });
 
@@ -34,7 +34,7 @@ $('document').ready(function() {
 
         $('.color-sample').removeClass('active-color-sample');
         $activeColorSample = $(this);
-        selectedColor = $(this).attr('id').split('-')[0];
+        selectedColor = $(this).css('background-color');
 
         $($activeColorSample).addClass('active-color-sample');
     });
@@ -62,31 +62,31 @@ $('document').ready(function() {
         $('#red-side').children().each(function() {
             tmpSide.push(new Sticker($(this).css('background-color')));
         });
-        let redSideObj = new Side('rgb(255, 0, 0)', tmpSide);
+        let redSideObj = new Side('rgb(219, 88, 86)', tmpSide);
         tmpSide = [];
 
         $('#green-side').children().each(function() {
             tmpSide.push(new Sticker($(this).css('background-color')));
         });
-        let greenSideObj = new Side('rgb(0, 128, 0)', tmpSide);
+        let greenSideObj = new Side('rgb(134, 213, 134)', tmpSide);
         tmpSide = [];
 
         $('#orange-side').children().each(function() {
             tmpSide.push(new Sticker($(this).css('background-color')));
         });
-        let orangeSideObj = new Side('rgb(255, 165, 0)', tmpSide);
+        let orangeSideObj = new Side('rgb(255, 150, 65)', tmpSide);
         tmpSide = [];
 
         $('#blue-side').children().each(function() {
             tmpSide.push(new Sticker($(this).css('background-color')));
         });
-        let blueSideObj = new Side('rgb(0, 0, 255)', tmpSide);
+        let blueSideObj = new Side('rgb(162, 191, 254)', tmpSide);
         tmpSide = [];
 
         $('#yellow-side').children().each(function() {
             tmpSide.push(new Sticker($(this).css('background-color')));
         });
-        let yellowSideObj = new Side('rgb(255, 255, 0)', tmpSide);
+        let yellowSideObj = new Side('rgb(255, 255, 153)', tmpSide);
         tmpSide = [];
 
 
@@ -147,11 +147,11 @@ $('document').ready(function() {
 class Sticker {
     color = null;
     static get WHITE() { return 'rgb(255, 255, 255)'; }
-    static get BLUE() { return 'rgb(0, 0, 255)'; }
-    static get RED() { return 'rgb(255, 0, 0)'; }
-    static get GREEN() { return 'rgb(0, 128, 0)'; }
-    static get ORANGE() { return 'rgb(255, 165, 0)'; }
-    static get YELLOW() { return 'rgb(255, 255, 0)'; }
+    static get BLUE() { return 'rgb(162, 191, 254)'; }
+    static get RED() { return 'rgb(219, 88, 86)'; }
+    static get GREEN() { return 'rgb(134, 213, 134)'; }
+    static get ORANGE() { return 'rgb(255, 150, 65)'; }
+    static get YELLOW() { return 'rgb(255, 255, 153)'; }
 
     constructor(color) {
         this.color = color;
@@ -225,7 +225,7 @@ class Cube {
     }
 
     isSolved() {
-        const validColors = ['rgb(255, 255, 255)', 'rgb(255, 0, 0)', 'rgb(0, 128, 0)', 'rgb(255, 165, 0)', 'rgb(0, 0, 255)', 'rgb(255, 255, 0)'];
+        const validColors = ['rgb(255, 255, 255)', 'rgb(219, 88, 86)', 'rgb(134, 213, 134)', 'rgb(255, 150, 65)', 'rgb(162, 191, 254)', 'rgb(255, 255, 153)'];
         let isValid = true;
         let isSolved = true;
 
@@ -268,6 +268,8 @@ class Cube {
         for (let i = 0; i < 9; i++) {
             if (!validColors.includes(this.blueSide.stickers[i].getColor())) {
                 isValid = false;
+                console.log(this.blueSide.stickers[i].getColor());
+
             }
             if (this.blueSide.stickers[i].getColor() !== this.blueSide.getMiddleColor()) {
                 isSolved = false;

@@ -16,7 +16,7 @@ header {
 }
 
 body {
-    /*background-color: #222222 !important;
+    /*background-color: #212121 !important;
     color: #ccc !important;*/
 }
 
@@ -77,23 +77,23 @@ body {
 }
 
 #orange-color-picker {
-    background-color: orange;
+    background-color: rgb(255, 150, 65);
 }
 
 #blue-color-picker {
-    background-color: blue;
+    background-color: rgb(162, 191, 254);
 }
 
 #yellow-color-picker {
-    background-color: yellow;
+    background-color: rgb(255, 255, 153);
 }
 
 #red-color-picker {
-    background-color: red;
+    background-color: rgb(219, 88, 86);
 }
 
 #green-color-picker {
-    background-color: green;
+    background-color: rgb(134, 213, 134);
 }
 
 .active-color-sample {
@@ -108,23 +108,23 @@ body {
 }
 
 .orange-middle-sticker {
-    background-color: orange;
+    background-color: rgb(255, 150, 65);
 }
 
 .blue-middle-sticker {
-    background-color: blue;
+    background-color: rgb(162, 191, 254);
 }
 
 .yellow-middle-sticker {
-    background-color: yellow;
+    background-color: rgb(255, 255, 153);
 }
 
 .red-middle-sticker {
-    background-color: red;
+    background-color: rgb(219, 88, 86);
 }
 
 .green-middle-sticker {
-    background-color: green;
+    background-color: rgb(134, 213, 134);
 }
 
 .msg-bubble {
