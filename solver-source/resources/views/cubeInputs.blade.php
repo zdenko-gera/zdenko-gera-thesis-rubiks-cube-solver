@@ -89,6 +89,8 @@
     <button id="right-backwards">R'</button>
     <button id="down">D</button>
     <button id="down-backwards">D'</button>
+    <button id="up">U</button>
+    <button id="up-backwards">U'</button>
     <button id="submit-cube-button">Kezdés</button>
     <button id="fill-to-solved-state">TESZT KITÖLTÉS</button>
 </main>
