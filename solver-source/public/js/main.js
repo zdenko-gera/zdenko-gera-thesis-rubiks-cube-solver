@@ -109,6 +109,14 @@ $('document').ready(function() {
         $('#front-backwards').click(function(e) {
             cube.front(true);
         });
+
+        $('#down').click(function(e) {
+            cube.down(false);
+        });
+
+        $('#down-backwards').click(function(e) {
+            cube.down(true);
+        });
     });
 });
 
@@ -354,6 +362,54 @@ class Cube {
 
             tmpRedSide = structuredClone(this.redSide);
             tmpWhiteSide = structuredClone(this.whiteSide);
+            tmpBlueSide = structuredClone(this.blueSide);
+            tmpYellowSide = structuredClone(this.yellowSide);
+            tmpOrangeSide = structuredClone(this.orangeSide);
+        }
+        this.reRenderCube();
+        return this;
+    }
+
+    down(backwards) {
+        let iteration = 1;
+        let tmpRedSide = structuredClone(this.redSide);
+        let tmpGreenSide = structuredClone(this.greenSide);
+        let tmpBlueSide = structuredClone(this.blueSide);
+        let tmpYellowSide = structuredClone(this.yellowSide);
+        let tmpOrangeSide = structuredClone(this.orangeSide);
+
+        if (backwards) {
+            iteration = 3;
+        }
+
+        for (let i = 0; i < iteration; i++) {
+            this.yellowSide.stickers[0].color = tmpYellowSide.stickers[6].color;
+            this.yellowSide.stickers[1].color = tmpYellowSide.stickers[3].color;
+            this.yellowSide.stickers[2].color = tmpYellowSide.stickers[0].color;
+            this.yellowSide.stickers[3].color = tmpYellowSide.stickers[7].color;
+            this.yellowSide.stickers[5].color = tmpYellowSide.stickers[1].color;
+            this.yellowSide.stickers[6].color = tmpYellowSide.stickers[8].color;
+            this.yellowSide.stickers[7].color = tmpYellowSide.stickers[5].color;
+            this.yellowSide.stickers[8].color = tmpYellowSide.stickers[2].color;
+
+            this.orangeSide.stickers[0].color = tmpBlueSide.stickers[2].color;
+            this.orangeSide.stickers[1].color = tmpBlueSide.stickers[5].color;
+            this.orangeSide.stickers[2].color = tmpBlueSide.stickers[8].color;
+
+            this.greenSide.stickers[0].color = tmpOrangeSide.stickers[0].color;
+            this.greenSide.stickers[3].color = tmpOrangeSide.stickers[1].color;
+            this.greenSide.stickers[6].color = tmpOrangeSide.stickers[2].color;
+
+            this.redSide.stickers[6].color = tmpGreenSide.stickers[0].color;
+            this.redSide.stickers[7].color = tmpGreenSide.stickers[3].color;
+            this.redSide.stickers[8].color = tmpGreenSide.stickers[6].color;
+
+            this.blueSide.stickers[2].color = tmpRedSide.stickers[6].color;
+            this.blueSide.stickers[5].color = tmpRedSide.stickers[7].color;
+            this.blueSide.stickers[8].color = tmpRedSide.stickers[8].color;
+
+            tmpRedSide = structuredClone(this.redSide);
+            tmpGreenSide = structuredClone(this.greenSide);
             tmpBlueSide = structuredClone(this.blueSide);
             tmpYellowSide = structuredClone(this.yellowSide);
             tmpOrangeSide = structuredClone(this.orangeSide);
