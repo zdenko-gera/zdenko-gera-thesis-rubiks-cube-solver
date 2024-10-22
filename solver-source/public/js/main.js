@@ -95,51 +95,51 @@ $('document').ready(function() {
 
 
         $('#right').click(function(e) {
-            cube.right(false);
+            cube.rotate(cube.blueSide, false);
         });
 
         $('#right-backwards').click(function(e) {
-            cube.right(true);
+            cube.rotate(cube.blueSide, true);
         });
 
         $('#left').click(function(e) {
-            cube.left(false);
+            cube.rotate(cube.greenSide, false);
         });
 
         $('#left-backwards').click(function(e) {
-            cube.left(true);
+            cube.rotate(cube.greenSide, true);
         });
 
         $('#front').click(function(e) {
-            cube.front(false);
+            cube.rotate(cube.redSide, this.redSide, false);
         });
 
         $('#front-backwards').click(function(e) {
-            cube.front(true);
+            cube.rotate(cube.redSide, this.redSide, true);
         });
 
         $('#back').click(function(e) {
-            cube.back(false);
+            cube.rotate(cube.orangeSide, false);
         });
 
         $('#back-backwards').click(function(e) {
-            cube.back(true);
+            cube.rotate(cube.orangeSide, true);
         });
 
         $('#down').click(function(e) {
-            cube.down(false);
+            cube.rotate(cube.yellowSide, false);
         });
 
         $('#down-backwards').click(function(e) {
-            cube.down(true);
+            cube.rotate(cube.yellowSide, true);
         });
 
         $('#up').click(function(e) {
-            cube.up(false);
+            cube.rotate(cube.whiteSide, false);
         });
 
         $('#up-backwards').click(function(e) {
-            cube.up(true);
+            cube.rotate(cube.whiteSide, true);
         });
     });
 });
@@ -189,14 +189,17 @@ class Cube {
     yellowSide;
 
     constructor(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide) {
-            this.whiteSide = whiteSide;
-            this.redSide = redSide;
-            this.greenSide = greenSide;
-            this.orangeSide = orangeSide;
-            this.blueSide = blueSide;
-            this.yellowSide = yellowSide;
+        this.whiteSide = whiteSide;
+        this.redSide = redSide;
+        this.greenSide = greenSide;
+        this.orangeSide = orangeSide;
+        this.blueSide = blueSide;
+        this.yellowSide = yellowSide;
     }
 
+    /**
+     * Renders the cube according to the stored values.
+     */
     reRenderCube() {
         let redChildren = document.getElementById('red-side').children;
         for (let i = 0; i < 9; i++) {
@@ -224,6 +227,11 @@ class Cube {
         }
     }
 
+    /**
+     * Returns if the cube is solved and validates the stickers.
+     *
+     * @returns {boolean}
+     */
     isSolved() {
         const validColors = ['rgb(255, 255, 255)', 'rgb(219, 88, 86)', 'rgb(134, 213, 134)', 'rgb(255, 150, 65)', 'rgb(162, 191, 254)', 'rgb(255, 255, 153)'];
         let isValid = true;
@@ -288,120 +296,37 @@ class Cube {
         if (!isValid) {
             document.getElementById('error-msg').style.display = "block";
             document.getElementById('error-msg').innerText = 'Add meg minden kocka színét a kiválasztható színekkel!';
-            setTimeout(function () { document.getElementById('error-msg').style.display = 'none' }, 7000);
+            setTimeout(function () {
+                document.getElementById('error-msg').style.display = 'none'
+            }, 7000);
         }
 
         if (isSolved) {
             document.getElementById('success-msg').style.display = "block";
             document.getElementById('success-msg').innerText = 'A kocka ki van rakva!';
-            setTimeout(function () { document.getElementById('success-msg').style.display = 'none' }, 7000);
+            setTimeout(function () {
+                document.getElementById('success-msg').style.display = 'none'
+            }, 7000);
         }
 
         return isSolved;
     }
 
-    front(backwards) {
+    /**
+     * Makes a rotational move on the given side of the cube.
+     *
+     * @param side Side to rotate (clockwise by default).
+     * @param backwards Decides if the rotation should be made clockwise or counter-clockwise.
+     * @returns {Cube} The transformed cube.
+     */
+    rotate(side, backwards = false) {
         let iteration = 1;
+        let tmpSide = structuredClone(side);
         let tmpRedSide = structuredClone(this.redSide);
         let tmpWhiteSide = structuredClone(this.whiteSide);
         let tmpBlueSide = structuredClone(this.blueSide);
         let tmpYellowSide = structuredClone(this.yellowSide);
         let tmpGreenSide = structuredClone(this.greenSide);
-
-        if (backwards) {
-            iteration = 3;
-        }
-
-        for (let i = 0; i < iteration; i++) {
-            this.redSide.stickers[0].color = tmpRedSide.stickers[6].color;
-            this.redSide.stickers[1].color = tmpRedSide.stickers[3].color;
-            this.redSide.stickers[2].color = tmpRedSide.stickers[0].color;
-            this.redSide.stickers[3].color = tmpRedSide.stickers[7].color;
-            this.redSide.stickers[5].color = tmpRedSide.stickers[1].color;
-            this.redSide.stickers[6].color = tmpRedSide.stickers[8].color;
-            this.redSide.stickers[7].color = tmpRedSide.stickers[5].color;
-            this.redSide.stickers[8].color = tmpRedSide.stickers[2].color;
-
-            this.blueSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
-            this.blueSide.stickers[7].color = tmpWhiteSide.stickers[7].color;
-            this.blueSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
-
-            this.yellowSide.stickers[0].color = tmpBlueSide.stickers[8].color;
-            this.yellowSide.stickers[1].color = tmpBlueSide.stickers[7].color;
-            this.yellowSide.stickers[2].color = tmpBlueSide.stickers[6].color;
-
-            this.greenSide.stickers[6].color = tmpYellowSide.stickers[2].color;
-            this.greenSide.stickers[7].color = tmpYellowSide.stickers[1].color;
-            this.greenSide.stickers[8].color = tmpYellowSide.stickers[0].color;
-
-            this.whiteSide.stickers[6].color = tmpGreenSide.stickers[6].color;
-            this.whiteSide.stickers[7].color = tmpGreenSide.stickers[7].color;
-            this.whiteSide.stickers[8].color = tmpGreenSide.stickers[8].color;
-
-            tmpRedSide = structuredClone(this.redSide);
-            tmpWhiteSide = structuredClone(this.whiteSide);
-            tmpBlueSide = structuredClone(this.blueSide);
-            tmpYellowSide = structuredClone(this.yellowSide);
-            tmpGreenSide = structuredClone(this.greenSide);
-        }
-        this.reRenderCube();
-        return this;
-    }
-
-    back(backwards) {
-        let iteration = 1;
-        let tmpOrangeSide = structuredClone(this.orangeSide);
-        let tmpWhiteSide = structuredClone(this.whiteSide);
-        let tmpBlueSide = structuredClone(this.blueSide);
-        let tmpYellowSide = structuredClone(this.yellowSide);
-        let tmpGreenSide = structuredClone(this.greenSide);
-
-        if (backwards) {
-            iteration = 3;
-        }
-
-        for (let i = 0; i < iteration; i++) {
-            this.orangeSide.stickers[0].color = tmpOrangeSide.stickers[6].color;
-            this.orangeSide.stickers[1].color = tmpOrangeSide.stickers[3].color;
-            this.orangeSide.stickers[2].color = tmpOrangeSide.stickers[0].color;
-            this.orangeSide.stickers[3].color = tmpOrangeSide.stickers[7].color;
-            this.orangeSide.stickers[5].color = tmpOrangeSide.stickers[1].color;
-            this.orangeSide.stickers[6].color = tmpOrangeSide.stickers[8].color;
-            this.orangeSide.stickers[7].color = tmpOrangeSide.stickers[5].color;
-            this.orangeSide.stickers[8].color = tmpOrangeSide.stickers[2].color;
-
-            this.blueSide.stickers[0].color = tmpYellowSide.stickers[6].color;
-            this.blueSide.stickers[1].color = tmpYellowSide.stickers[7].color;
-            this.blueSide.stickers[2].color = tmpYellowSide.stickers[8].color;
-
-            this.yellowSide.stickers[6].color = tmpGreenSide.stickers[0].color;
-            this.yellowSide.stickers[7].color = tmpGreenSide.stickers[1].color;
-            this.yellowSide.stickers[8].color = tmpGreenSide.stickers[2].color;
-
-            this.greenSide.stickers[0].color = tmpWhiteSide.stickers[0].color;
-            this.greenSide.stickers[1].color = tmpWhiteSide.stickers[1].color;
-            this.greenSide.stickers[2].color = tmpWhiteSide.stickers[2].color;
-
-            this.whiteSide.stickers[0].color = tmpBlueSide.stickers[0].color;
-            this.whiteSide.stickers[1].color = tmpBlueSide.stickers[1].color;
-            this.whiteSide.stickers[2].color = tmpBlueSide.stickers[2].color;
-
-            tmpOrangeSide = structuredClone(this.orangeSide);
-            tmpWhiteSide = structuredClone(this.whiteSide);
-            tmpBlueSide = structuredClone(this.blueSide);
-            tmpYellowSide = structuredClone(this.yellowSide);
-            tmpGreenSide = structuredClone(this.greenSide);
-        }
-        this.reRenderCube();
-        return this;
-    }
-
-    right(backwards) {
-        let iteration = 1;
-        let tmpRedSide = structuredClone(this.redSide);
-        let tmpWhiteSide = structuredClone(this.whiteSide);
-        let tmpBlueSide = structuredClone(this.blueSide);
-        let tmpYellowSide = structuredClone(this.yellowSide);
         let tmpOrangeSide = structuredClone(this.orangeSide);
 
         if (backwards) {
@@ -409,180 +334,138 @@ class Cube {
         }
 
         for (let i = 0; i < iteration; i++) {
-            this.blueSide.stickers[6].color = tmpBlueSide.stickers[0].color;
-            this.blueSide.stickers[3].color = tmpBlueSide.stickers[1].color;
-            this.blueSide.stickers[0].color = tmpBlueSide.stickers[2].color;
-            this.blueSide.stickers[7].color = tmpBlueSide.stickers[3].color;
-            this.blueSide.stickers[1].color = tmpBlueSide.stickers[5].color;
-            this.blueSide.stickers[8].color = tmpBlueSide.stickers[6].color;
-            this.blueSide.stickers[5].color = tmpBlueSide.stickers[7].color;
-            this.blueSide.stickers[2].color = tmpBlueSide.stickers[8].color;
+            side.stickers[0].color = tmpSide.stickers[6].color;
+            side.stickers[1].color = tmpSide.stickers[3].color;
+            side.stickers[2].color = tmpSide.stickers[0].color;
+            side.stickers[3].color = tmpSide.stickers[7].color;
+            side.stickers[5].color = tmpSide.stickers[1].color;
+            side.stickers[6].color = tmpSide.stickers[8].color;
+            side.stickers[7].color = tmpSide.stickers[5].color;
+            side.stickers[8].color = tmpSide.stickers[2].color;
 
-            this.orangeSide.stickers[2].color = tmpWhiteSide.stickers[2].color;
-            this.orangeSide.stickers[5].color = tmpWhiteSide.stickers[5].color;
-            this.orangeSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
 
-            this.yellowSide.stickers[2].color = tmpOrangeSide.stickers[2].color;
-            this.yellowSide.stickers[5].color = tmpOrangeSide.stickers[5].color;
-            this.yellowSide.stickers[8].color = tmpOrangeSide.stickers[8].color;
+            //A következő if-ek a forgatott oldal szomszédos oldalain lévő matricák forgatását garantálja.
+            //FEHÉRET FORGATJUK
+            if (side.getMiddleColor() === 'rgb(255, 255, 255)') {
+                this.redSide.stickers[0].color = tmpBlueSide.stickers[0].color;
+                this.redSide.stickers[1].color = tmpBlueSide.stickers[3].color;
+                this.redSide.stickers[2].color = tmpBlueSide.stickers[6].color;
 
-            this.redSide.stickers[2].color = tmpYellowSide.stickers[2].color;
-            this.redSide.stickers[5].color = tmpYellowSide.stickers[5].color;
-            this.redSide.stickers[8].color = tmpYellowSide.stickers[8].color;
+                this.blueSide.stickers[0].color = tmpOrangeSide.stickers[6].color;
+                this.blueSide.stickers[3].color = tmpOrangeSide.stickers[7].color;
+                this.blueSide.stickers[6].color = tmpOrangeSide.stickers[8].color;
 
-            this.whiteSide.stickers[2].color = tmpRedSide.stickers[2].color;
-            this.whiteSide.stickers[5].color = tmpRedSide.stickers[5].color;
-            this.whiteSide.stickers[8].color = tmpRedSide.stickers[8].color;
+                this.orangeSide.stickers[6].color = tmpGreenSide.stickers[2].color;
+                this.orangeSide.stickers[7].color = tmpGreenSide.stickers[5].color;
+                this.orangeSide.stickers[8].color = tmpGreenSide.stickers[8].color;
 
-            tmpRedSide = structuredClone(this.redSide);
+                this.greenSide.stickers[2].color = tmpRedSide.stickers[0].color;
+                this.greenSide.stickers[5].color = tmpRedSide.stickers[1].color;
+                this.greenSide.stickers[8].color = tmpRedSide.stickers[2].color;
+            }
+
+            //PIROSAT FORGATJUK
+            if (side.getMiddleColor() === 'rgb(219, 88, 86)') {
+                this.blueSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
+                this.blueSide.stickers[7].color = tmpWhiteSide.stickers[7].color;
+                this.blueSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
+
+                this.yellowSide.stickers[0].color = tmpBlueSide.stickers[8].color;
+                this.yellowSide.stickers[1].color = tmpBlueSide.stickers[7].color;
+                this.yellowSide.stickers[2].color = tmpBlueSide.stickers[6].color;
+
+                this.greenSide.stickers[6].color = tmpYellowSide.stickers[2].color;
+                this.greenSide.stickers[7].color = tmpYellowSide.stickers[1].color;
+                this.greenSide.stickers[8].color = tmpYellowSide.stickers[0].color;
+
+                this.whiteSide.stickers[6].color = tmpGreenSide.stickers[6].color;
+                this.whiteSide.stickers[7].color = tmpGreenSide.stickers[7].color;
+                this.whiteSide.stickers[8].color = tmpGreenSide.stickers[8].color;
+            }
+
+            //KÉKET FORGATJUK
+            if (side.getMiddleColor() === 'rgb(162, 191, 254)') {
+                this.orangeSide.stickers[2].color = tmpWhiteSide.stickers[2].color;
+                this.orangeSide.stickers[5].color = tmpWhiteSide.stickers[5].color;
+                this.orangeSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
+
+                this.yellowSide.stickers[2].color = tmpOrangeSide.stickers[2].color;
+                this.yellowSide.stickers[5].color = tmpOrangeSide.stickers[5].color;
+                this.yellowSide.stickers[8].color = tmpOrangeSide.stickers[8].color;
+
+                this.redSide.stickers[2].color = tmpYellowSide.stickers[2].color;
+                this.redSide.stickers[5].color = tmpYellowSide.stickers[5].color;
+                this.redSide.stickers[8].color = tmpYellowSide.stickers[8].color;
+
+                this.whiteSide.stickers[2].color = tmpRedSide.stickers[2].color;
+                this.whiteSide.stickers[5].color = tmpRedSide.stickers[5].color;
+                this.whiteSide.stickers[8].color = tmpRedSide.stickers[8].color;
+            }
+
+            //NARANCSOT FORGATJUK
+            if (side.getMiddleColor() === 'rgb(255, 150, 65)') {
+                this.blueSide.stickers[0].color = tmpYellowSide.stickers[6].color;
+                this.blueSide.stickers[1].color = tmpYellowSide.stickers[7].color;
+                this.blueSide.stickers[2].color = tmpYellowSide.stickers[8].color;
+
+                this.yellowSide.stickers[6].color = tmpGreenSide.stickers[0].color;
+                this.yellowSide.stickers[7].color = tmpGreenSide.stickers[1].color;
+                this.yellowSide.stickers[8].color = tmpGreenSide.stickers[2].color;
+
+                this.greenSide.stickers[0].color = tmpWhiteSide.stickers[0].color;
+                this.greenSide.stickers[1].color = tmpWhiteSide.stickers[1].color;
+                this.greenSide.stickers[2].color = tmpWhiteSide.stickers[2].color;
+
+                this.whiteSide.stickers[0].color = tmpBlueSide.stickers[0].color;
+                this.whiteSide.stickers[1].color = tmpBlueSide.stickers[1].color;
+                this.whiteSide.stickers[2].color = tmpBlueSide.stickers[2].color;
+            }
+
+            //ZÖLDET FORGATJUK
+            if (side.getMiddleColor() === 'rgb(134, 213, 134)') {
+                this.orangeSide.stickers[0].color = tmpYellowSide.stickers[0].color;
+                this.orangeSide.stickers[3].color = tmpYellowSide.stickers[3].color;
+                this.orangeSide.stickers[6].color = tmpYellowSide.stickers[6].color;
+
+                this.yellowSide.stickers[0].color = tmpRedSide.stickers[0].color;
+                this.yellowSide.stickers[3].color = tmpRedSide.stickers[3].color;
+                this.yellowSide.stickers[6].color = tmpRedSide.stickers[6].color;
+
+                this.redSide.stickers[0].color = tmpWhiteSide.stickers[0].color;
+                this.redSide.stickers[3].color = tmpWhiteSide.stickers[3].color;
+                this.redSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
+
+                this.whiteSide.stickers[0].color = tmpOrangeSide.stickers[0].color;
+                this.whiteSide.stickers[3].color = tmpOrangeSide.stickers[3].color;
+                this.whiteSide.stickers[6].color = tmpOrangeSide.stickers[6].color;
+            }
+
+            //CITROMOT FORGATJUK
+            if (side.getMiddleColor() === 'rgb(255, 255, 153)') {
+                this.orangeSide.stickers[0].color = tmpBlueSide.stickers[2].color;
+                this.orangeSide.stickers[1].color = tmpBlueSide.stickers[5].color;
+                this.orangeSide.stickers[2].color = tmpBlueSide.stickers[8].color;
+
+                this.greenSide.stickers[0].color = tmpOrangeSide.stickers[0].color;
+                this.greenSide.stickers[3].color = tmpOrangeSide.stickers[1].color;
+                this.greenSide.stickers[6].color = tmpOrangeSide.stickers[2].color;
+
+                this.redSide.stickers[6].color = tmpGreenSide.stickers[0].color;
+                this.redSide.stickers[7].color = tmpGreenSide.stickers[3].color;
+                this.redSide.stickers[8].color = tmpGreenSide.stickers[6].color;
+
+                this.blueSide.stickers[2].color = tmpRedSide.stickers[6].color;
+                this.blueSide.stickers[5].color = tmpRedSide.stickers[7].color;
+                this.blueSide.stickers[8].color = tmpRedSide.stickers[8].color;
+            }
+
+            tmpSide = structuredClone(side);
             tmpWhiteSide = structuredClone(this.whiteSide);
+            tmpRedSide = structuredClone(this.redSide);
+            tmpOrangeSide = structuredClone(this.orangeSide);
             tmpBlueSide = structuredClone(this.blueSide);
             tmpYellowSide = structuredClone(this.yellowSide);
-            tmpOrangeSide = structuredClone(this.orangeSide);
-        }
-        this.reRenderCube();
-        return this;
-    }
-
-    left(backwards) {
-        let iteration = 1;
-        let tmpRedSide = structuredClone(this.redSide);
-        let tmpWhiteSide = structuredClone(this.whiteSide);
-        let tmpGreenSide = structuredClone(this.greenSide);
-        let tmpYellowSide = structuredClone(this.yellowSide);
-        let tmpOrangeSide = structuredClone(this.orangeSide);
-
-        if (backwards) {
-            iteration = 3;
-        }
-
-        for (let i = 0; i < iteration; i++) {
-            this.greenSide.stickers[0].color = tmpGreenSide.stickers[6].color;
-            this.greenSide.stickers[1].color = tmpGreenSide.stickers[3].color;
-            this.greenSide.stickers[2].color = tmpGreenSide.stickers[0].color;
-            this.greenSide.stickers[3].color = tmpGreenSide.stickers[7].color;
-            this.greenSide.stickers[5].color = tmpGreenSide.stickers[1].color;
-            this.greenSide.stickers[6].color = tmpGreenSide.stickers[8].color;
-            this.greenSide.stickers[7].color = tmpGreenSide.stickers[5].color;
-            this.greenSide.stickers[8].color = tmpGreenSide.stickers[2].color;
-
-            this.orangeSide.stickers[0].color = tmpYellowSide.stickers[0].color;
-            this.orangeSide.stickers[3].color = tmpYellowSide.stickers[3].color;
-            this.orangeSide.stickers[6].color = tmpYellowSide.stickers[6].color;
-
-            this.yellowSide.stickers[0].color = tmpRedSide.stickers[0].color;
-            this.yellowSide.stickers[3].color = tmpRedSide.stickers[3].color;
-            this.yellowSide.stickers[6].color = tmpRedSide.stickers[6].color;
-
-            this.redSide.stickers[0].color = tmpWhiteSide.stickers[0].color;
-            this.redSide.stickers[3].color = tmpWhiteSide.stickers[3].color;
-            this.redSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
-
-            this.whiteSide.stickers[0].color = tmpOrangeSide.stickers[0].color;
-            this.whiteSide.stickers[3].color = tmpOrangeSide.stickers[3].color;
-            this.whiteSide.stickers[6].color = tmpOrangeSide.stickers[6].color;
-
-            tmpRedSide = structuredClone(this.redSide);
-            tmpWhiteSide = structuredClone(this.whiteSide);
             tmpGreenSide = structuredClone(this.greenSide);
-            tmpYellowSide = structuredClone(this.yellowSide);
-            tmpOrangeSide = structuredClone(this.orangeSide);
-        }
-        this.reRenderCube();
-        return this;
-    }
-
-    down(backwards) {
-        let iteration = 1;
-        let tmpRedSide = structuredClone(this.redSide);
-        let tmpGreenSide = structuredClone(this.greenSide);
-        let tmpBlueSide = structuredClone(this.blueSide);
-        let tmpYellowSide = structuredClone(this.yellowSide);
-        let tmpOrangeSide = structuredClone(this.orangeSide);
-
-        if (backwards) {
-            iteration = 3;
-        }
-
-        for (let i = 0; i < iteration; i++) {
-            this.yellowSide.stickers[0].color = tmpYellowSide.stickers[6].color;
-            this.yellowSide.stickers[1].color = tmpYellowSide.stickers[3].color;
-            this.yellowSide.stickers[2].color = tmpYellowSide.stickers[0].color;
-            this.yellowSide.stickers[3].color = tmpYellowSide.stickers[7].color;
-            this.yellowSide.stickers[5].color = tmpYellowSide.stickers[1].color;
-            this.yellowSide.stickers[6].color = tmpYellowSide.stickers[8].color;
-            this.yellowSide.stickers[7].color = tmpYellowSide.stickers[5].color;
-            this.yellowSide.stickers[8].color = tmpYellowSide.stickers[2].color;
-
-            this.orangeSide.stickers[0].color = tmpBlueSide.stickers[2].color;
-            this.orangeSide.stickers[1].color = tmpBlueSide.stickers[5].color;
-            this.orangeSide.stickers[2].color = tmpBlueSide.stickers[8].color;
-
-            this.greenSide.stickers[0].color = tmpOrangeSide.stickers[0].color;
-            this.greenSide.stickers[3].color = tmpOrangeSide.stickers[1].color;
-            this.greenSide.stickers[6].color = tmpOrangeSide.stickers[2].color;
-
-            this.redSide.stickers[6].color = tmpGreenSide.stickers[0].color;
-            this.redSide.stickers[7].color = tmpGreenSide.stickers[3].color;
-            this.redSide.stickers[8].color = tmpGreenSide.stickers[6].color;
-
-            this.blueSide.stickers[2].color = tmpRedSide.stickers[6].color;
-            this.blueSide.stickers[5].color = tmpRedSide.stickers[7].color;
-            this.blueSide.stickers[8].color = tmpRedSide.stickers[8].color;
-
-            tmpRedSide = structuredClone(this.redSide);
-            tmpGreenSide = structuredClone(this.greenSide);
-            tmpBlueSide = structuredClone(this.blueSide);
-            tmpYellowSide = structuredClone(this.yellowSide);
-            tmpOrangeSide = structuredClone(this.orangeSide);
-        }
-        this.reRenderCube();
-        return this;
-    }
-
-    up(backwards) {
-        let iteration = 1;
-        let tmpRedSide = structuredClone(this.redSide);
-        let tmpGreenSide = structuredClone(this.greenSide);
-        let tmpBlueSide = structuredClone(this.blueSide);
-        let tmpWhiteSide = structuredClone(this.whiteSide);
-        let tmpOrangeSide = structuredClone(this.orangeSide);
-
-        if (backwards) {
-            iteration = 3;
-        }
-
-        for (let i = 0; i < iteration; i++) {
-            this.whiteSide.stickers[0].color = tmpWhiteSide.stickers[6].color;
-            this.whiteSide.stickers[1].color = tmpWhiteSide.stickers[3].color;
-            this.whiteSide.stickers[2].color = tmpWhiteSide.stickers[0].color;
-            this.whiteSide.stickers[3].color = tmpWhiteSide.stickers[7].color;
-            this.whiteSide.stickers[5].color = tmpWhiteSide.stickers[1].color;
-            this.whiteSide.stickers[6].color = tmpWhiteSide.stickers[8].color;
-            this.whiteSide.stickers[7].color = tmpWhiteSide.stickers[5].color;
-            this.whiteSide.stickers[8].color = tmpWhiteSide.stickers[2].color;
-
-            this.redSide.stickers[0].color = tmpBlueSide.stickers[0].color;
-            this.redSide.stickers[1].color = tmpBlueSide.stickers[3].color;
-            this.redSide.stickers[2].color = tmpBlueSide.stickers[6].color;
-
-            this.blueSide.stickers[0].color = tmpOrangeSide.stickers[6].color;
-            this.blueSide.stickers[3].color = tmpOrangeSide.stickers[7].color;
-            this.blueSide.stickers[6].color = tmpOrangeSide.stickers[8].color;
-
-            this.orangeSide.stickers[6].color = tmpGreenSide.stickers[2].color;
-            this.orangeSide.stickers[7].color = tmpGreenSide.stickers[5].color;
-            this.orangeSide.stickers[8].color = tmpGreenSide.stickers[8].color;
-
-            this.greenSide.stickers[2].color = tmpRedSide.stickers[0].color;
-            this.greenSide.stickers[5].color = tmpRedSide.stickers[1].color;
-            this.greenSide.stickers[8].color = tmpRedSide.stickers[2].color;
-
-            tmpRedSide = structuredClone(this.redSide);
-            tmpGreenSide = structuredClone(this.greenSide);
-            tmpBlueSide = structuredClone(this.blueSide);
-            tmpWhiteSide = structuredClone(this.whiteSide);
-            tmpOrangeSide = structuredClone(this.orangeSide);
         }
         this.reRenderCube();
         return this;

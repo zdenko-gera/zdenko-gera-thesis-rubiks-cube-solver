@@ -31,6 +31,7 @@ body {
     border: 0.1rem solid black;
     margin: 0;
     background-color: #222;
+    border-radius: 0.3rem;
 }
 
 .sticker {
@@ -38,6 +39,7 @@ body {
     height: 30%;
     margin: 0;
     background-color: #aaa;
+    border-radius: 0.3rem;
 }
 
 .sticker:hover {
@@ -55,7 +57,7 @@ body {
 }
 
 .alone-side {
-    margin-top: 6.2rem;
+    margin-top: 6rem;
 }
 
 #color-picker {
