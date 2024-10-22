@@ -3,6 +3,9 @@
 
 ## To run the application:
 1. Open XAMPP and start MySQL.
-2. Run the following command: `npm run dev`.
-3. Run the following command in another terminal: `php artisan serve`.
-4. Visit `localhost:8000` or `127.0.0.1:8000`.
+2. Run `npm install`. [More info](https://docs.npmjs.com/cli/v10/commands/npm-install)
+3. Run `npm run dev`.
+4. Run `composer install`. [More info](https://gist.github.com/hootlex/da59b91c628a6688ceb1)
+5. Run `php artisan migrate`.
+6. Run `php artisan serve`.
+7. Visit `localhost:8000` or `127.0.0.1:8000`.
