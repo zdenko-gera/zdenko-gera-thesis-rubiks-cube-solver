@@ -238,4 +238,8 @@ $('document').ready(function() {
     $('#solve-button').click(function (e) {
         cube.whiteCross();
     });
+
+    $('#mix-cube-button').click(function (e) {
+        cube.mixCube();
+    });
 });

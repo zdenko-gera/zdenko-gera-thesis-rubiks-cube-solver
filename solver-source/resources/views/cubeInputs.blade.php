@@ -113,6 +113,7 @@
     <button id="fill-to-solved-state" class="btn btn-outline-primary">TESZT KITÖLTÉS</button>
     <button id="check-cube" class="btn btn-outline-success">Ellenőrzés</button>
     <button id="submit-cube-button" class="btn btn-secondary">Kocka mentése</button>
+    <button id="mix-cube-button" class="btn btn-secondary">Keverés</button>
 </div>
 <div id="phase-title"></div>
 <div id="instructions"></div>

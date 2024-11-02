@@ -390,6 +390,22 @@ export class Cube {
     }
 
     /**
+     * Mixes the cube using legal rotations. By default, 50 moves are used.
+     *
+     * @param numMoves the number of moves to mix the cube.
+     * @returns {Cube} the mixed cube.
+     */
+    mixCube(numMoves = 50) {
+        for (let i = 0; i < numMoves; i++) {
+            let randomIndex = Math.floor(Math.random() * 6);
+            this.rotate(this.sides[randomIndex], Boolean(Math.round(Math.random())));
+        }
+        this.reRenderCube();
+
+        return this;
+    }
+
+    /**
      * First step of solving the cube. Makes the white cross on top of the cube.
      */
     whiteCross() {
