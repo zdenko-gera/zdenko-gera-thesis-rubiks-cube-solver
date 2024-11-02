@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 <!-- <div id="app"></div> -->
-<aside>
+<div id="main-container">
     <div id="color-picker">
         <p>Színválasztó</p>
         <div class="color-sample" id="white-color-picker"></div>
@@ -11,8 +11,6 @@
         <div class="color-sample" id="orange-color-picker"></div>
         <div class="color-sample" id="yellow-color-picker"></div>
     </div>
-</aside>
-<main>
     <div id="cube-container">
         <div class="side alone-side" id="green-side">
             <div class="sticker"></div>
@@ -83,25 +81,39 @@
             <div class="sticker"></div>
         </div>
     </div>
-    <button id="front">F</button>
-    <button id="front-backwards">F'</button>
-    <br>
-    <button id="back">B</button>
-    <button id="back-backwards">B'</button>
-    <br>
-    <button id="right">R</button>
-    <button id="right-backwards">R'</button>
-    <br>
-    <button id="left">L</button>
-    <button id="left-backwards">L'</button>
-    <br>
-    <button id="down">D</button>
-    <button id="down-backwards">D'</button>
-    <br>
-    <button id="up">U</button>
-    <button id="up-backwards">U'</button>
-    <br>
-    <button id="submit-cube-button">Kezdés</button>
-    <button id="fill-to-solved-state">TESZT KITÖLTÉS</button>
-</main>
+    <div id="cube-rotation-buttons-container">
+        <div>
+            <button id="front" class="btn btn-outline-primary">F</button>
+            <button id="front-backwards" class="btn btn-outline-danger">F'</button>
+        </div>
+        <div>
+            <button id="back" class="btn btn-outline-primary">B</button>
+            <button id="back-backwards" class="btn btn-outline-danger">B'</button>
+        </div>
+        <div>
+            <button id="right" class="btn btn-outline-primary">R</button>
+            <button id="right-backwards" class="btn btn-outline-danger">R'</button>
+        </div>
+        <div>
+            <button id="left" class="btn btn-outline-primary">L</button>
+            <button id="left-backwards" class="btn btn-outline-danger">L'</button>
+        </div>
+        <div>
+            <button id="down" class="btn btn-outline-primary">D</button>
+            <button id="down-backwards" class="btn btn-outline-danger">D'</button>
+        </div>
+        <div>
+            <button id="up" class="btn btn-outline-primary">U</button>
+            <button id="up-backwards" class="btn btn-outline-danger">U'</button>
+        </div>
+    </div>
+</div>
+<div id="cube-buttons-container">
+    <button id="solve-button" class="btn btn-primary">START!</button>
+    <button id="fill-to-solved-state" class="btn btn-outline-primary">TESZT KITÖLTÉS</button>
+    <button id="check-cube" class="btn btn-outline-success">Ellenőrzés</button>
+    <button id="submit-cube-button" class="btn btn-secondary">Kocka mentése</button>
+</div>
+<div id="phase-title"></div>
+<div id="instructions"></div>
 @endsection

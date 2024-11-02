@@ -16,8 +16,13 @@ header {
 }
 
 body {
-    /*background-color: #212121 !important;
-    color: #ccc !important;*/
+    background-color: #444 !important;
+    color: #ccc !important;
+}
+
+#main-container {
+    display: flex;
+    padding: 1.5rem;
 }
 
 .side {
@@ -60,22 +65,34 @@ body {
     margin-top: 6rem;
 }
 
-#color-picker {
-    border: 1px solid #565656;
+#color-picker, #cube-rotation-buttons-container {
+    border: 1px solid #999;
+    padding: 1rem;
     width: fit-content;
     height: fit-content;
     float: left;
-    background-color: #ddd;
+    background-color: #565656;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .color-sample {
     width: 3rem;
     height: 3rem;
     border-radius: 0.3rem;
+    margin: 0.3rem;
+    transition: ease-in-out all 0.1s;
+}
+
+.color-sample:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 #white-color-picker {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
 }
 
 #orange-color-picker {
@@ -101,9 +118,6 @@ body {
 .active-color-sample {
     box-shadow: inset 0 0 0.5rem black;
 }
-
-
-
 
 .white-middle-sticker {
     background-color: white;
@@ -139,4 +153,29 @@ body {
     color: white;
     padding: 1rem;
     border-radius: 1rem;
+}
+
+#cube-buttons-container {
+    width: fit-content;
+    height: fit-content;
+    margin-inline: auto;
+    margin-block: 4rem;
+}
+
+#phase-title {
+    width: fit-content;
+    margin-inline: auto;
+    display: none;
+}
+
+#instructions {
+    background-color: #565656;
+    border: 1px solid #999;
+    font-size: x-large;
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5rem;
+    margin-inline: auto;
+    font-weight: bold;
+    display: none;
 }

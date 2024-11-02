@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script></head>
+    <script type="module" src="{{ URL::asset('js/main.js') }}"></script></head>
 <body>
 <!-- <div id="app"></div> -->
 <header>
