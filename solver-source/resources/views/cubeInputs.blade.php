@@ -114,6 +114,7 @@
     <button id="check-cube" class="btn btn-outline-success">Ellenőrzés</button>
     <button id="submit-cube-button" class="btn btn-secondary">Kocka mentése</button>
     <button id="mix-cube-button" class="btn btn-secondary">Keverés</button>
+    <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
 </div>
 <div id="phase-title"></div>
 <div id="instructions"></div>
