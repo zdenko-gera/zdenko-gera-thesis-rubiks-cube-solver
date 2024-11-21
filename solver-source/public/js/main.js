@@ -1,10 +1,8 @@
 import { Sticker } from './classes/Sticker.js';
 import { Side } from './classes/Side.js';
 import { Cube } from './classes/Cube.js';
-
-export const MIDDLE_CUBE = 0;
-export const EDGE_CUBE = 1;
-export const CORNER_CUBE = 2;
+import { CORNER_CUBE, MIDDLE_CUBE, EDGE_CUBE } from './constants.js';
+import { WHITE, RED, GREEN, ORANGE, BLUE, YELLOW } from './constants.js';
 
 let cube = null;
 
@@ -12,27 +10,27 @@ $('document').ready(function() {
     $('#fill-to-solved-state').click(function (e) {
         let redChildren = document.getElementById('red-side').children;
         for (let i = 0; i < 9; i++) {
-            redChildren[i].style.backgroundColor = 'rgb(219, 88, 86)';
+            redChildren[i].style.backgroundColor = RED;
         }
         let blueChildren = document.getElementById('blue-side').children;
         for (let i = 0; i < 9; i++) {
-            blueChildren[i].style.backgroundColor = 'rgb(162, 191, 254)';
+            blueChildren[i].style.backgroundColor = BLUE;
         }
         let greenChildren = document.getElementById('green-side').children;
         for (let i = 0; i < 9; i++) {
-            greenChildren[i].style.backgroundColor = 'rgb(134, 213, 134)';
+            greenChildren[i].style.backgroundColor = GREEN;
         }
         let yellowChildren = document.getElementById('yellow-side').children;
         for (let i = 0; i < 9; i++) {
-            yellowChildren[i].style.backgroundColor = 'rgb(255, 255, 153)';
+            yellowChildren[i].style.backgroundColor = YELLOW;
         }
         let whiteChildren = document.getElementById('white-side').children;
         for (let i = 0; i < 9; i++) {
-            whiteChildren[i].style.backgroundColor = 'rgb(255, 255, 255)';
+            whiteChildren[i].style.backgroundColor = WHITE;
         }
         let orangeChildren = document.getElementById('orange-side').children;
         for (let i = 0; i < 9; i++) {
-            orangeChildren[i].style.backgroundColor = 'rgb(255, 150, 65)';
+            orangeChildren[i].style.backgroundColor = ORANGE;
         }
     });
 
@@ -81,7 +79,7 @@ $('document').ready(function() {
                 index++;
             }
         });
-        let whiteSideObj = new Side('rgb(255, 255, 255)', tmpSide);
+        let whiteSideObj = new Side(WHITE, tmpSide);
         tmpSide = [];
         index = 0;
 
@@ -99,7 +97,7 @@ $('document').ready(function() {
                 index++;
             }
         });
-        let redSideObj = new Side('rgb(219, 88, 86)', tmpSide);
+        let redSideObj = new Side(RED, tmpSide);
         tmpSide = [];
         index = 0;
 
@@ -117,7 +115,7 @@ $('document').ready(function() {
                 index++;
             }
         });
-        let greenSideObj = new Side('rgb(134, 213, 134)', tmpSide);
+        let greenSideObj = new Side(GREEN, tmpSide);
         tmpSide = [];
         index = 0;
 
@@ -135,7 +133,7 @@ $('document').ready(function() {
                 index++;
             }
         });
-        let orangeSideObj = new Side('rgb(255, 150, 65)', tmpSide);
+        let orangeSideObj = new Side(ORANGE, tmpSide);
         tmpSide = [];
         index = 0;
 
@@ -153,7 +151,7 @@ $('document').ready(function() {
                 index++;
             }
         });
-        let blueSideObj = new Side('rgb(162, 191, 254)', tmpSide);
+        let blueSideObj = new Side(BLUE, tmpSide);
         tmpSide = [];
         index = 0;
 
@@ -171,7 +169,7 @@ $('document').ready(function() {
                 index++;
             }
         });
-        let yellowSideObj = new Side('rgb(255, 255, 153)', tmpSide);
+        let yellowSideObj = new Side(YELLOW, tmpSide);
         tmpSide = [];
         index = 0;
 
@@ -241,5 +239,9 @@ $('document').ready(function() {
 
     $('#mix-cube-button').click(function (e) {
         cube.mixCube();
+    });
+
+    $('#validity-check-button').click(function (e) {
+        console.log(cube.isSolvable());
     });
 });

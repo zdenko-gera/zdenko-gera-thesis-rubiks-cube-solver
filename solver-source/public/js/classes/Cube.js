@@ -1,6 +1,5 @@
-import { MIDDLE_CUBE } from "../main.js";
-import { EDGE_CUBE } from "../main.js";
-import { CORNER_CUBE } from "../main.js";
+import {EDGE_CUBE} from "../constants.js";
+import {WHITE, RED, GREEN, ORANGE, BLUE, YELLOW} from "../constants.js";
 import {Sticker} from "./Sticker.js";
 
 export class Cube {
@@ -11,6 +10,7 @@ export class Cube {
     blueSide;
     yellowSide;
     sides;
+    rots;
 
     constructor(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide) {
         this.whiteSide = whiteSide;
@@ -19,6 +19,8 @@ export class Cube {
         this.orangeSide = orangeSide;
         this.blueSide = blueSide;
         this.yellowSide = yellowSide;
+        this.rots = '';
+        this.prev = null;
 
         this.sides = [this.redSide, this.whiteSide, this.greenSide, this.blueSide, this.orangeSide, this.yellowSide];
 
@@ -124,7 +126,7 @@ export class Cube {
      * @returns {boolean}
      */
     isSolved() {
-        const validColors = ['rgb(255, 255, 255)', 'rgb(219, 88, 86)', 'rgb(134, 213, 134)', 'rgb(255, 150, 65)', 'rgb(162, 191, 254)', 'rgb(255, 255, 153)'];
+        const validColors = [WHITE, RED, GREEN, ORANGE, BLUE, YELLOW];
         let isValid = true;
         let isSolved = true;
 
@@ -207,6 +209,218 @@ export class Cube {
 
         return isSolved;
     }
+    /**
+     * Part of the cube state validation process. Checks if the number of stickers per color is valid.
+     *
+     * @returns {boolean} if there are 8 (+1 middle) stickers of each color
+     */
+    numberOfColorsCheck() {
+        let numberOfWhites = 0;
+        let numberOfReds = 0;
+        let numberOfGreens = 0;
+        let numberOfOranges = 0;
+        let numberOfBlues = 0;
+        let numberOfYellows = 0;
+
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 9; j++) {
+                switch (this.sides[i].stickers[j].color) {
+                    case WHITE:
+                        numberOfWhites++;
+                        break;
+                    case RED:
+                        numberOfReds++;
+                        break;
+                    case GREEN:
+                        numberOfGreens++;
+                        break;
+                    case ORANGE:
+                        numberOfOranges++;
+                        break;
+                    case BLUE:
+                        numberOfBlues++;
+                        break;
+                    case YELLOW:
+                        numberOfYellows++;
+                        break;
+                    default:
+                        console.log('Hiba: nem sikerült összeszámolni a színeket!');
+                }
+            }
+        }
+        console.log(numberOfWhites);
+
+        return (numberOfWhites === 9 && numberOfReds === 9 && numberOfGreens === 9 && numberOfOranges === 9 && numberOfBlues === 9 && numberOfYellows === 9);
+    }
+
+    /**
+     * Part of the cube state validation process. Checks if the corner cubes are validly rotated.
+     *
+     * @returns {boolean} if the current state of corner cubes are legal
+     */
+    cornerRotationCheck() {
+        let cornerSum = 0;
+
+        // bal felső fehér oldalon
+        if (this.greenSide.stickers[2].color === WHITE || this.greenSide.stickers[2].color === YELLOW) {
+            cornerSum++;
+        } else if (this.orangeSide.stickers[6].color === WHITE || this.orangeSide.stickers[6].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // jobb felső fehér oldalon
+        if (this.orangeSide.stickers[8].color === WHITE || this.orangeSide.stickers[8].color === YELLOW) {
+            cornerSum++;
+        } else if (this.blueSide.stickers[0].color === WHITE || this.blueSide.stickers[0].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // jobb alsó fehér oldalon
+        if (this.blueSide.stickers[6].color === WHITE || this.blueSide.stickers[6].color === YELLOW) {
+            cornerSum++;
+        } else if (this.redSide.stickers[2].color === WHITE || this.redSide.stickers[2].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // bal alsó fehér oldalon
+        if (this.redSide.stickers[0].color === WHITE || this.redSide.stickers[0].color === YELLOW) {
+            cornerSum++;
+        } else if (this.greenSide.stickers[8].color === WHITE || this.greenSide.stickers[8].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // *** sárga oldalon ugyanígy***
+        // bal felső sárga oldalon
+        if (this.greenSide.stickers[6].color === WHITE || this.greenSide.stickers[6].color === YELLOW) {
+            cornerSum++;
+        } else if (this.redSide.stickers[6].color === WHITE || this.redSide.stickers[6].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // jobb felső sárga oldalon
+        if (this.redSide.stickers[8].color === WHITE || this.redSide.stickers[8].color === YELLOW) {
+            cornerSum++;
+        } else if (this.blueSide.stickers[8].color === WHITE || this.blueSide.stickers[8].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // jobb alsó sárga oldalon
+        if (this.blueSide.stickers[2].color === WHITE || this.blueSide.stickers[2].color === YELLOW) {
+            cornerSum++;
+        } else if (this.orangeSide.stickers[2].color === WHITE || this.orangeSide.stickers[2].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // bal alsó sárga oldalon
+        if (this.orangeSide.stickers[0].color === WHITE || this.orangeSide.stickers[0].color === YELLOW) {
+            cornerSum++;
+        } else if (this.greenSide.stickers[0].color === WHITE || this.greenSide.stickers[0].color === YELLOW) {
+            cornerSum--;
+        }
+
+        return (cornerSum % 3) === 0;
+    }
+
+    /**
+     * Returns the neighboring colors of a given sticker.
+     *
+     * @param sticker
+     * @returns {Set<*>}
+     */
+    getNeigboringColors(sticker) {
+        let stickerPosition = this.getStickerPosition(sticker);
+        let neighboringStickers = new Set([]);
+        let addNeighbors = false;
+
+        // top
+        if (stickerPosition['index'] - 3 >= 0) {
+            neighboringStickers.add(stickerPosition['side'].stickers[stickerPosition['index'] - 3].color);
+        } else {
+            addNeighbors = true;
+        }
+
+        // left
+        if (stickerPosition['index'] - 1 >= 0 && stickerPosition['index'] - 1 !== 2 && stickerPosition['index'] - 1 !== 5) {
+            neighboringStickers.add(stickerPosition['side'].stickers[stickerPosition['index'] - 1].color);
+        } else {
+            addNeighbors = true;
+        }
+
+        // bottom
+        if (stickerPosition['index'] + 3 <= 9) {
+            neighboringStickers.add(stickerPosition['side'].stickers[stickerPosition['index'] + 3].color);
+        } else {
+            addNeighbors = true;
+        }
+
+        // right
+        if (stickerPosition['index'] + 1 <= 9 && stickerPosition['index'] + 1 !== 3 && stickerPosition['index'] + 1 !== 6) {
+            neighboringStickers.add(stickerPosition['side'].stickers[stickerPosition['index'] + 1].color);
+        } else {
+            addNeighbors = true;
+        }
+
+        if (addNeighbors) {
+            for (const neighbor of sticker.neighbors) {
+                neighboringStickers.add(neighbor);
+            }
+        }
+
+        return neighboringStickers;
+    }
+
+
+    /**
+     * Part of checking if the cube is solvable. Checks the parity of edges.
+     *
+     * @returns {boolean}
+     */
+    edgeParityCheck() {
+        let edgeParityCount = 0;
+        let edgesToCheck = [this.orangeSide.stickers[3], this.orangeSide.stickers[5], this.whiteSide.stickers[1], this.whiteSide.stickers[3],
+            this.whiteSide.stickers[5], this.whiteSide.stickers[7], this.redSide.stickers[3], this.redSide.stickers[5],
+            this.yellowSide.stickers[1], this.yellowSide.stickers[3], this.yellowSide.stickers[5], this.yellowSide.stickers[7]];
+
+        for (let i = 0; i < edgesToCheck.length; i++) {
+            if (edgesToCheck[i].color === WHITE || edgesToCheck[i].color === YELLOW) {
+                edgeParityCount++;
+            } else if ((edgesToCheck[i].color === RED || edgesToCheck[i].color === ORANGE) && (!edgesToCheck[i].neighbors.has(WHITE) && !edgesToCheck[i].neighbors.has(YELLOW))) {
+                edgeParityCount++;
+            }
+        }
+
+        return (edgeParityCount % 2 === 0);
+    }
+
+
+    permutationParityCheck() {
+        //corner-cubes:
+        /*for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 9; j++) {
+                if ([0, 2, 6, 8].includes(j)) {
+                    //ha az adott kocka/matrica sarokkocka része
+                    if (this.sides[i].stickers[j].color === this.sides[i].getMiddleColor()) {
+
+                    }
+                }
+            }
+        }*/
+
+        //edge-cubes:
+
+
+    }
+
+    /**
+     * Decides if the cube is in a solvable state or not using corner rotations, edge parity and permutation parity.
+     *
+     * @returns {boolean}
+     */
+    isSolvable() {
+        // more info at: https://puzzling.stackexchange.com/questions/53846/how-to-determine-whether-a-rubiks-cube-is-solvable
+         return (this.cornerRotationCheck() && this.edgeParityCheck());
+
+    }
 
     /**
      * Makes a rotational move on the given side of the cube.
@@ -242,18 +456,19 @@ export class Cube {
 
             //A következő if-ek a forgatott oldal szomszédos oldalain lévő matricák forgatását garantálja.
             //FEHÉRET FORGATJUK
-            if (side.getMiddleColor() === 'rgb(255, 255, 255)') {
-                this.redSide.stickers[0] = tmpBlueSide.stickers[0];
+            if (side.getMiddleColor() === WHITE) {
+                this.rots += 'U';
+                this.redSide.stickers[0] = tmpBlueSide.stickers[6];
                 this.redSide.stickers[1] = tmpBlueSide.stickers[3];
-                this.redSide.stickers[2] = tmpBlueSide.stickers[6];
+                this.redSide.stickers[2] = tmpBlueSide.stickers[0];
 
                 this.blueSide.stickers[0] = tmpOrangeSide.stickers[6];
                 this.blueSide.stickers[3] = tmpOrangeSide.stickers[7];
                 this.blueSide.stickers[6] = tmpOrangeSide.stickers[8];
 
-                this.orangeSide.stickers[6] = tmpGreenSide.stickers[2];
+                this.orangeSide.stickers[6] = tmpGreenSide.stickers[8];
                 this.orangeSide.stickers[7] = tmpGreenSide.stickers[5];
-                this.orangeSide.stickers[8] = tmpGreenSide.stickers[8];
+                this.orangeSide.stickers[8] = tmpGreenSide.stickers[2];
 
                 this.greenSide.stickers[2] = tmpRedSide.stickers[0];
                 this.greenSide.stickers[5] = tmpRedSide.stickers[1];
@@ -261,7 +476,8 @@ export class Cube {
             }
 
             //PIROSAT FORGATJUK
-            if (side.getMiddleColor() === 'rgb(219, 88, 86)') {
+            if (side.getMiddleColor() === RED) {
+                this.rots += 'F';
                 this.blueSide.stickers[6] = tmpWhiteSide.stickers[6];
                 this.blueSide.stickers[7] = tmpWhiteSide.stickers[7];
                 this.blueSide.stickers[8] = tmpWhiteSide.stickers[8];
@@ -280,7 +496,8 @@ export class Cube {
             }
 
             //KÉKET FORGATJUK
-            if (side.getMiddleColor() === 'rgb(162, 191, 254)') {
+            if (side.getMiddleColor() === BLUE) {
+                this.rots += 'R';
                 this.orangeSide.stickers[2] = tmpWhiteSide.stickers[2];
                 this.orangeSide.stickers[5] = tmpWhiteSide.stickers[5];
                 this.orangeSide.stickers[8] = tmpWhiteSide.stickers[8];
@@ -299,7 +516,8 @@ export class Cube {
             }
 
             //NARANCSOT FORGATJUK
-            if (side.getMiddleColor() === 'rgb(255, 150, 65)') {
+            if (side.getMiddleColor() === ORANGE) {
+                this.rots += 'B';
                 this.blueSide.stickers[0] = tmpYellowSide.stickers[8];
                 this.blueSide.stickers[1] = tmpYellowSide.stickers[7];
                 this.blueSide.stickers[2] = tmpYellowSide.stickers[6];
@@ -318,7 +536,8 @@ export class Cube {
             }
 
             //ZÖLDET FORGATJUK
-            if (side.getMiddleColor() === 'rgb(134, 213, 134)') {
+            if (side.getMiddleColor() === GREEN) {
+                this.rots += 'L';
                 this.orangeSide.stickers[0] = tmpYellowSide.stickers[0];
                 this.orangeSide.stickers[3] = tmpYellowSide.stickers[3];
                 this.orangeSide.stickers[6] = tmpYellowSide.stickers[6];
@@ -337,7 +556,8 @@ export class Cube {
             }
 
             //CITROMOT FORGATJUK
-            if (side.getMiddleColor() === 'rgb(255, 255, 153)') {
+            if (side.getMiddleColor() === YELLOW) {
+                this.rots += 'D';
                 this.orangeSide.stickers[0] = tmpBlueSide.stickers[2];
                 this.orangeSide.stickers[1] = tmpBlueSide.stickers[5];
                 this.orangeSide.stickers[2] = tmpBlueSide.stickers[8];
@@ -362,6 +582,31 @@ export class Cube {
             tmpBlueSide = structuredClone(this.blueSide);
             tmpYellowSide = structuredClone(this.yellowSide);
             tmpGreenSide = structuredClone(this.greenSide);
+        }
+
+        if (backwards) {
+            this.rots = this.rots.slice(0, -3);
+
+            switch (side.getMiddleColor()) {
+                case WHITE:
+                    this.rots += 'U\'';
+                    break;
+                case RED:
+                    this.rots += 'F\'';
+                    break;
+                case BLUE:
+                    this.rots += 'R\'';
+                    break;
+                case ORANGE:
+                    this.rots += 'B\'';
+                    break;
+                case GREEN:
+                    this.rots += 'L\'';
+                    break;
+                case YELLOW:
+                    this.rots += 'D\'';
+                    break;
+            }
         }
         this.reRenderCube();
         return this;
@@ -389,6 +634,8 @@ export class Cube {
         return result;
     }
 
+
+
     /**
      * Mixes the cube using legal rotations. By default, 50 moves are used.
      *
@@ -401,7 +648,15 @@ export class Cube {
             this.rotate(this.sides[randomIndex], Boolean(Math.round(Math.random())));
         }
         this.reRenderCube();
+        document.getElementById('instructions').style.display = 'block';
+        document.getElementById('instructions').innerText = this.rots;
+        setTimeout(function () {
+            document.getElementById('phase-title').style.display = 'none';
+            document.getElementById('instructions').style.display = 'none';
+            this.rots = '';
+        }.bind(this), 50000);
 
+        this.rots += '  ';
         return this;
     }
 
@@ -682,6 +937,7 @@ export class Cube {
         if (pos['side'] === this.yellowSide && pos['index'] === 3) {
             this.rotate(this.yellowSide, false);
             this.rotate(this.yellowSide, false);
+            this.rotate(this.yellowSide, false);
             this.rotate(this.blueSide, false);
             this.rotate(this.blueSide, false);
             rotations += 'D';
@@ -708,16 +964,5 @@ export class Cube {
             rotations += 'R';
             this.reRenderCube();
         }
-
-
-        document.getElementById('phase-title').style.display = 'block';
-        document.getElementById('phase-title').innerText = phaseTitle;
-        document.getElementById('instructions').style.display = 'block';
-        document.getElementById('instructions').innerText = rotations;
-        setTimeout(function () {
-            document.getElementById('phase-title').style.display = 'none';
-            document.getElementById('instructions').style.display = 'none';
-            rotations = '';
-        }, 50000);
     }
 }
