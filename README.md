@@ -10,6 +10,10 @@
 6. Add ki az `php artisan serve` parancsot.
 7. Nyisd meg a `localhost:8000` vagy `127.0.0.1:8000` címet egy böngészőben.
 
+
+---
+
+
 # Zdenkó Gera - Thesis:
 # RUBIK'S CUBE SOLVER (Guide)
 
