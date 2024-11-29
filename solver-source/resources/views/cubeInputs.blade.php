@@ -109,12 +109,41 @@
     </div>
 </div>
 <div id="cube-buttons-container">
-    <button id="solve-button" class="btn btn-primary">START!</button>
+    <button id="solve-button" class="btn btn-primary" title="Fehér kereszt kirakása">START!</button>
+    <button id="white-corners-button" class="btn btn-primary" title="Fehér sarkok elhelyezése">Tovább</button>
+    <button id="color-edges-button" class="btn btn-primary" title="Színes élek elhelyezése">Tovább</button>
     <button id="fill-to-solved-state" class="btn btn-outline-primary">TESZT KITÖLTÉS</button>
     <button id="check-cube" class="btn btn-outline-success">Ellenőrzés</button>
     <button id="submit-cube-button" class="btn btn-secondary">Kocka mentése</button>
     <button id="mix-cube-button" class="btn btn-secondary">Keverés</button>
     <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
+</div>
+<div id="progress-bar-container">
+    <div id="state-one" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Fehér kereszt">1</div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div id="state-two" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Fehér sarkok">2</div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div id="state-three" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Színes élek">3</div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div id="state-four" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga kereszt">4</div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div id="state-five" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga élek">5</div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div id="state-six" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga sarkok elhelyezése">6</div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div class="state-path"></div>
+    <div  id="state-seven" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga sarkok beforgatása">7</div>
 </div>
 <div id="phase-title"></div>
 <div id="instructions"></div>

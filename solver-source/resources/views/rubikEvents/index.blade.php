@@ -5,11 +5,12 @@
             <span>{{ session('success') }}</span>
         </div>
     @endif
-    <h2>Események</h2>
+    <h2 class="subpage-title">Események</h2>
 
     @foreach($rubikEvents as $event)
-        <div>
-            <p><a href="{{ route('rubikEvents.view', $event->id) }}">{{ $event->title }}</p>
-        </div>
+        <a href="{{ route('rubikEvents.view', $event->id) }}" class="event-list-container">
+            <p class="event-list-title">{{ $event->title }}</p>
+            <p>{{ $event->country }} {{ $event->city }} - {{ date('Y.m.d.', strtotime($event->fromDate)) }}</p>
+        </a>
     @endforeach
 @endsection

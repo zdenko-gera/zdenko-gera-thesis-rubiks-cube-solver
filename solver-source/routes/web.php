@@ -3,11 +3,12 @@
 use App\Http\Controllers\PersonalRecordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RubikEventController;
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('landing');
 
 Route::get('/cubeInputs', function () {
     return view('cubeInputs');
@@ -15,8 +16,6 @@ Route::get('/cubeInputs', function () {
 
 //events ***
 Route::get('/events', [RubikEventController::class, 'index'])->name('rubikEvents.index');
-Route::get('/add-event', [RubikEventController::class, 'create'])->name('rubikEvents.create');
-Route::post('/add-event', [RubikEventController::class, 'store'])->name('rubikEvents.store');
 Route::get('/event/{id}', [RubikEventController::class, 'view'])->name('rubikEvents.view');
 //END-events ***
 
@@ -41,5 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/delete-record/{id}', [PersonalRecordController::class, 'destroy'])->name('personalRecords.destroy');
     //END-records ***
 });
+
+// *** events ***
+Route::get('/add-event', [RubikEventController::class, 'create'])->middleware(Admin::class)->name('rubikEvents.create');
+Route::post('/add-event', [RubikEventController::class, 'store'])->middleware(Admin::class)->name('rubikEvents.store');
+// *** END events ***
 
 require __DIR__.'/auth.php';

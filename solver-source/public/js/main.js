@@ -1,12 +1,130 @@
 import { Sticker } from './classes/Sticker.js';
 import { Side } from './classes/Side.js';
-import { Cube } from './classes/Cube.js';
+import {Cube, aStar, heuristic} from './classes/Cube.js';
 import { CORNER_CUBE, MIDDLE_CUBE, EDGE_CUBE } from './constants.js';
 import { WHITE, RED, GREEN, ORANGE, BLUE, YELLOW } from './constants.js';
 
 let cube = null;
+export const solvedCube = new Cube(
+    new Side(WHITE,[
+        new Sticker(WHITE, 2, new Set()),
+        new Sticker(WHITE, 1, new Set()),
+        new Sticker(WHITE, 2, new Set()),
+        new Sticker(WHITE, 1, new Set()),
+        new Sticker(WHITE, 0, new Set()),
+        new Sticker(WHITE, 1, new Set()),
+        new Sticker(WHITE, 2, new Set()),
+        new Sticker(WHITE, 1, new Set()),
+        new Sticker(WHITE, 2, new Set())]),
+    new Side(RED, [
+        new Sticker(RED, 2, new Set()),
+        new Sticker(RED, 1, new Set()),
+        new Sticker(RED, 2, new Set()),
+        new Sticker(RED, 1, new Set()),
+        new Sticker(RED, 0, new Set()),
+        new Sticker(RED, 1, new Set()),
+        new Sticker(RED, 2, new Set()),
+        new Sticker(RED, 1, new Set()),
+        new Sticker(RED, 2, new Set())]),
+    new Side(GREEN, [
+        new Sticker(GREEN, 2, new Set()),
+        new Sticker(GREEN, 1, new Set()),
+        new Sticker(GREEN, 2, new Set()),
+        new Sticker(GREEN, 1, new Set()),
+        new Sticker(GREEN, 0, new Set()),
+        new Sticker(GREEN, 1, new Set()),
+        new Sticker(GREEN, 2, new Set()),
+        new Sticker(GREEN, 1, new Set()),
+        new Sticker(GREEN, 2, new Set())]),
+    new Side(ORANGE, [
+        new Sticker(ORANGE, 2, new Set()),
+        new Sticker(ORANGE, 1, new Set()),
+        new Sticker(ORANGE, 2, new Set()),
+        new Sticker(ORANGE, 1, new Set()),
+        new Sticker(ORANGE, 0, new Set()),
+        new Sticker(ORANGE, 1, new Set()),
+        new Sticker(ORANGE, 2, new Set()),
+        new Sticker(ORANGE, 1, new Set()),
+        new Sticker(ORANGE, 2, new Set())]),
+    new Side(BLUE,[
+        new Sticker(BLUE, 2, new Set()),
+        new Sticker(BLUE, 1, new Set()),
+        new Sticker(BLUE, 2, new Set()),
+        new Sticker(BLUE, 1, new Set()),
+        new Sticker(BLUE, 0, new Set()),
+        new Sticker(BLUE, 1, new Set()),
+        new Sticker(BLUE, 2, new Set()),
+        new Sticker(BLUE, 1, new Set()),
+        new Sticker(BLUE, 2, new Set())]),
+    new Side(YELLOW,[
+        new Sticker(YELLOW, 2, new Set()),
+        new Sticker(YELLOW, 1, new Set()),
+        new Sticker(YELLOW, 2, new Set()),
+        new Sticker(YELLOW, 1, new Set()),
+        new Sticker(YELLOW, 0, new Set()),
+        new Sticker(YELLOW, 1, new Set()),
+        new Sticker(YELLOW, 2, new Set()),
+        new Sticker(YELLOW, 1, new Set()),
+        new Sticker(YELLOW, 2, new Set())])
+);
+
+solvedCube.whiteSide.stickers[0].neighbors.add(solvedCube.orangeSide.stickers[6].color).add(solvedCube.greenSide.stickers[2].color);
+solvedCube.whiteSide.stickers[1].neighbors.add(solvedCube.orangeSide.stickers[7].color);
+solvedCube.whiteSide.stickers[2].neighbors.add(solvedCube.orangeSide.stickers[8].color).add(solvedCube.blueSide.stickers[0].color);
+solvedCube.whiteSide.stickers[3].neighbors.add(solvedCube.greenSide.stickers[5].color);
+solvedCube.whiteSide.stickers[5].neighbors.add(solvedCube.blueSide.stickers[3].color);
+solvedCube.whiteSide.stickers[6].neighbors.add(solvedCube.greenSide.stickers[8].color).add(solvedCube.redSide.stickers[0].color);
+solvedCube.whiteSide.stickers[7].neighbors.add(solvedCube.redSide.stickers[1].color);
+solvedCube.whiteSide.stickers[8].neighbors.add(solvedCube.redSide.stickers[2].color).add(solvedCube.blueSide.stickers[6].color);
+
+solvedCube.blueSide.stickers[0].neighbors.add(solvedCube.orangeSide.stickers[8].color).add(solvedCube.whiteSide.stickers[2].color);
+solvedCube.blueSide.stickers[1].neighbors.add(solvedCube.orangeSide.stickers[5].color);
+solvedCube.blueSide.stickers[2].neighbors.add(solvedCube.orangeSide.stickers[2].color).add(solvedCube.yellowSide.stickers[8].color);
+solvedCube.blueSide.stickers[3].neighbors.add(solvedCube.whiteSide.stickers[5].color);
+solvedCube.blueSide.stickers[5].neighbors.add(solvedCube.yellowSide.stickers[5].color);
+solvedCube.blueSide.stickers[6].neighbors.add(solvedCube.whiteSide.stickers[8].color).add(solvedCube.redSide.stickers[2].color);
+solvedCube.blueSide.stickers[7].neighbors.add(solvedCube.redSide.stickers[5].color);
+solvedCube.blueSide.stickers[8].neighbors.add(solvedCube.redSide.stickers[8].color).add(solvedCube.yellowSide.stickers[2].color);
+
+solvedCube.orangeSide.stickers[0].neighbors.add(solvedCube.greenSide.stickers[0].color).add(solvedCube.yellowSide.stickers[6].color);
+solvedCube.orangeSide.stickers[1].neighbors.add(solvedCube.yellowSide.stickers[6].color);
+solvedCube.orangeSide.stickers[2].neighbors.add(solvedCube.yellowSide.stickers[8].color).add(solvedCube.blueSide.stickers[2].color);
+solvedCube.orangeSide.stickers[3].neighbors.add(solvedCube.greenSide.stickers[3].color);
+solvedCube.orangeSide.stickers[5].neighbors.add(solvedCube.blueSide.stickers[1].color);
+solvedCube.orangeSide.stickers[6].neighbors.add(solvedCube.greenSide.stickers[2].color).add(solvedCube.whiteSide.stickers[0].color);
+solvedCube.orangeSide.stickers[7].neighbors.add(solvedCube.whiteSide.stickers[1].color);
+solvedCube.orangeSide.stickers[8].neighbors.add(solvedCube.whiteSide.stickers[2].color).add(solvedCube.blueSide.stickers[0].color);
+
+solvedCube.greenSide.stickers[0].neighbors.add(solvedCube.orangeSide.stickers[0].color).add(solvedCube.yellowSide.stickers[6].color);
+solvedCube.greenSide.stickers[1].neighbors.add(solvedCube.orangeSide.stickers[3].color);
+solvedCube.greenSide.stickers[2].neighbors.add(solvedCube.orangeSide.stickers[6].color).add(solvedCube.whiteSide.stickers[0].color);
+solvedCube.greenSide.stickers[3].neighbors.add(solvedCube.yellowSide.stickers[3].color);
+solvedCube.greenSide.stickers[5].neighbors.add(solvedCube.whiteSide.stickers[3].color);
+solvedCube.greenSide.stickers[6].neighbors.add(solvedCube.yellowSide.stickers[0].color).add(solvedCube.redSide.stickers[6].color);
+solvedCube.greenSide.stickers[7].neighbors.add(solvedCube.redSide.stickers[3].color);
+solvedCube.greenSide.stickers[8].neighbors.add(solvedCube.whiteSide.stickers[6].color).add(solvedCube.redSide.stickers[0].color);
+
+solvedCube.redSide.stickers[0].neighbors.add(solvedCube.greenSide.stickers[8].color).add(solvedCube.whiteSide.stickers[6].color);
+solvedCube.redSide.stickers[1].neighbors.add(solvedCube.whiteSide.stickers[7].color);
+solvedCube.redSide.stickers[2].neighbors.add(solvedCube.whiteSide.stickers[8].color).add(solvedCube.blueSide.stickers[6].color);
+solvedCube.redSide.stickers[3].neighbors.add(solvedCube.greenSide.stickers[7].color);
+solvedCube.redSide.stickers[5].neighbors.add(solvedCube.blueSide.stickers[7].color);
+solvedCube.redSide.stickers[6].neighbors.add(solvedCube.yellowSide.stickers[0].color).add(solvedCube.greenSide.stickers[6].color);
+solvedCube.redSide.stickers[7].neighbors.add(solvedCube.yellowSide.stickers[1].color);
+solvedCube.redSide.stickers[8].neighbors.add(solvedCube.yellowSide.stickers[2].color).add(solvedCube.blueSide.stickers[8].color);
+
+solvedCube.yellowSide.stickers[0].neighbors.add(solvedCube.redSide.stickers[6].color).add(solvedCube.greenSide.stickers[6].color);
+solvedCube.yellowSide.stickers[1].neighbors.add(solvedCube.redSide.stickers[7].color);
+solvedCube.yellowSide.stickers[2].neighbors.add(solvedCube.blueSide.stickers[8].color).add(solvedCube.redSide.stickers[8].color);
+solvedCube.yellowSide.stickers[3].neighbors.add(solvedCube.greenSide.stickers[3].color);
+solvedCube.yellowSide.stickers[5].neighbors.add(solvedCube.blueSide.stickers[5].color);
+solvedCube.yellowSide.stickers[6].neighbors.add(solvedCube.orangeSide.stickers[0].color).add(solvedCube.greenSide.stickers[0].color);
+solvedCube.yellowSide.stickers[7].neighbors.add(solvedCube.orangeSide.stickers[1].color);
+solvedCube.yellowSide.stickers[8].neighbors.add(solvedCube.blueSide.stickers[2].color).add(solvedCube.orangeSide.stickers[2].color);
 
 $('document').ready(function() {
+    $('.state').tooltip();
+
     $('#fill-to-solved-state').click(function (e) {
         let redChildren = document.getElementById('red-side').children;
         for (let i = 0; i < 9; i++) {
@@ -181,51 +299,51 @@ $('document').ready(function() {
 
 
         $('#right').click(function (e) {
-            cube.rotate(cube.blueSide, false);
+            cube.rotate(cube.blueSide, false, true);
         });
 
         $('#right-backwards').click(function (e) {
-            cube.rotate(cube.blueSide, true);
+            cube.rotate(cube.blueSide, true, true);
         });
 
         $('#left').click(function (e) {
-            cube.rotate(cube.greenSide, false);
+            cube.rotate(cube.greenSide, false, true);
         });
 
         $('#left-backwards').click(function (e) {
-            cube.rotate(cube.greenSide, true);
+            cube.rotate(cube.greenSide, true, true);
         });
 
         $('#front').click(function (e) {
-            cube.rotate(cube.redSide, false);
+            cube.rotate(cube.redSide, false, true);
         });
 
         $('#front-backwards').click(function (e) {
-            cube.rotate(cube.redSide, true);
+            cube.rotate(cube.redSide, true, true);
         });
 
         $('#back').click(function (e) {
-            cube.rotate(cube.orangeSide, false);
+            cube.rotate(cube.orangeSide, false, true);
         });
 
         $('#back-backwards').click(function (e) {
-            cube.rotate(cube.orangeSide, true);
+            cube.rotate(cube.orangeSide, true, true);
         });
 
         $('#down').click(function (e) {
-            cube.rotate(cube.yellowSide, false);
+            cube.rotate(cube.yellowSide, false, true);
         });
 
         $('#down-backwards').click(function (e) {
-            cube.rotate(cube.yellowSide, true);
+            cube.rotate(cube.yellowSide, true, true);
         });
 
         $('#up').click(function (e) {
-            cube.rotate(cube.whiteSide, false);
+            cube.rotate(cube.whiteSide, false, true);
         });
 
         $('#up-backwards').click(function (e) {
-            cube.rotate(cube.whiteSide, true);
+            cube.rotate(cube.whiteSide, true, true);
         });
 
         $('#check-cube').click(function (e) {
@@ -234,11 +352,33 @@ $('document').ready(function() {
     });
 
     $('#solve-button').click(function (e) {
+        $('#state-one').addClass('active-state');
         cube.whiteCross();
+        $(this).hide();
+        $('#white-corners-button').show();
+    });
+
+    $('#white-corners-button').click(function (e) {
+        $('#state-one').removeClass('active-state');
+        $('#state-two').addClass('active-state');
+        cube.whiteCorners();
+        $(this).hide();
+        $('#color-edges-button').show();
+    });
+
+    $('#color-edges-button').click(function (e) {
+        $('#state-two').removeClass('active-state');
+        $('#state-three').addClass('active-state');
+        cube.colorEdges();
+        $(this).hide();
     });
 
     $('#mix-cube-button').click(function (e) {
-        cube.mixCube();
+        $('.state').removeClass('active-state');
+        cube.mixCube(8);
+        $('#solve-button').show();
+        $('#white-corners-button').hide();
+        $('#color-edges-button').hide();
     });
 
     $('#validity-check-button').click(function (e) {

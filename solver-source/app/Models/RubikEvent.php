@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RubikEvent extends Model
 {
+    protected $table = 'rubik_events';
     use HasFactory;
 
     protected $fillable = [
