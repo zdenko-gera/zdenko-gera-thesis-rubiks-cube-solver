@@ -6,6 +6,7 @@
         </div>
     @endif
     <h2>Rekordjaim</h2>
+    <a href={{ route('personalRecords.create') }}>Új rekord hozzáadása</a>
     @if (count($personalRecords) > 0)
     @foreach($personalRecords as $record)
         <div class="py-12">
@@ -42,5 +43,6 @@
     @endforeach
     @else
         <p>Még nincs mentett rekordod!</p>
+        <a href={{ route('personalRecords.create') }}>Töltsd fel rekordod most!</a>
     @endif
 @endsection

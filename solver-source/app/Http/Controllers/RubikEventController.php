@@ -14,7 +14,7 @@ class RubikEventController extends Controller
 
     public function index(Request $request)
     {
-        $rubikEvents = RubikEvent::all();
+        $rubikEvents = RubikEvent::orderBy('fromDate')->get();
 
         return view('rubikEvents.index')->with(['rubikEvents' => $rubikEvents]);
     }
@@ -22,7 +22,7 @@ class RubikEventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required', 'unique:rubikEvents', 'string', 'min:3', 'max: 255'],
+            'title' => ['required', 'string', 'min:3', 'max: 255'],
             'description' => ['required', 'min:5'],
             'price' => ['required', 'numeric'],
             'award' => ['required'],
@@ -33,7 +33,6 @@ class RubikEventController extends Controller
             'street' => ['required', 'string'],
             'houseNumber' => ['required', 'string'],
             'fromDate' => ['required'],
-            'untilDate' => ['required'],
             'url' => ['string'],
         ]);
 

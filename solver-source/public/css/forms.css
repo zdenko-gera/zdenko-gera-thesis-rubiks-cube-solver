@@ -1,0 +1,23 @@
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: fit-content;
+    margin-inline: auto;
+    padding: 3rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    align-items: flex-start;
+    padding-inline: 5rem;
+}
+
+.upload-form input, textarea {
+    width: 100%;
+}
+
+.upload-form button {
+    align-self: center;
+}
+
+.upload-form label {
+    margin-top: 1rem;
+}

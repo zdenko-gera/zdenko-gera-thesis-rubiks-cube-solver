@@ -1,45 +1,172 @@
+import { Sticker } from './classes/Sticker.js';
+import { Side } from './classes/Side.js';
+import {Cube, aStar, heuristic} from './classes/Cube.js';
+import { CORNER_CUBE, MIDDLE_CUBE, EDGE_CUBE } from './constants.js';
+import { WHITE, RED, GREEN, ORANGE, BLUE, YELLOW } from './constants.js';
+
+let cube = null;
+export const solvedCube = new Cube(
+    new Side(WHITE,[
+        new Sticker(WHITE, 2, new Set()),
+        new Sticker(WHITE, 1, new Set()),
+        new Sticker(WHITE, 2, new Set()),
+        new Sticker(WHITE, 1, new Set()),
+        new Sticker(WHITE, 0, new Set()),
+        new Sticker(WHITE, 1, new Set()),
+        new Sticker(WHITE, 2, new Set()),
+        new Sticker(WHITE, 1, new Set()),
+        new Sticker(WHITE, 2, new Set())]),
+    new Side(RED, [
+        new Sticker(RED, 2, new Set()),
+        new Sticker(RED, 1, new Set()),
+        new Sticker(RED, 2, new Set()),
+        new Sticker(RED, 1, new Set()),
+        new Sticker(RED, 0, new Set()),
+        new Sticker(RED, 1, new Set()),
+        new Sticker(RED, 2, new Set()),
+        new Sticker(RED, 1, new Set()),
+        new Sticker(RED, 2, new Set())]),
+    new Side(GREEN, [
+        new Sticker(GREEN, 2, new Set()),
+        new Sticker(GREEN, 1, new Set()),
+        new Sticker(GREEN, 2, new Set()),
+        new Sticker(GREEN, 1, new Set()),
+        new Sticker(GREEN, 0, new Set()),
+        new Sticker(GREEN, 1, new Set()),
+        new Sticker(GREEN, 2, new Set()),
+        new Sticker(GREEN, 1, new Set()),
+        new Sticker(GREEN, 2, new Set())]),
+    new Side(ORANGE, [
+        new Sticker(ORANGE, 2, new Set()),
+        new Sticker(ORANGE, 1, new Set()),
+        new Sticker(ORANGE, 2, new Set()),
+        new Sticker(ORANGE, 1, new Set()),
+        new Sticker(ORANGE, 0, new Set()),
+        new Sticker(ORANGE, 1, new Set()),
+        new Sticker(ORANGE, 2, new Set()),
+        new Sticker(ORANGE, 1, new Set()),
+        new Sticker(ORANGE, 2, new Set())]),
+    new Side(BLUE,[
+        new Sticker(BLUE, 2, new Set()),
+        new Sticker(BLUE, 1, new Set()),
+        new Sticker(BLUE, 2, new Set()),
+        new Sticker(BLUE, 1, new Set()),
+        new Sticker(BLUE, 0, new Set()),
+        new Sticker(BLUE, 1, new Set()),
+        new Sticker(BLUE, 2, new Set()),
+        new Sticker(BLUE, 1, new Set()),
+        new Sticker(BLUE, 2, new Set())]),
+    new Side(YELLOW,[
+        new Sticker(YELLOW, 2, new Set()),
+        new Sticker(YELLOW, 1, new Set()),
+        new Sticker(YELLOW, 2, new Set()),
+        new Sticker(YELLOW, 1, new Set()),
+        new Sticker(YELLOW, 0, new Set()),
+        new Sticker(YELLOW, 1, new Set()),
+        new Sticker(YELLOW, 2, new Set()),
+        new Sticker(YELLOW, 1, new Set()),
+        new Sticker(YELLOW, 2, new Set())])
+);
+
+solvedCube.whiteSide.stickers[0].neighbors.add(solvedCube.orangeSide.stickers[6].color).add(solvedCube.greenSide.stickers[2].color);
+solvedCube.whiteSide.stickers[1].neighbors.add(solvedCube.orangeSide.stickers[7].color);
+solvedCube.whiteSide.stickers[2].neighbors.add(solvedCube.orangeSide.stickers[8].color).add(solvedCube.blueSide.stickers[0].color);
+solvedCube.whiteSide.stickers[3].neighbors.add(solvedCube.greenSide.stickers[5].color);
+solvedCube.whiteSide.stickers[5].neighbors.add(solvedCube.blueSide.stickers[3].color);
+solvedCube.whiteSide.stickers[6].neighbors.add(solvedCube.greenSide.stickers[8].color).add(solvedCube.redSide.stickers[0].color);
+solvedCube.whiteSide.stickers[7].neighbors.add(solvedCube.redSide.stickers[1].color);
+solvedCube.whiteSide.stickers[8].neighbors.add(solvedCube.redSide.stickers[2].color).add(solvedCube.blueSide.stickers[6].color);
+
+solvedCube.blueSide.stickers[0].neighbors.add(solvedCube.orangeSide.stickers[8].color).add(solvedCube.whiteSide.stickers[2].color);
+solvedCube.blueSide.stickers[1].neighbors.add(solvedCube.orangeSide.stickers[5].color);
+solvedCube.blueSide.stickers[2].neighbors.add(solvedCube.orangeSide.stickers[2].color).add(solvedCube.yellowSide.stickers[8].color);
+solvedCube.blueSide.stickers[3].neighbors.add(solvedCube.whiteSide.stickers[5].color);
+solvedCube.blueSide.stickers[5].neighbors.add(solvedCube.yellowSide.stickers[5].color);
+solvedCube.blueSide.stickers[6].neighbors.add(solvedCube.whiteSide.stickers[8].color).add(solvedCube.redSide.stickers[2].color);
+solvedCube.blueSide.stickers[7].neighbors.add(solvedCube.redSide.stickers[5].color);
+solvedCube.blueSide.stickers[8].neighbors.add(solvedCube.redSide.stickers[8].color).add(solvedCube.yellowSide.stickers[2].color);
+
+solvedCube.orangeSide.stickers[0].neighbors.add(solvedCube.greenSide.stickers[0].color).add(solvedCube.yellowSide.stickers[6].color);
+solvedCube.orangeSide.stickers[1].neighbors.add(solvedCube.yellowSide.stickers[6].color);
+solvedCube.orangeSide.stickers[2].neighbors.add(solvedCube.yellowSide.stickers[8].color).add(solvedCube.blueSide.stickers[2].color);
+solvedCube.orangeSide.stickers[3].neighbors.add(solvedCube.greenSide.stickers[3].color);
+solvedCube.orangeSide.stickers[5].neighbors.add(solvedCube.blueSide.stickers[1].color);
+solvedCube.orangeSide.stickers[6].neighbors.add(solvedCube.greenSide.stickers[2].color).add(solvedCube.whiteSide.stickers[0].color);
+solvedCube.orangeSide.stickers[7].neighbors.add(solvedCube.whiteSide.stickers[1].color);
+solvedCube.orangeSide.stickers[8].neighbors.add(solvedCube.whiteSide.stickers[2].color).add(solvedCube.blueSide.stickers[0].color);
+
+solvedCube.greenSide.stickers[0].neighbors.add(solvedCube.orangeSide.stickers[0].color).add(solvedCube.yellowSide.stickers[6].color);
+solvedCube.greenSide.stickers[1].neighbors.add(solvedCube.orangeSide.stickers[3].color);
+solvedCube.greenSide.stickers[2].neighbors.add(solvedCube.orangeSide.stickers[6].color).add(solvedCube.whiteSide.stickers[0].color);
+solvedCube.greenSide.stickers[3].neighbors.add(solvedCube.yellowSide.stickers[3].color);
+solvedCube.greenSide.stickers[5].neighbors.add(solvedCube.whiteSide.stickers[3].color);
+solvedCube.greenSide.stickers[6].neighbors.add(solvedCube.yellowSide.stickers[0].color).add(solvedCube.redSide.stickers[6].color);
+solvedCube.greenSide.stickers[7].neighbors.add(solvedCube.redSide.stickers[3].color);
+solvedCube.greenSide.stickers[8].neighbors.add(solvedCube.whiteSide.stickers[6].color).add(solvedCube.redSide.stickers[0].color);
+
+solvedCube.redSide.stickers[0].neighbors.add(solvedCube.greenSide.stickers[8].color).add(solvedCube.whiteSide.stickers[6].color);
+solvedCube.redSide.stickers[1].neighbors.add(solvedCube.whiteSide.stickers[7].color);
+solvedCube.redSide.stickers[2].neighbors.add(solvedCube.whiteSide.stickers[8].color).add(solvedCube.blueSide.stickers[6].color);
+solvedCube.redSide.stickers[3].neighbors.add(solvedCube.greenSide.stickers[7].color);
+solvedCube.redSide.stickers[5].neighbors.add(solvedCube.blueSide.stickers[7].color);
+solvedCube.redSide.stickers[6].neighbors.add(solvedCube.yellowSide.stickers[0].color).add(solvedCube.greenSide.stickers[6].color);
+solvedCube.redSide.stickers[7].neighbors.add(solvedCube.yellowSide.stickers[1].color);
+solvedCube.redSide.stickers[8].neighbors.add(solvedCube.yellowSide.stickers[2].color).add(solvedCube.blueSide.stickers[8].color);
+
+solvedCube.yellowSide.stickers[0].neighbors.add(solvedCube.redSide.stickers[6].color).add(solvedCube.greenSide.stickers[6].color);
+solvedCube.yellowSide.stickers[1].neighbors.add(solvedCube.redSide.stickers[7].color);
+solvedCube.yellowSide.stickers[2].neighbors.add(solvedCube.blueSide.stickers[8].color).add(solvedCube.redSide.stickers[8].color);
+solvedCube.yellowSide.stickers[3].neighbors.add(solvedCube.greenSide.stickers[3].color);
+solvedCube.yellowSide.stickers[5].neighbors.add(solvedCube.blueSide.stickers[5].color);
+solvedCube.yellowSide.stickers[6].neighbors.add(solvedCube.orangeSide.stickers[0].color).add(solvedCube.greenSide.stickers[0].color);
+solvedCube.yellowSide.stickers[7].neighbors.add(solvedCube.orangeSide.stickers[1].color);
+solvedCube.yellowSide.stickers[8].neighbors.add(solvedCube.blueSide.stickers[2].color).add(solvedCube.orangeSide.stickers[2].color);
+
 $('document').ready(function() {
-    $('#fill-to-solved-state').click(function(e) {
+    $('.state').tooltip();
+
+    $('#fill-to-solved-state').click(function (e) {
         let redChildren = document.getElementById('red-side').children;
         for (let i = 0; i < 9; i++) {
-            redChildren[i].style.backgroundColor = 'rgb(219, 88, 86)';
+            redChildren[i].style.backgroundColor = RED;
         }
         let blueChildren = document.getElementById('blue-side').children;
         for (let i = 0; i < 9; i++) {
-            blueChildren[i].style.backgroundColor = 'rgb(162, 191, 254)';
+            blueChildren[i].style.backgroundColor = BLUE;
         }
         let greenChildren = document.getElementById('green-side').children;
         for (let i = 0; i < 9; i++) {
-            greenChildren[i].style.backgroundColor = 'rgb(134, 213, 134)';
+            greenChildren[i].style.backgroundColor = GREEN;
         }
         let yellowChildren = document.getElementById('yellow-side').children;
         for (let i = 0; i < 9; i++) {
-            yellowChildren[i].style.backgroundColor = 'rgb(255, 255, 153)';
+            yellowChildren[i].style.backgroundColor = YELLOW;
         }
         let whiteChildren = document.getElementById('white-side').children;
         for (let i = 0; i < 9; i++) {
-            whiteChildren[i].style.backgroundColor = 'rgb(255, 255, 255)';
+            whiteChildren[i].style.backgroundColor = WHITE;
         }
         let orangeChildren = document.getElementById('orange-side').children;
         for (let i = 0; i < 9; i++) {
-            orangeChildren[i].style.backgroundColor = 'rgb(255, 150, 65)';
+            orangeChildren[i].style.backgroundColor = ORANGE;
         }
     });
 
     var selectedColor = null;
+    let activeColorSample = '';
     // *** SZÍNEZÉS ***
-    $('.color-sample').click(function(e) {
+    $('.color-sample').click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
 
         $('.color-sample').removeClass('active-color-sample');
-        $activeColorSample = $(this);
+        activeColorSample = $(this);
         selectedColor = $(this).css('background-color');
 
-        $($activeColorSample).addClass('active-color-sample');
+        $(activeColorSample).addClass('active-color-sample');
     });
 
-    $('.sticker').click(function(e) {
+    $('.sticker').click(function (e) {
         e.stopPropagation();
         e.stopImmediatePropagation();
 
@@ -50,424 +177,211 @@ $('document').ready(function() {
     // *** SZÍNEZÉS END ***
 
     // beolvassuk a kiteritett kockarol a szineket
-    $('#submit-cube-button').click(function(e) {
+    $('#submit-cube-button').click(function (e) {
+        document.getElementById('submit-cube-button').style.display = 'none';
+        document.getElementById('fill-to-solved-state').style.display = 'none';
         let tmpSide = [];
+        let index = 0;
 
-        $('#white-side').children().each(function() {
-            tmpSide.push(new Sticker($(this).css('background-color')));
+        $('#white-side').children().each(function () {
+            if ([0, 2, 6, 8].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+            }
+            if ([1, 3, 5, 7].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
+                index++;
+            }
+            if (index === 4) {
+                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
+                index++;
+            }
         });
-        let whiteSideObj = new Side('rgb(255, 255, 255)', tmpSide);
+        let whiteSideObj = new Side(WHITE, tmpSide);
         tmpSide = [];
+        index = 0;
 
-        $('#red-side').children().each(function() {
-            tmpSide.push(new Sticker($(this).css('background-color')));
+        $('#red-side').children().each(function () {
+            if ([0, 2, 6, 8].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+            }
+            if ([1, 3, 5, 7].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
+                index++;
+            }
+            if (index === 4) {
+                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
+                index++;
+            }
         });
-        let redSideObj = new Side('rgb(219, 88, 86)', tmpSide);
+        let redSideObj = new Side(RED, tmpSide);
         tmpSide = [];
+        index = 0;
 
-        $('#green-side').children().each(function() {
-            tmpSide.push(new Sticker($(this).css('background-color')));
+        $('#green-side').children().each(function () {
+            if ([0, 2, 6, 8].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+            }
+            if ([1, 3, 5, 7].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
+                index++;
+            }
+            if (index === 4) {
+                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
+                index++;
+            }
         });
-        let greenSideObj = new Side('rgb(134, 213, 134)', tmpSide);
+        let greenSideObj = new Side(GREEN, tmpSide);
         tmpSide = [];
+        index = 0;
 
-        $('#orange-side').children().each(function() {
-            tmpSide.push(new Sticker($(this).css('background-color')));
+        $('#orange-side').children().each(function () {
+            if ([0, 2, 6, 8].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+            }
+            if ([1, 3, 5, 7].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
+                index++;
+            }
+            if (index === 4) {
+                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
+                index++;
+            }
         });
-        let orangeSideObj = new Side('rgb(255, 150, 65)', tmpSide);
+        let orangeSideObj = new Side(ORANGE, tmpSide);
         tmpSide = [];
+        index = 0;
 
-        $('#blue-side').children().each(function() {
-            tmpSide.push(new Sticker($(this).css('background-color')));
+        $('#blue-side').children().each(function () {
+            if ([0, 2, 6, 8].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+            }
+            if ([1, 3, 5, 7].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
+                index++;
+            }
+            if (index === 4) {
+                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
+                index++;
+            }
         });
-        let blueSideObj = new Side('rgb(162, 191, 254)', tmpSide);
+        let blueSideObj = new Side(BLUE, tmpSide);
         tmpSide = [];
+        index = 0;
 
-        $('#yellow-side').children().each(function() {
-            tmpSide.push(new Sticker($(this).css('background-color')));
+        $('#yellow-side').children().each(function () {
+            if ([0, 2, 6, 8].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+            }
+            if ([1, 3, 5, 7].includes(index)) {
+                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
+                index++;
+            }
+            if (index === 4) {
+                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
+                index++;
+            }
         });
-        let yellowSideObj = new Side('rgb(255, 255, 153)', tmpSide);
+        let yellowSideObj = new Side(YELLOW, tmpSide);
         tmpSide = [];
+        index = 0;
 
 
-        let cube = new Cube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
-        cube.isSolved();
+        cube = new Cube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
+        if (!cube.isSolved()) {
+            document.getElementById('submit-cube-button').style.display = 'inline-block';
+        }
 
 
-        $('#right').click(function(e) {
-            cube.rotate(cube.blueSide, false);
+        $('#right').click(function (e) {
+            cube.rotate(cube.blueSide, false, true);
         });
 
-        $('#right-backwards').click(function(e) {
-            cube.rotate(cube.blueSide, true);
+        $('#right-backwards').click(function (e) {
+            cube.rotate(cube.blueSide, true, true);
         });
 
-        $('#left').click(function(e) {
-            cube.rotate(cube.greenSide, false);
+        $('#left').click(function (e) {
+            cube.rotate(cube.greenSide, false, true);
         });
 
-        $('#left-backwards').click(function(e) {
-            cube.rotate(cube.greenSide, true);
+        $('#left-backwards').click(function (e) {
+            cube.rotate(cube.greenSide, true, true);
         });
 
-        $('#front').click(function(e) {
-            cube.rotate(cube.redSide, this.redSide, false);
+        $('#front').click(function (e) {
+            cube.rotate(cube.redSide, false, true);
         });
 
-        $('#front-backwards').click(function(e) {
-            cube.rotate(cube.redSide, this.redSide, true);
+        $('#front-backwards').click(function (e) {
+            cube.rotate(cube.redSide, true, true);
         });
 
-        $('#back').click(function(e) {
-            cube.rotate(cube.orangeSide, false);
+        $('#back').click(function (e) {
+            cube.rotate(cube.orangeSide, false, true);
         });
 
-        $('#back-backwards').click(function(e) {
-            cube.rotate(cube.orangeSide, true);
+        $('#back-backwards').click(function (e) {
+            cube.rotate(cube.orangeSide, true, true);
         });
 
-        $('#down').click(function(e) {
-            cube.rotate(cube.yellowSide, false);
+        $('#down').click(function (e) {
+            cube.rotate(cube.yellowSide, false, true);
         });
 
-        $('#down-backwards').click(function(e) {
-            cube.rotate(cube.yellowSide, true);
+        $('#down-backwards').click(function (e) {
+            cube.rotate(cube.yellowSide, true, true);
         });
 
-        $('#up').click(function(e) {
-            cube.rotate(cube.whiteSide, false);
+        $('#up').click(function (e) {
+            cube.rotate(cube.whiteSide, false, true);
         });
 
-        $('#up-backwards').click(function(e) {
-            cube.rotate(cube.whiteSide, true);
+        $('#up-backwards').click(function (e) {
+            cube.rotate(cube.whiteSide, true, true);
+        });
+
+        $('#check-cube').click(function (e) {
+            cube.isSolved();
         });
     });
+
+    $('#solve-button').click(function (e) {
+        $('#state-one').addClass('active-state');
+        cube.whiteCross();
+        $(this).hide();
+        $('#white-corners-button').show();
+    });
+
+    $('#white-corners-button').click(function (e) {
+        $('#state-one').removeClass('active-state');
+        $('#state-two').addClass('active-state');
+        cube.whiteCorners();
+        $(this).hide();
+        $('#color-edges-button').show();
+    });
+
+    $('#color-edges-button').click(function (e) {
+        $('#state-two').removeClass('active-state');
+        $('#state-three').addClass('active-state');
+        cube.colorEdges();
+        $(this).hide();
+    });
+
+    $('#mix-cube-button').click(function (e) {
+        $('.state').removeClass('active-state');
+        cube.mixCube(8);
+        $('#solve-button').show();
+        $('#white-corners-button').hide();
+        $('#color-edges-button').hide();
+    });
+
+    $('#validity-check-button').click(function (e) {
+        console.log(cube.isSolvable());
+    });
 });
-
-class Sticker {
-    color = null;
-    static get WHITE() { return 'rgb(255, 255, 255)'; }
-    static get BLUE() { return 'rgb(162, 191, 254)'; }
-    static get RED() { return 'rgb(219, 88, 86)'; }
-    static get GREEN() { return 'rgb(134, 213, 134)'; }
-    static get ORANGE() { return 'rgb(255, 150, 65)'; }
-    static get YELLOW() { return 'rgb(255, 255, 153)'; }
-
-    constructor(color) {
-        this.color = color;
-    }
-
-    getColor() {
-        return this.color;
-    }
-}
-
-class Side {
-    #middleColor;
-    stickers;
-
-    constructor(middleColor, stickers) {
-        this.#middleColor = middleColor;
-        if (stickers.length === 0) {
-            this.stickers = [null, null, null, null, this.#middleColor, null, null, null, null];
-        } else {
-            this.stickers = stickers;
-        }
-    }
-
-    getMiddleColor() {
-        return this.#middleColor;
-    }
-}
-
-class Cube {
-    whiteSide;
-    redSide;
-    greenSide;
-    orangeSide;
-    blueSide;
-    yellowSide;
-
-    constructor(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide) {
-        this.whiteSide = whiteSide;
-        this.redSide = redSide;
-        this.greenSide = greenSide;
-        this.orangeSide = orangeSide;
-        this.blueSide = blueSide;
-        this.yellowSide = yellowSide;
-    }
-
-    /**
-     * Renders the cube according to the stored values.
-     */
-    reRenderCube() {
-        let redChildren = document.getElementById('red-side').children;
-        for (let i = 0; i < 9; i++) {
-            redChildren[i].style.backgroundColor = this.redSide.stickers[i].getColor();
-        }
-        let blueChildren = document.getElementById('blue-side').children;
-        for (let i = 0; i < 9; i++) {
-            blueChildren[i].style.backgroundColor = this.blueSide.stickers[i].getColor();
-        }
-        let greenChildren = document.getElementById('green-side').children;
-        for (let i = 0; i < 9; i++) {
-            greenChildren[i].style.backgroundColor = this.greenSide.stickers[i].getColor();
-        }
-        let yellowChildren = document.getElementById('yellow-side').children;
-        for (let i = 0; i < 9; i++) {
-            yellowChildren[i].style.backgroundColor = this.yellowSide.stickers[i].getColor();
-        }
-        let whiteChildren = document.getElementById('white-side').children;
-        for (let i = 0; i < 9; i++) {
-            whiteChildren[i].style.backgroundColor = this.whiteSide.stickers[i].getColor();
-        }
-        let orangeChildren = document.getElementById('orange-side').children;
-        for (let i = 0; i < 9; i++) {
-            orangeChildren[i].style.backgroundColor = this.orangeSide.stickers[i].getColor();
-        }
-    }
-
-    /**
-     * Returns if the cube is solved and validates the stickers.
-     *
-     * @returns {boolean}
-     */
-    isSolved() {
-        const validColors = ['rgb(255, 255, 255)', 'rgb(219, 88, 86)', 'rgb(134, 213, 134)', 'rgb(255, 150, 65)', 'rgb(162, 191, 254)', 'rgb(255, 255, 153)'];
-        let isValid = true;
-        let isSolved = true;
-
-        for (let i = 0; i < 9; i++) {
-            if (!validColors.includes(this.whiteSide.stickers[i].getColor())) {
-                isValid = false;
-            }
-            if (this.whiteSide.stickers[i].getColor() !== this.whiteSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 9; i++) {
-            if (!validColors.includes(this.redSide.stickers[i].getColor())) {
-                isValid = false;
-            }
-            if (this.redSide.stickers[i].getColor() !== this.redSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 9; i++) {
-            if (!validColors.includes(this.greenSide.stickers[i].getColor())) {
-                isValid = false;
-            }
-            if (this.greenSide.stickers[i].getColor() !== this.greenSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 9; i++) {
-            if (!validColors.includes(this.orangeSide.stickers[i].getColor())) {
-                isValid = false;
-            }
-            if (this.orangeSide.stickers[i].getColor() !== this.orangeSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 9; i++) {
-            if (!validColors.includes(this.blueSide.stickers[i].getColor())) {
-                isValid = false;
-                console.log(this.blueSide.stickers[i].getColor());
-
-            }
-            if (this.blueSide.stickers[i].getColor() !== this.blueSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 9; i++) {
-            if (!validColors.includes(this.yellowSide.stickers[i].getColor())) {
-                isValid = false;
-            }
-            if (this.yellowSide.stickers[i].getColor() !== this.yellowSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        if (!isValid) {
-            document.getElementById('error-msg').style.display = "block";
-            document.getElementById('error-msg').innerText = 'Add meg minden kocka színét a kiválasztható színekkel!';
-            setTimeout(function () {
-                document.getElementById('error-msg').style.display = 'none'
-            }, 7000);
-        }
-
-        if (isSolved) {
-            document.getElementById('success-msg').style.display = "block";
-            document.getElementById('success-msg').innerText = 'A kocka ki van rakva!';
-            setTimeout(function () {
-                document.getElementById('success-msg').style.display = 'none'
-            }, 7000);
-        }
-
-        return isSolved;
-    }
-
-    /**
-     * Makes a rotational move on the given side of the cube.
-     *
-     * @param side Side to rotate (clockwise by default).
-     * @param backwards Decides if the rotation should be made clockwise or counter-clockwise.
-     * @returns {Cube} The transformed cube.
-     */
-    rotate(side, backwards = false) {
-        let iteration = 1;
-        let tmpSide = structuredClone(side);
-        let tmpRedSide = structuredClone(this.redSide);
-        let tmpWhiteSide = structuredClone(this.whiteSide);
-        let tmpBlueSide = structuredClone(this.blueSide);
-        let tmpYellowSide = structuredClone(this.yellowSide);
-        let tmpGreenSide = structuredClone(this.greenSide);
-        let tmpOrangeSide = structuredClone(this.orangeSide);
-
-        if (backwards) {
-            iteration = 3;
-        }
-
-        for (let i = 0; i < iteration; i++) {
-            side.stickers[0].color = tmpSide.stickers[6].color;
-            side.stickers[1].color = tmpSide.stickers[3].color;
-            side.stickers[2].color = tmpSide.stickers[0].color;
-            side.stickers[3].color = tmpSide.stickers[7].color;
-            side.stickers[5].color = tmpSide.stickers[1].color;
-            side.stickers[6].color = tmpSide.stickers[8].color;
-            side.stickers[7].color = tmpSide.stickers[5].color;
-            side.stickers[8].color = tmpSide.stickers[2].color;
-
-
-            //A következő if-ek a forgatott oldal szomszédos oldalain lévő matricák forgatását garantálja.
-            //FEHÉRET FORGATJUK
-            if (side.getMiddleColor() === 'rgb(255, 255, 255)') {
-                this.redSide.stickers[0].color = tmpBlueSide.stickers[0].color;
-                this.redSide.stickers[1].color = tmpBlueSide.stickers[3].color;
-                this.redSide.stickers[2].color = tmpBlueSide.stickers[6].color;
-
-                this.blueSide.stickers[0].color = tmpOrangeSide.stickers[6].color;
-                this.blueSide.stickers[3].color = tmpOrangeSide.stickers[7].color;
-                this.blueSide.stickers[6].color = tmpOrangeSide.stickers[8].color;
-
-                this.orangeSide.stickers[6].color = tmpGreenSide.stickers[2].color;
-                this.orangeSide.stickers[7].color = tmpGreenSide.stickers[5].color;
-                this.orangeSide.stickers[8].color = tmpGreenSide.stickers[8].color;
-
-                this.greenSide.stickers[2].color = tmpRedSide.stickers[0].color;
-                this.greenSide.stickers[5].color = tmpRedSide.stickers[1].color;
-                this.greenSide.stickers[8].color = tmpRedSide.stickers[2].color;
-            }
-
-            //PIROSAT FORGATJUK
-            if (side.getMiddleColor() === 'rgb(219, 88, 86)') {
-                this.blueSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
-                this.blueSide.stickers[7].color = tmpWhiteSide.stickers[7].color;
-                this.blueSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
-
-                this.yellowSide.stickers[0].color = tmpBlueSide.stickers[8].color;
-                this.yellowSide.stickers[1].color = tmpBlueSide.stickers[7].color;
-                this.yellowSide.stickers[2].color = tmpBlueSide.stickers[6].color;
-
-                this.greenSide.stickers[6].color = tmpYellowSide.stickers[2].color;
-                this.greenSide.stickers[7].color = tmpYellowSide.stickers[1].color;
-                this.greenSide.stickers[8].color = tmpYellowSide.stickers[0].color;
-
-                this.whiteSide.stickers[6].color = tmpGreenSide.stickers[6].color;
-                this.whiteSide.stickers[7].color = tmpGreenSide.stickers[7].color;
-                this.whiteSide.stickers[8].color = tmpGreenSide.stickers[8].color;
-            }
-
-            //KÉKET FORGATJUK
-            if (side.getMiddleColor() === 'rgb(162, 191, 254)') {
-                this.orangeSide.stickers[2].color = tmpWhiteSide.stickers[2].color;
-                this.orangeSide.stickers[5].color = tmpWhiteSide.stickers[5].color;
-                this.orangeSide.stickers[8].color = tmpWhiteSide.stickers[8].color;
-
-                this.yellowSide.stickers[2].color = tmpOrangeSide.stickers[2].color;
-                this.yellowSide.stickers[5].color = tmpOrangeSide.stickers[5].color;
-                this.yellowSide.stickers[8].color = tmpOrangeSide.stickers[8].color;
-
-                this.redSide.stickers[2].color = tmpYellowSide.stickers[2].color;
-                this.redSide.stickers[5].color = tmpYellowSide.stickers[5].color;
-                this.redSide.stickers[8].color = tmpYellowSide.stickers[8].color;
-
-                this.whiteSide.stickers[2].color = tmpRedSide.stickers[2].color;
-                this.whiteSide.stickers[5].color = tmpRedSide.stickers[5].color;
-                this.whiteSide.stickers[8].color = tmpRedSide.stickers[8].color;
-            }
-
-            //NARANCSOT FORGATJUK
-            if (side.getMiddleColor() === 'rgb(255, 150, 65)') {
-                this.blueSide.stickers[0].color = tmpYellowSide.stickers[6].color;
-                this.blueSide.stickers[1].color = tmpYellowSide.stickers[7].color;
-                this.blueSide.stickers[2].color = tmpYellowSide.stickers[8].color;
-
-                this.yellowSide.stickers[6].color = tmpGreenSide.stickers[0].color;
-                this.yellowSide.stickers[7].color = tmpGreenSide.stickers[1].color;
-                this.yellowSide.stickers[8].color = tmpGreenSide.stickers[2].color;
-
-                this.greenSide.stickers[0].color = tmpWhiteSide.stickers[0].color;
-                this.greenSide.stickers[1].color = tmpWhiteSide.stickers[1].color;
-                this.greenSide.stickers[2].color = tmpWhiteSide.stickers[2].color;
-
-                this.whiteSide.stickers[0].color = tmpBlueSide.stickers[0].color;
-                this.whiteSide.stickers[1].color = tmpBlueSide.stickers[1].color;
-                this.whiteSide.stickers[2].color = tmpBlueSide.stickers[2].color;
-            }
-
-            //ZÖLDET FORGATJUK
-            if (side.getMiddleColor() === 'rgb(134, 213, 134)') {
-                this.orangeSide.stickers[0].color = tmpYellowSide.stickers[0].color;
-                this.orangeSide.stickers[3].color = tmpYellowSide.stickers[3].color;
-                this.orangeSide.stickers[6].color = tmpYellowSide.stickers[6].color;
-
-                this.yellowSide.stickers[0].color = tmpRedSide.stickers[0].color;
-                this.yellowSide.stickers[3].color = tmpRedSide.stickers[3].color;
-                this.yellowSide.stickers[6].color = tmpRedSide.stickers[6].color;
-
-                this.redSide.stickers[0].color = tmpWhiteSide.stickers[0].color;
-                this.redSide.stickers[3].color = tmpWhiteSide.stickers[3].color;
-                this.redSide.stickers[6].color = tmpWhiteSide.stickers[6].color;
-
-                this.whiteSide.stickers[0].color = tmpOrangeSide.stickers[0].color;
-                this.whiteSide.stickers[3].color = tmpOrangeSide.stickers[3].color;
-                this.whiteSide.stickers[6].color = tmpOrangeSide.stickers[6].color;
-            }
-
-            //CITROMOT FORGATJUK
-            if (side.getMiddleColor() === 'rgb(255, 255, 153)') {
-                this.orangeSide.stickers[0].color = tmpBlueSide.stickers[2].color;
-                this.orangeSide.stickers[1].color = tmpBlueSide.stickers[5].color;
-                this.orangeSide.stickers[2].color = tmpBlueSide.stickers[8].color;
-
-                this.greenSide.stickers[0].color = tmpOrangeSide.stickers[0].color;
-                this.greenSide.stickers[3].color = tmpOrangeSide.stickers[1].color;
-                this.greenSide.stickers[6].color = tmpOrangeSide.stickers[2].color;
-
-                this.redSide.stickers[6].color = tmpGreenSide.stickers[0].color;
-                this.redSide.stickers[7].color = tmpGreenSide.stickers[3].color;
-                this.redSide.stickers[8].color = tmpGreenSide.stickers[6].color;
-
-                this.blueSide.stickers[2].color = tmpRedSide.stickers[6].color;
-                this.blueSide.stickers[5].color = tmpRedSide.stickers[7].color;
-                this.blueSide.stickers[8].color = tmpRedSide.stickers[8].color;
-            }
-
-            tmpSide = structuredClone(side);
-            tmpWhiteSide = structuredClone(this.whiteSide);
-            tmpRedSide = structuredClone(this.redSide);
-            tmpOrangeSide = structuredClone(this.orangeSide);
-            tmpBlueSide = structuredClone(this.blueSide);
-            tmpYellowSide = structuredClone(this.yellowSide);
-            tmpGreenSide = structuredClone(this.greenSide);
-        }
-        this.reRenderCube();
-        return this;
-    }
-}
