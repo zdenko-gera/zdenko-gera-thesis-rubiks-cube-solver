@@ -1,6 +1,6 @@
 import { Sticker } from './classes/Sticker.js';
 import { Side } from './classes/Side.js';
-import {Cube, aStar, heuristic} from './classes/Cube.js';
+import { Cube } from './classes/Cube.js';
 import { CORNER_CUBE, MIDDLE_CUBE, EDGE_CUBE } from './constants.js';
 import { WHITE, RED, GREEN, ORANGE, BLUE, YELLOW } from './constants.js';
 
