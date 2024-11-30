@@ -371,6 +371,15 @@ $('document').ready(function() {
         $('#state-three').addClass('active-state');
         cube.colorEdges();
         $(this).hide();
+        $('#yellow-cross-button').show();
+    });
+
+    $('#yellow-cross-button').click(function (e) {
+        $('#state-three').removeClass('active-state');
+        $('#state-four').addClass('active-state');
+        cube.yellowCross();
+        $(this).hide();
+        //$('#yellow-edges-button').show();
     });
 
     $('#mix-cube-button').click(function (e) {

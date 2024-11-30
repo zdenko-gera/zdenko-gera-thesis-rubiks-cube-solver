@@ -731,10 +731,10 @@ export class Cube {
         for (let i = 0; i < 4; i++) {
             let pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', EDGE_CUBE, new Set([this.sides[i].getMiddleColor()])));
 
-            console.log(this.sides[i].getMiddleColor());
+            // console.log(this.sides[i].getMiddleColor());
 
             if (pos['side'] === this.whiteSide && pos['index'] === movingWhiteIndices[i][0]) {
-                console.log(1);
+                // console.log(1);
                 this.rotate(this.sides[(3 + i) % 4], true);
                 this.rotate(this.sides[(3 + i) % 4], true);
                 this.rotate(this.yellowSide, true);
@@ -743,7 +743,7 @@ export class Cube {
             }
 
             if (pos['side'] === this.whiteSide && pos['index'] === movingWhiteIndices[i][1]) {
-                console.log(2);
+                // console.log(2);
                 this.rotate(this.sides[(2 + i) % 4], false);
                 this.rotate(this.sides[(2 + i) % 4], false);
                 this.rotate(this.yellowSide, false);
@@ -758,7 +758,7 @@ export class Cube {
                 this.rotate(this.yellowSide, false);
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[i % 4], true);
-                console.log(3);
+                // console.log(3);
 
             }
 
@@ -768,7 +768,7 @@ export class Cube {
                 this.rotate(this.sides[(3 + i) % 4], false);
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[i % 4], true);
-                console.log(4);
+                // console.log(4);
             }
 
             if (pos['side'] === this.sides[i % 4] && pos['index'] === movingIndices[i][1]) {
@@ -778,7 +778,7 @@ export class Cube {
                 this.rotate(this.sides[(1 + i) % 4], true);
                 this.rotate(this.sides[i % 4], false);
                 this.rotate(this.sides[(1 + i) % 4], false);
-                console.log(5);
+                // console.log(5);
             }
 
             if (pos['side'] === this.sides[i % 4] && pos['index'] === movingIndices[i][2]) {
@@ -786,7 +786,7 @@ export class Cube {
                 this.rotate(this.sides[(4 + i - 1) % 4], false);
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[(4 + i - 1) % 4], true);
-                console.log(6);
+                // console.log(6);
             }
 
             if (pos['side'] === this.sides[i % 4] && pos['index'] === movingIndices[i][3]) {
@@ -795,13 +795,13 @@ export class Cube {
                 this.rotate(this.sides[(1 + i) % 4], true);
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[i % 4], true);
-                console.log(7);
+                // console.log(7);
             }
 
             if (pos['side'] === this.sides[(1 + i) % 4] && pos['index'] === movingIndices[i][0]) {
                 this.rotate(this.sides[(1 + i) % 4], false);
                 this.rotate(this.sides[i % 4], false);
-                console.log(8);
+                // console.log(8);
             }
 
             if (pos['side'] === this.sides[(1 + i) % 4] && pos['index'] === movingIndices[i][1]) {
@@ -810,26 +810,26 @@ export class Cube {
                 this.rotate(this.sides[i % 4], false);
                 this.rotate(this.sides[(1 + i) % 4], true);
                 this.rotate(this.sides[(1 + i) % 4], true);
-                console.log(9);
+                // console.log(9);
             }
 
             if (pos['side'] === this.sides[(1 + i) % 4] && pos['index'] === movingIndices[i][2]) {
                 this.rotate(this.sides[i % 4], false);
-                console.log(10);
+                // console.log(10);
             }
 
             if (pos['side'] === this.sides[(1 + i) % 4] && pos['index'] === movingIndices[i][3]) {
                 this.rotate(this.sides[(1 + i) % 4], true);
                 this.rotate(this.sides[i % 4], false);
                 this.rotate(this.sides[(1 + i) % 4], false);
-                console.log(11);
+                // console.log(11);
             }
 
             if (pos['side'] === this.sides[(3 + i) % 4] && pos['index'] === movingIndices[i][0]) {
                 this.rotate(this.sides[(3 + i) % 4], false);
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[(3 + i) % 4], true);
-                console.log(12);
+                // console.log(12);
             }
 
             if (pos['side'] === this.sides[(3 + i) % 4] && pos['index'] === movingIndices[i][1]) {
@@ -838,18 +838,18 @@ export class Cube {
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[(3 + i) % 4], true);
                 this.rotate(this.sides[(3 + i) % 4], true);
-                console.log(13);
+                // console.log(13);
             }
 
             if (pos['side'] === this.sides[(3 + i) % 4] && pos['index'] === movingIndices[i][2]) {
                 this.rotate(this.sides[i % 4], true);
-                console.log(14);
+                // console.log(14);
             }
 
             if (pos['side'] === this.sides[(3 + i) % 4] && pos['index'] === movingIndices[i][3]) {
                 this.rotate(this.sides[(3 + i) % 4], true);
                 this.rotate(this.sides[i % 4], true);
-                console.log(15);
+                // console.log(15);
             }
 
             if (pos['side'] === this.sides[(2 + i) % 4] && pos['index'] === movingIndices[i][0]) {
@@ -858,7 +858,7 @@ export class Cube {
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[(3 + i) % 4], true);
-                console.log(16);
+                // console.log(16);
             }
 
             if (pos['side'] === this.sides[(2 + i) % 4] && pos['index'] === movingIndices[i][1]) {
@@ -869,7 +869,7 @@ export class Cube {
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[(3 + i) % 4], true);
                 this.rotate(this.sides[(2 + i) % 4], true);
-                console.log(17);
+                // console.log(17);
             }
 
             if (pos['side'] === this.sides[(2 + i) % 4] && pos['index'] === movingIndices[i][2]) {
@@ -879,7 +879,7 @@ export class Cube {
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.sides[(3 + i) % 4], true);
-                console.log(18);
+                // console.log(18);
             }
 
             // Ezt meg lehet oldani egy plusz zöld forgatással az elején, mint az előző kettőt, de így egy lépéssel kevesebb lesz benne,
@@ -895,14 +895,14 @@ export class Cube {
                 this.rotate(this.sides[(3 + i) % 4], true);
                 this.rotate(this.sides[(2 + i) % 4], true);
                 this.rotate(this.sides[(2 + i) % 4], true)
-                console.log(19);
+                // console.log(19);
             }
 
             if (pos['side'] === this.yellowSide && pos['index'] === movingYellowIndices[i][0]) {
                 this.rotate(this.yellowSide, false);
                 this.rotate(this.sides[i % 4], false);
                 this.rotate(this.sides[i % 4], false);
-                console.log(20);
+                // console.log(20);
             }
 
             if (pos['side'] === this.yellowSide && pos['index'] === movingYellowIndices[i][1]) {
@@ -910,22 +910,22 @@ export class Cube {
                 this.rotate(this.yellowSide, false);
                 this.rotate(this.sides[i % 4], false);
                 this.rotate(this.sides[i % 4], false);
-                console.log(21);
+                // console.log(21);
             }
 
             if (pos['side'] === this.yellowSide && pos['index'] === movingYellowIndices[i][2]) {
                 this.rotate(this.sides[i % 4], false);
                 this.rotate(this.sides[i % 4], false);
-                console.log(22);
+                // console.log(22);
             }
 
             if (pos['side'] === this.yellowSide && pos['index'] === movingYellowIndices[i][3]) {
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[i % 4], false);
                 this.rotate(this.sides[i % 4], false);
-                console.log(23);
+                // console.log(23);
             }
-            console.log(this.whiteSide.stickers);
+            // console.log(this.whiteSide.stickers);
 
         }
         this.reRenderCube();
@@ -939,7 +939,7 @@ export class Cube {
         let rotations = '';
 
         let phaseTitle = 'Fehér sarkok kirakása';
-        console.log('Fehér sarkok kirakása');
+        // console.log('Fehér sarkok kirakása');
 
         for (let i = 0; i < 4; i++) {
             pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', CORNER_CUBE, new Set([this.sides[i].getMiddleColor(), this.sides[(i + 1) % 4].getMiddleColor()])));
@@ -949,13 +949,13 @@ export class Cube {
                     if (pos['side'].getMiddleColor() === this.sides[j].getMiddleColor()) {
                         switch (pos['index']) {
                             case movingIndices[j][0]:
-                                console.log('C-1');
+                                // console.log('C-1');
                                 this.rotate(this.sides[j], true);
                                 this.rotate(this.yellowSide, true);
                                 this.rotate(this.sides[j], false);
                                 break;
                             case movingIndices[j][1]:
-                                console.log('C-2');
+                                // console.log('C-2');
                                 this.rotate(this.sides[j], false);
                                 this.rotate(this.yellowSide, false);
                                 this.rotate(this.sides[j], true);
@@ -987,21 +987,21 @@ export class Cube {
             }
 
             if (pos['side'] === this.whiteSide && pos['index'] === movingWhiteIndices[i][1]) {
-                console.log('C-4');
+                // console.log('C-4');
                 this.rotate(this.sides[(i + 2) % 4], true);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(i + 2) % 4], false);
             }
 
             if (pos['side'] === this.whiteSide && pos['index'] === movingWhiteIndices[i][2]) {
-                console.log('C-5');
+                // console.log('C-5');
                 this.rotate(this.sides[(i + 2) % 4], false);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(i + 2) % 4], true);
             }
 
             if (pos['side'] === this.yellowSide) {
-                console.log('C-6');
+                // console.log('C-6');
                 let flag2 = false;
                 while (flag2 === false) {
 
@@ -1051,7 +1051,7 @@ export class Cube {
             //bal sarokban
             if (pos['side'] === this.blueSide && pos['index'] === 8 || pos['side'] === this.redSide && pos['index'] === 6 || pos['side'] === this.greenSide && pos['index'] === 0 ||
                 pos['side'] === this.orangeSide && pos['index'] === 2) {
-                console.log('C-7');
+                // console.log('C-7');
                 while (pos['side'] !== this.sides[(4 + i - 1) % 4]) {
                     this.rotate(this.yellowSide, false);
                     pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', CORNER_CUBE, new Set([this.sides[i].getMiddleColor(), this.sides[(i + 1) % 4].getMiddleColor()])));
@@ -1061,7 +1061,7 @@ export class Cube {
             //jobb sarokban
             if (pos['side'] === this.blueSide && pos['index'] === 2 || pos['side'] === this.redSide && pos['index'] === 8 || pos['side'] === this.greenSide && pos['index'] === 6 ||
                 pos['side'] === this.orangeSide && pos['index'] === 0) {
-                console.log('C-8');
+                // console.log('C-8');
                 while (pos['side'] !== this.sides[(i + 2) % 4]) {
                     this.rotate(this.yellowSide, true);
                     pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', CORNER_CUBE, new Set([this.sides[i].getMiddleColor(), this.sides[(i + 1) % 4].getMiddleColor()])));
@@ -1072,24 +1072,17 @@ export class Cube {
             pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', CORNER_CUBE, new Set([this.sides[i].getMiddleColor(), this.sides[(i + 1) % 4].getMiddleColor()])));
             // he a saraokkocka a jobbra eső oldalon helyezkedik el
             if (pos['side'] === this.sides[(4 + i - 1) % 4]) {
-                console.log('C-9');
+                // console.log('C-9');
                 this.rotate(this.sides[(1 + i) % 4], false);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(1 + i) % 4], true);
             } else if (pos['side'] === this.sides[(i + 2) % 4]) {
-                console.log('C-10');
-                // ha balra eso oldalon
+                // console.log('C-10');
                 this.rotate(this.sides[i % 4], true);
-                console.log('kek le');
-
                 this.rotate(this.yellowSide, false);
-                console.log('sarga jobbra');
-
                 this.rotate(this.sides[i % 4], false);
-                console.log('kek fel');
-
             }
-            console.log(i + 1 + '. oldal megvan');
+            // console.log(i + 1 + '. oldal megvan');
         }
     }
 
@@ -1101,29 +1094,53 @@ export class Cube {
         let pos;
         let oppositeIndexOnYellow = [3, 7, 5, 1];
         let isYellowReplacement = false;
-        let cubiePos;
+        let posOnSolved;
 
         for (let i = 0; i < 4; i++) {
             pos = this.getStickerPosition(new Sticker(this.sides[i].getMiddleColor(), EDGE_CUBE, new Set([this.sides[(i + 1) % 4].getMiddleColor()])));
+            posOnSolved = solvedCube.getStickerPosition(new Sticker(this.sides[i].getMiddleColor(), EDGE_CUBE, new Set([this.sides[(i + 1) % 4].getMiddleColor()])));
 
             // az élkocka az i-edik vizsgált oldal színével lehet:
             //                  a) a sárga oldalon
             //                  b) bármely színes oldalon (a szomszédja a sárgán van)
             //                  c) bármely színes oldalon (a szomszédja egy másik színesen van), beékelődve két szín közé
 
-
+console.log(i);
+            if (posOnSolved['side'].getMiddleColor() === pos['side'].getMiddleColor() && posOnSolved['index'] === pos['index']) console.log(i + '. siker (alapból jó helyen).');
             // c)
-            if (pos['side'] === this.blueSide && pos['index'] === 1 ||
+            if (posOnSolved['side'].getMiddleColor() !== pos['side'].getMiddleColor() && posOnSolved['index'] !== pos['index'] &&
+                (pos['side'] === this.blueSide && pos['index'] === 1 ||
                 pos['side'] === this.blueSide && pos['index'] === 7 ||
                 pos['side'] === this.redSide && pos['index'] === 3 ||
                 pos['side'] === this.redSide && pos['index'] === 5 ||
                 pos['side'] === this.greenSide && pos['index'] === 1 ||
                 pos['side'] === this.greenSide && pos['index'] === 7 ||
                 pos['side'] === this.orangeSide && pos['index'] === 3 ||
-                pos['side'] === this.orangeSide && pos['index'] === 5) {
-                console.log('Keresünk egy sárga élt, az most úgysem kell nekünk.');
-                cubiePos = pos;
-                for (let j = 0; j < 9; j++) {
+                pos['side'] === this.orangeSide && pos['index'] === 5)) {
+
+                console.log('Be van ékelődve valahova az ' + i + '. oldalé.');
+
+                if (pos['side'] === this.blueSide && pos['index'] === 1 ||
+                    pos['side'] === this.redSide && pos['index'] === 5 ||
+                    pos['side'] === this.greenSide && pos['index'] === 7 ||
+                    pos['side'] === this.orangeSide && pos['index'] === 3) {
+
+                    this.rotate(pos['side'], false);
+                    this.rotate(this.yellowSide, true);
+                    this.rotate(pos['side'], true);
+
+                } else if (pos['side'] === this.blueSide && pos['index'] === 7 ||
+                    pos['side'] === this.redSide && pos['index'] === 3 ||
+                    pos['side'] === this.greenSide && pos['index'] === 1 ||
+                    pos['side'] === this.orangeSide && pos['index'] === 5) {
+
+                    this.rotate(pos['side'], true);
+                    this.rotate(this.yellowSide, false);
+                    this.rotate(pos['side'], false);
+                }
+                this.whiteCorners();
+
+                /*for (let j = 0; j < 9; j++) {
 
                     // a két if-ben biztosan találunk egy citromsárga matricát tartalmazó élkockát. Ezután megkapjuk a sárga matrica helyét a pos változóban.
                     if (this.yellowSide.stickers[j].type === EDGE_CUBE && this.yellowSide.stickers[j].color === YELLOW) {
@@ -1137,13 +1154,14 @@ export class Cube {
                         break;
                     }
                     // ekkor jön az a) vagy b) eset, igazából teljesen mindegy melyik, a sárgát tartalmazó élkocka bekerül a megfelelő helyre
-                }
+                }*/
             }
+            pos = this.getStickerPosition(new Sticker(this.sides[i].getMiddleColor(), EDGE_CUBE, new Set([this.sides[(i + 1) % 4].getMiddleColor()])));
 
             // a)
             if (pos['side'] === this.yellowSide) {
+                console.log(i + '. siker (sárgáról).')
                 while (pos['index'] !== oppositeIndexOnYellow[i]) {
-                    console.log('Sárgán.')
                     this.rotate(this.yellowSide, false);
                     pos = this.getStickerPosition(new Sticker(this.sides[i].getMiddleColor(), EDGE_CUBE, new Set([this.sides[(i + 1) % 4].getMiddleColor()])));
                 }
@@ -1151,15 +1169,15 @@ export class Cube {
                 this.rotate(this.yellowSide, false);
                 this.rotate(this.sides[i], false);
                 this.whiteCorners();
-            }
-
-            // b)
-            if (pos['side'] === this.blueSide && pos['index'] === 5 ||
+            } else if (pos['side'] === this.blueSide && pos['index'] === 5 ||
                 pos['side'] === this.redSide && pos['index'] === 7 ||
                 pos['side'] === this.greenSide && pos['index'] === 3 ||
                 pos['side'] === this.orangeSide && pos['index'] === 1) {
+                console.log(i + '. siker (színesről).')
+
+                // b)
+
                 while (pos['side'] !== this.sides[(4 + i - 1) % 4]) {
-                    console.log('Színesen.')
                     this.rotate(this.yellowSide, false);
                     pos = this.getStickerPosition(new Sticker(this.sides[i].getMiddleColor(), EDGE_CUBE, new Set([this.sides[(i + 1) % 4].getMiddleColor()])));
                 }
@@ -1167,12 +1185,77 @@ export class Cube {
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(i + 1) % 4], true);
                 this.whiteCorners();
+            } else {
+                console.log('HIBA.');
             }
-
-
+            console.log('control');
         }
     }
 
+    yellowCross() {
+        console.log('*** SÁRGA KERESZT ***')
+        if (this.yellowSide.stickers[1].color.toString() !== YELLOW ||
+        this.yellowSide.stickers[3].color.toString() !== YELLOW ||
+        this.yellowSide.stickers[5].color.toString() !== YELLOW ||
+        this.yellowSide.stickers[7].color.toString() !== YELLOW) {
+            // itt három lehetőség adott:
+            //      a) nincs egyáltalán sárga élmatrica a sárga oldalon
+            //      b) kettő szomszédos van (L alak)
+            //      c) kettő ellentétes van (I alak)
+
+            // megjegyzés: az L alak után a lépéssorozat I alakot hoz létre, melyből + lesz megegy iteráció után.
+
+            let affectedStickers = [this.yellowSide.stickers[5], this.yellowSide.stickers[1], this.yellowSide.stickers[3], this.yellowSide.stickers[7]];
+
+            if (affectedStickers[0].color.toString() !== YELLOW &&
+                affectedStickers[1].color.toString() !== YELLOW &&
+                affectedStickers[2].color.toString() !== YELLOW &&
+                affectedStickers[3].color.toString() !== YELLOW) {
+
+                console.log('0 van a sárga oldalon.')
+                // a)
+                this.rotate(this.sides[0], false);
+                this.rotate(this.sides[1], false);
+                this.rotate(this.yellowSide, false);
+                this.rotate(this.sides[1], true);
+                this.rotate(this.yellowSide, true);
+                this.rotate(this.sides[0], true);
+            }
+
+            affectedStickers = [this.yellowSide.stickers[5], this.yellowSide.stickers[1], this.yellowSide.stickers[3], this.yellowSide.stickers[7]];
+
+            for (let i = 0; i < 4; i++) {
+                if (affectedStickers[i % 4].color.toString() === YELLOW && affectedStickers[(i + 1) % 4].color.toString() === YELLOW) {
+                    // b) L alak esete:
+                    console.log('L alak van a sárga oldalon.')
+                    this.rotate(this.sides[(i + 2) % 4], false);
+                    this.rotate(this.sides[(i + 3) % 4], false);
+                    this.rotate(this.yellowSide, false);
+                    this.rotate(this.sides[(i + 3) % 4], true);
+                    this.rotate(this.yellowSide, true);
+                    this.rotate(this.sides[(i + 2) % 4], true);
+                    break;
+                }
+            }
+
+            affectedStickers = [this.yellowSide.stickers[5], this.yellowSide.stickers[1], this.yellowSide.stickers[3], this.yellowSide.stickers[7]];
+
+            for (let i = 0; i < 4; i++) {
+                if (affectedStickers[i % 4].color.toString() === YELLOW && affectedStickers[(i + 2) % 4].color.toString() === YELLOW) {
+                    console.log('I alak van a sárga oldalon.')
+                    // c) I alak esete:
+                    this.rotate(this.sides[(i + 1) % 4], false);
+                    this.rotate(this.sides[(i + 2) % 4], false);
+                    this.rotate(this.yellowSide, false);
+                    this.rotate(this.sides[(i + 2) % 4], true);
+                    this.rotate(this.yellowSide, true);
+                    this.rotate(this.sides[(i + 1) % 4], true);
+                    break;
+                }
+            }
+        }
+        this.reRenderCube();
+    }
 
     copyCube() {
         let newCube = new Cube(

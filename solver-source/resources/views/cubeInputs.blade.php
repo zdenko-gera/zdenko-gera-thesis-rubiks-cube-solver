@@ -112,6 +112,7 @@
     <button id="solve-button" class="btn btn-primary" title="Fehér kereszt kirakása">START!</button>
     <button id="white-corners-button" class="btn btn-primary" title="Fehér sarkok elhelyezése">Tovább</button>
     <button id="color-edges-button" class="btn btn-primary" title="Színes élek elhelyezése">Tovább</button>
+    <button id="yellow-cross-button" class="btn btn-primary" title="Sárga kereszt kirakása">Tovább</button>
     <button id="fill-to-solved-state" class="btn btn-outline-primary">TESZT KITÖLTÉS</button>
     <button id="check-cube" class="btn btn-outline-success">Ellenőrzés</button>
     <button id="submit-cube-button" class="btn btn-secondary">Kocka mentése</button>
