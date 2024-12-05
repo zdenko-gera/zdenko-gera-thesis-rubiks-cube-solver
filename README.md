@@ -6,7 +6,7 @@
 2. Terminálban lépj a projekt könyvtárába, majd itt:
 3. Add ki az `npm install` parancsot. [Több infó](https://docs.npmjs.com/cli/v10/commands/npm-install)
 4. Add ki az `npm run dev` parancsot.
-5. Telepítsd a Composer-t [innen](https://getcomposer.org/download/), vagy add ki az `composer install` parancsot. [Több infó](https://gist.github.com/hootlex/da59b91c628a6688ceb1)
+5. Telepítsd a Composer-t [innen](https://getcomposer.org/download/). [Több infó](https://gist.github.com/hootlex/da59b91c628a6688ceb1)
 6. Add hozzá a PATH-hoz a Composer-t (a telepítő lehet, hogy felkínálja a lehetőséget).
 7. Add ki az `php artisan key:generate` parancsot, hogy létrehozd az APP_KEY-t.
 8. Add ki az `php artisan migrate` parancsot.
