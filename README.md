@@ -1,4 +1,4 @@
-# Zdenkó Gera - Szakdolgozat:
+# Gera Zdenkó - Szakdolgozat:
 # RUBIK'S CUBE SOLVER (Útmutató)
 
 ## Az applikáció futtatása:
