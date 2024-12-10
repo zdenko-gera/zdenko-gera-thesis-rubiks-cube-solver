@@ -1257,6 +1257,217 @@ console.log(i);
         this.reRenderCube();
     }
 
+    yellowEdges() {
+        let affectedIndices = [5, 7, 3, 1];
+        for (let k = 0; k < 4; k++) {
+            let maxOfStickersInGoodPlace = 0;
+            let countOfRightStickers = [0, 0, 0, 0];
+            let maxIndex = 0;
+
+            if (this.blueSide.stickers[5].color === BLUE) countOfRightStickers[0]++;
+            if (this.redSide.stickers[7].color === RED) countOfRightStickers[0]++;
+            if (this.greenSide.stickers[3].color === GREEN) countOfRightStickers[0]++;
+            if (this.orangeSide.stickers[1].color === ORANGE) countOfRightStickers[0]++;
+
+            this.rotate(this.yellowSide, false);
+            if (this.blueSide.stickers[5].color === BLUE) countOfRightStickers[1]++;
+            if (this.redSide.stickers[7].color === RED) countOfRightStickers[1]++;
+            if (this.greenSide.stickers[3].color === GREEN) countOfRightStickers[1]++;
+            if (this.orangeSide.stickers[1].color === ORANGE) countOfRightStickers[1]++;
+
+            this.rotate(this.yellowSide, false);
+            if (this.blueSide.stickers[5].color === BLUE) countOfRightStickers[2]++;
+            if (this.redSide.stickers[7].color === RED) countOfRightStickers[2]++;
+            if (this.greenSide.stickers[3].color === GREEN) countOfRightStickers[2]++;
+            if (this.orangeSide.stickers[1].color === ORANGE) countOfRightStickers[2]++;
+
+            this.rotate(this.yellowSide, false);
+            if (this.blueSide.stickers[5].color === BLUE) countOfRightStickers[3]++;
+            if (this.redSide.stickers[7].color === RED) countOfRightStickers[3]++;
+            if (this.greenSide.stickers[3].color === GREEN) countOfRightStickers[3]++;
+            if (this.orangeSide.stickers[1].color === ORANGE) countOfRightStickers[3]++;
+            this.rotate(this.yellowSide, false);
+
+            for (let i = 0; i < countOfRightStickers.length; i++) {
+                if (countOfRightStickers[i] > maxOfStickersInGoodPlace) {
+                    maxOfStickersInGoodPlace = countOfRightStickers[i];
+                    maxIndex = i;
+                }
+            }
+
+            switch (maxIndex) {
+                case 1:
+                    this.rotate(this.yellowSide, false);
+                    break;
+                case 2:
+                    this.rotate(this.yellowSide, false);
+                    this.rotate(this.yellowSide, false);
+                    break;
+                case 3:
+                    this.rotate(this.yellowSide, true);
+                    break;
+            }
+            for (let i = 0; i < 4; i++) {
+                if (this.sides[i].stickers[affectedIndices[i]].color !== this.sides[i].getMiddleColor() &&
+                    this.sides[(i + 2) % 4].stickers[affectedIndices[(i + 2) % 4]].color !== this.sides[(i + 2) % 4].getMiddleColor()) {
+                    this.changeYellowEdges(i, 1);
+                    break;
+                }
+            }
+
+            for (let i = 0; i < 4; i++) {
+                if (this.sides[i].stickers[affectedIndices[i]].color !== this.sides[i].getMiddleColor() &&
+                    this.sides[(i + 3) % 4].stickers[affectedIndices[(i + 3) % 4]].color !== this.sides[(i + 3) % 4].getMiddleColor()) {
+                    this.changeYellowEdges(i ,1);
+                    break;
+                }
+            }
+        }
+        console.log('yellowEdges() stopped.')
+        this.reRenderCube();
+    }
+
+    yellowCornerPosition() {
+        // Lehetosegek: a) 4 helytelen van
+        //              b) 3 helytelen van
+        // b) utan mindig helyreall a sarkok elhelyezkedese (már ha jó helyen futtatjuk az algoritmust ???)
+
+        let cornersToCheck = [2, 0, 6, 8]
+        let rightStickerPos = 0;
+        let countOfRightStickers = 0;
+        let string = '';
+
+        while(countOfRightStickers !== 4) {
+            rightStickerPos = 0;
+            countOfRightStickers = 0;
+
+            for (let i = 0; i < 4; i++) {
+                this.yellowSide.stickers[cornersToCheck[i]].neighbors.forEach(value => string += value);
+                console.log(string);
+                string = '';
+                console.log(this.sides[i % 4].getMiddleColor());
+                console.log(this.sides[(i + 1) % 4].getMiddleColor());
+                console.log(cornersToCheck[i]);
+                if ((this.yellowSide.stickers[cornersToCheck[i]].color === YELLOW && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
+                    (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[i % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
+                    (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[(i + 1) % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()))) {
+                    // sarokkocka megfelelő helyen van
+                    console.log('sarga oldalon az ' + i + ' indexu sarokkocka van a helyen.');
+                    console.log(this.sides[i % 4].getMiddleColor());
+                    console.log(this.sides[(i + 1) % 4].getMiddleColor());
+                    countOfRightStickers++;
+                    console.log(countOfRightStickers);
+                    rightStickerPos = cornersToCheck[i];
+                }
+
+                if (this.yellowSide.stickers[cornersToCheck[i]].color === YELLOW && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) {
+                    console.log('CASE-1');
+                }
+
+                if (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[i % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) {
+                    console.log('CASE-2');
+                }
+
+                if (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[(i + 1) % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor())) {
+                    console.log('CASE-3');
+                }
+            }
+
+            if (countOfRightStickers === 0) {
+                console.log('Nincs egy sarga sarok sem a helyen.');
+                this.changeYellowCorners();
+            } else if (countOfRightStickers < 4) {
+                console.log('1 sarok biztosan a helyen van.');
+                switch (rightStickerPos) {
+                    case 2:
+                        this.changeYellowCorners(2);
+                        console.log('this.sides[2]');
+                        break;
+                    case 0:
+                        this.changeYellowCorners(3);
+                        console.log('this.sides[3]');
+                        break;
+                    case 6:
+                        this.changeYellowCorners(0);
+                        console.log('this.sides[0]');
+                        break;
+                    case 8:
+                        this.changeYellowCorners(1);
+                        console.log('this.sides[1]');
+                        break;
+                }
+            } else {
+                console.log('Minden sarok a helyen van.');
+            }
+        }
+        console.log('yellowCornerPosition() ended.');
+    }
+
+    yellowCornerRotation() {
+        console.log('yellowCornerRotation() started.');
+        let cornersToCheck = [2, 0, 6, 8]
+        let moveThisSide = 0;
+        let entryIndex = -1;
+
+        for (let i = 0; i < 4; i++) {
+            if (this.yellowSide.stickers[cornersToCheck[i]].color !== YELLOW) {
+                entryIndex = i;
+                console.log(entryIndex);
+                break;
+            }
+        }
+
+        if (entryIndex >= 0) {
+                // sarokkocka nincs megfeleloen beofrgatva
+                while (this.yellowSide.stickers[cornersToCheck[entryIndex]].color !== YELLOW) {
+                    console.log(this.yellowSide.stickers[cornersToCheck[entryIndex]].color);
+                    this.rotateYellowCorners(entryIndex + 1);
+                    console.log('alg fut.')
+                    if (this.yellowSide.stickers[cornersToCheck[entryIndex]].color === YELLOW) {
+                        this.rotate(this.yellowSide, false);
+                        console.log('sargat forgatta.')
+                    }
+                }
+        }
+        console.log('yellowCornerRotation() ended.');
+
+        if (!this.isSolved()) {
+            this.rotate(this.yellowSide, true);
+            this.rotate(this.yellowSide, true);
+        }
+    }
+
+    changeYellowEdges(actualSideIndex, param) {
+        this.rotate(this.sides[(actualSideIndex + param) % 4], false);
+        this.rotate(this.yellowSide, false);
+        this.rotate(this.sides[(actualSideIndex + param) % 4], true);
+        this.rotate(this.yellowSide, false);
+        this.rotate(this.sides[(actualSideIndex + param) % 4], false);
+        this.rotate(this.yellowSide, false);
+        this.rotate(this.yellowSide, false);
+        this.rotate(this.sides[(actualSideIndex + param) % 4], true);
+    }
+
+    changeYellowCorners(sideIndex = 0) {
+        this.rotate(this.sides[sideIndex % 4], false);
+        this.rotate(this.yellowSide, true);
+        this.rotate(this.sides[(sideIndex + 2) % 4], true);
+        this.rotate(this.yellowSide, false);
+        this.rotate(this.sides[sideIndex % 4], true);
+        this.rotate(this.yellowSide, true);
+        this.rotate(this.sides[(sideIndex + 2) % 4], false);
+        this.rotate(this.yellowSide, false);
+    }
+
+    rotateYellowCorners(sideIndex) {
+        this.rotate(this.sides[sideIndex % 4], true);
+        console.log('forgatott: ' + this.sides[sideIndex % 4].getMiddleColor());
+        this.rotate(this.whiteSide, false);
+        this.rotate(this.sides[sideIndex % 4], false);
+        this.rotate(this.whiteSide, true);
+    }
+
+    /*
     copyCube() {
         let newCube = new Cube(
             new Side(WHITE, [
@@ -1377,7 +1588,7 @@ console.log(i);
 
         return newCube;
 
-    }
+    }*/
 
     getTargetPosition(solvedCube, sticker) {
         console.log('getTargetPosition() - A kérdéses matrica:');
