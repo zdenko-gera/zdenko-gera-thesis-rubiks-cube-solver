@@ -178,7 +178,10 @@ $('document').ready(function() {
 
     // beolvassuk a kiteritett kockarol a szineket
     $('#submit-cube-button').click(function (e) {
+        document.getElementById('solve-button').style.display = 'block';
         document.getElementById('submit-cube-button').style.display = 'none';
+        document.getElementById('color-picker').style.display = 'none';
+        document.getElementById('cube-rotation-buttons-container').style.display = 'block';
         document.getElementById('fill-to-solved-state').style.display = 'none';
         let tmpSide = [];
         let index = 0;
@@ -379,12 +382,35 @@ $('document').ready(function() {
         $('#state-four').addClass('active-state');
         cube.yellowCross();
         $(this).hide();
-        //$('#yellow-edges-button').show();
+        $('#yellow-edges-button').show();
+    });
+
+    $('#yellow-edges-button').click(function (e) {
+        $('#state-four').removeClass('active-state');
+        $('#state-five').addClass('active-state');
+        cube.yellowEdges();
+        $(this).hide();
+        $('#yellow-corners-button').show();
+    });
+
+    $('#yellow-corners-button').click(function (e) {
+        $('#state-five').removeClass('active-state');
+        $('#state-six').addClass('active-state');
+        cube.yellowCornerPosition();
+        $(this).hide();
+        $('#yellow-corners-rotation-button').show();
+    });
+
+    $('#yellow-corners-rotation-button').click(function (e) {
+        $('#state-six').removeClass('active-state');
+        $('#state-seven').addClass('active-state');
+        cube.yellowCornerRotation();
+        $(this).hide();
     });
 
     $('#mix-cube-button').click(function (e) {
         $('.state').removeClass('active-state');
-        cube.mixCube(8);
+        cube.mixCube(20);
         $('#solve-button').show();
         $('#white-corners-button').hide();
         $('#color-edges-button').hide();
