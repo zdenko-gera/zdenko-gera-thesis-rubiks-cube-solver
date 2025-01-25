@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title', '- 3x3 kocka')
 @section('content')
 <!-- <div id="app"></div> -->
 <div id="main-container">

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Rubik's cube solver</title>
+    <title>Rubik's cube solver @yield('title')</title>
     <!-- Fonts -->
 
     <!-- Styles -->
@@ -26,7 +26,13 @@
         @if (auth()->check() && auth()->user()->is_admin === 1)<a href={{ route('rubikEvents.create') }}>+Esemény</a> @endif
         <a href={{ route('rubikEvents.index') }}>Események</a>
         @auth <a href={{ route('personalRecords.mine') }}>Rekordjaim</a> @endauth
-        <a href={{ route('cubeInputs') }}>Kocka</a>
+            <div class="dropdown">
+                <button class="dropbtn">Kocka útmutató</button>
+                <div class="dropdown-content">
+                    <a href={{ route('twoByTwoCube') }}>2x2</a>
+                    <a href={{ route('classicCube') }}>3x3</a>
+                </div>
+            </div>
         @guest
             <a href={{ route('login') }}>Bejelentkezés</a>
             <a href={{ route('register') }}>Regisztráció</a>
@@ -46,7 +52,7 @@
 <div id="success-msg" class="msg-bubble bg-success"></div>
 
 <footer>
-
+    Gera Zdenkó szakdolgozati munkája | <a href="https://u-szeged.hu/" target="_blank">Szegedi Tudományegyetem</a> | 2025.
 </footer>
 
 </body>

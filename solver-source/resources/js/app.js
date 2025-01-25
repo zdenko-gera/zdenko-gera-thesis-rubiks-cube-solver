@@ -15,7 +15,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-/*document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
     // Alapvető Three.js beállítás
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -24,7 +24,7 @@ Alpine.start();
 
     // Méret beállítása
     renderer.setSize(800, 600);
-    renderer.domElement.style.width = '45rem';
+    renderer.domElement.style.width = '50rem';
     renderer.domElement.style.height = '27rem';
     renderer.setClearColor(0x000000, 0);
     renderer.shadowMap.enabled = true;
@@ -784,4 +784,4 @@ Alpine.start();
         controls.update();
     }
     animate();
-});*/
+}); */

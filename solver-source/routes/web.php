@@ -10,9 +10,13 @@ Route::get('/', function () {
     return view('index');
 })->name('landing');
 
-Route::get('/cubeInputs', function () {
-    return view('cubeInputs');
-})->name('cubeInputs');
+Route::get('/classicCube', function () {
+    return view('classicCube');
+})->name('classicCube');
+
+Route::get('/twoByTwoCube', function () {
+    return view('twoByTwoCube');
+})->name('twoByTwoCube');
 
 //events ***
 Route::get('/events', [RubikEventController::class, 'index'])->name('rubikEvents.index');

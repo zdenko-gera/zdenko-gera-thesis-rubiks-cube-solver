@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+    <main>
     <div id="event-show-container">
         <h2 class="subpage-title">{{ $rubikEvent->title }}</h2>
         <p>{{ $rubikEvent->description }}</p>
@@ -12,5 +13,5 @@
             <p><a href="{{$rubikEvent->url}}" target="_blank" class="btn btn-outline-info">Esemény weboldala</a></p>
         </div>
     </div>
-
+    </main>
 @endsection

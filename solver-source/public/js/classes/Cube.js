@@ -5,12 +5,6 @@ import {Sticker} from "./Sticker.js";
 import {Side} from "./Side.js";
 
 export class Cube {
-    whiteSide;
-    redSide;
-    greenSide;
-    orangeSide;
-    blueSide;
-    yellowSide;
     sides;
     rots;
 
@@ -125,27 +119,27 @@ export class Cube {
      */
     reRenderCube() {
         let redChildren = document.getElementById('red-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('red-side').children.length; i++) {
             redChildren[i].style.backgroundColor = this.redSide.stickers[i].color.toString();
         }
         let blueChildren = document.getElementById('blue-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('blue-side').children.length; i++) {
             blueChildren[i].style.backgroundColor = this.blueSide.stickers[i].color.toString();
         }
         let greenChildren = document.getElementById('green-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('green-side').children.length; i++) {
             greenChildren[i].style.backgroundColor = this.greenSide.stickers[i].color.toString();
         }
         let yellowChildren = document.getElementById('yellow-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('yellow-side').children.length; i++) {
             yellowChildren[i].style.backgroundColor = this.yellowSide.stickers[i].color.toString();
         }
         let whiteChildren = document.getElementById('white-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('white-side').children.length; i++) {
             whiteChildren[i].style.backgroundColor = this.whiteSide.stickers[i].color.toString();
         }
         let orangeChildren = document.getElementById('orange-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('orange-side').children.length; i++) {
             orangeChildren[i].style.backgroundColor = this.orangeSide.stickers[i].color.toString();
         }
     }
@@ -361,7 +355,7 @@ export class Cube {
      * @param sticker
      * @returns {Set<*>}
      */
-    getNeigboringColors(sticker) {
+    getNeighboringColors(sticker) {
         let stickerPosition = this.getStickerPosition(sticker);
         let neighboringStickers = new Set([]);
         let addNeighbors = false;
@@ -721,10 +715,6 @@ export class Cube {
         let movingWhiteIndices = [[1, 3, 7], [5, 1, 3], [7, 5, 1], [3, 7, 5]];
         let movingYellowIndices = [[1, 3, 5, 7], [3, 7, 1, 5], [7, 5, 3, 1], [5, 1, 7, 3]];
 
-        /*
-            Kellenek a szomszédságok
-
-         */
         let rotations = '';
 
         let phaseTitle = 'Fehér kereszt kirakása';
@@ -1045,7 +1035,7 @@ export class Cube {
             // ekkor már az alsó sorban lesz a megfigyelt sarokkocka, így annak pozícióját a felhelyezéshez előkészítjük
             pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', CORNER_CUBE, new Set([this.sides[i].getMiddleColor(), this.sides[(i + 1) % 4].getMiddleColor()])));
 
-            // két leetőség adódik, ez alapján válnak ketté z elvégzendő mozdulatok
+            // két leetőség adódik, ez alapján válnak ketté az elvégzendő mozdulatok
             // a fehér matrica (egyelőre mindegy melyik oldalon) a bal alsó sarokban van, vagy pedig a jobb alsóban
 
             //bal sarokban
@@ -1105,7 +1095,7 @@ export class Cube {
             //                  b) bármely színes oldalon (a szomszédja a sárgán van)
             //                  c) bármely színes oldalon (a szomszédja egy másik színesen van), beékelődve két szín közé
 
-console.log(i);
+            console.log(i);
             if (posOnSolved['side'].getMiddleColor() === pos['side'].getMiddleColor() && posOnSolved['index'] === pos['index']) console.log(i + '. siker (alapból jó helyen).');
             // c)
             if (posOnSolved['side'].getMiddleColor() !== pos['side'].getMiddleColor() && posOnSolved['index'] !== pos['index'] &&

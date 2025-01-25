@@ -3,6 +3,7 @@ import { Side } from './classes/Side.js';
 import { Cube } from './classes/Cube.js';
 import { CORNER_CUBE, MIDDLE_CUBE, EDGE_CUBE } from './constants.js';
 import { WHITE, RED, GREEN, ORANGE, BLUE, YELLOW } from './constants.js';
+import {TwoByTwoCube} from "./classes/TwoByTwoCube.js";
 
 let cube = null;
 export const solvedCube = new Cube(
@@ -127,27 +128,27 @@ $('document').ready(function() {
 
     $('#fill-to-solved-state').click(function (e) {
         let redChildren = document.getElementById('red-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('red-side').children.length; i++) {
             redChildren[i].style.backgroundColor = RED;
         }
         let blueChildren = document.getElementById('blue-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('blue-side').children.length; i++) {
             blueChildren[i].style.backgroundColor = BLUE;
         }
         let greenChildren = document.getElementById('green-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('green-side').children.length; i++) {
             greenChildren[i].style.backgroundColor = GREEN;
         }
         let yellowChildren = document.getElementById('yellow-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('yellow-side').children.length; i++) {
             yellowChildren[i].style.backgroundColor = YELLOW;
         }
         let whiteChildren = document.getElementById('white-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('white-side').children.length; i++) {
             whiteChildren[i].style.backgroundColor = WHITE;
         }
         let orangeChildren = document.getElementById('orange-side').children;
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < document.getElementById('orange-side').children.length; i++) {
             orangeChildren[i].style.backgroundColor = ORANGE;
         }
     });
@@ -299,59 +300,58 @@ $('document').ready(function() {
         if (!cube.isSolved()) {
             document.getElementById('submit-cube-button').style.display = 'inline-block';
         }
+    });
 
+    $('#right').click(function (e) {
+        cube.rotate(cube.blueSide, false, true);
+    });
 
-        $('#right').click(function (e) {
-            cube.rotate(cube.blueSide, false, true);
-        });
+    $('#right-backwards').click(function (e) {
+        cube.rotate(cube.blueSide, true, true);
+    });
 
-        $('#right-backwards').click(function (e) {
-            cube.rotate(cube.blueSide, true, true);
-        });
+    $('#left').click(function (e) {
+        cube.rotate(cube.greenSide, false, true);
+    });
 
-        $('#left').click(function (e) {
-            cube.rotate(cube.greenSide, false, true);
-        });
+    $('#left-backwards').click(function (e) {
+        cube.rotate(cube.greenSide, true, true);
+    });
 
-        $('#left-backwards').click(function (e) {
-            cube.rotate(cube.greenSide, true, true);
-        });
+    $('#front').click(function (e) {
+        cube.rotate(cube.redSide, false, true);
+    });
 
-        $('#front').click(function (e) {
-            cube.rotate(cube.redSide, false, true);
-        });
+    $('#front-backwards').click(function (e) {
+        cube.rotate(cube.redSide, true, true);
+    });
 
-        $('#front-backwards').click(function (e) {
-            cube.rotate(cube.redSide, true, true);
-        });
+    $('#back').click(function (e) {
+        cube.rotate(cube.orangeSide, false, true);
+    });
 
-        $('#back').click(function (e) {
-            cube.rotate(cube.orangeSide, false, true);
-        });
+    $('#back-backwards').click(function (e) {
+        cube.rotate(cube.orangeSide, true, true);
+    });
 
-        $('#back-backwards').click(function (e) {
-            cube.rotate(cube.orangeSide, true, true);
-        });
+    $('#down').click(function (e) {
+        cube.rotate(cube.yellowSide, false, true);
+    });
 
-        $('#down').click(function (e) {
-            cube.rotate(cube.yellowSide, false, true);
-        });
+    $('#down-backwards').click(function (e) {
+        cube.rotate(cube.yellowSide, true, true);
+    });
 
-        $('#down-backwards').click(function (e) {
-            cube.rotate(cube.yellowSide, true, true);
-        });
+    $('#up').click(function (e) {
+        cube.rotate(cube.whiteSide, false, true);
+    });
 
-        $('#up').click(function (e) {
-            cube.rotate(cube.whiteSide, false, true);
-        });
+    $('#up-backwards').click(function (e) {
+        cube.rotate(cube.whiteSide, true, true);
+    });
 
-        $('#up-backwards').click(function (e) {
-            cube.rotate(cube.whiteSide, true, true);
-        });
-
-        $('#check-cube').click(function (e) {
-            cube.isSolved();
-        });
+    $('#check-cube').click(function (e) {
+        cube.isSolved();
     });
 
     $('#solve-button').click(function (e) {
@@ -419,4 +419,80 @@ $('document').ready(function() {
     $('#validity-check-button').click(function (e) {
         console.log(cube.isSolvable());
     });
+
+
+    // *** TwoByTwo Cube functions ***
+    $('#submit-cube-button-tbt').click(function (e) {
+        // document.getElementById('solve-button').style.display = 'block';
+        document.getElementById('submit-cube-button-tbt').style.display = 'none';
+        document.getElementById('color-picker').style.display = 'none';
+        document.getElementById('cube-rotation-buttons-container').style.display = 'block';
+        document.getElementById('fill-to-solved-state').style.display = 'none';
+        let tmpSide = [];
+        let index = 0;
+
+        $('#white-side').children().each(function () {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+        });
+
+        let whiteSideObj = new Side(WHITE, tmpSide);
+        tmpSide = [];
+        index = 0;
+
+        $('#red-side').children().each(function () {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+        });
+        let redSideObj = new Side(RED, tmpSide);
+        tmpSide = [];
+        index = 0;
+
+        $('#green-side').children().each(function () {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+        });
+        let greenSideObj = new Side(GREEN, tmpSide);
+        tmpSide = [];
+        index = 0;
+
+        $('#orange-side').children().each(function () {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+        });
+        let orangeSideObj = new Side(ORANGE, tmpSide);
+        tmpSide = [];
+        index = 0;
+
+        $('#blue-side').children().each(function () {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+        });
+        let blueSideObj = new Side(BLUE, tmpSide);
+        tmpSide = [];
+        index = 0;
+
+        $('#yellow-side').children().each(function () {
+                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
+                index++;
+        });
+        let yellowSideObj = new Side(YELLOW, tmpSide);
+        tmpSide = [];
+        index = 0;
+
+        cube = new TwoByTwoCube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
+        /* if (!cube.isSolved()) {
+            document.getElementById('submit-cube-button-tbt').style.display = 'inline-block';
+        } */
+    });
+
+    $('#solve-pocket-button').click(function (e) {
+        $('#state-one').addClass('active-state');
+        cube.whiteSideStep();
+        // $(this).hide();
+        // $('#white-corners-button').show();
+    });
+
+
+    // *** TwoByTwo functions END ***
 });
