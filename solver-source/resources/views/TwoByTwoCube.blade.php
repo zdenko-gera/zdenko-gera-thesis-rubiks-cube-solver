@@ -98,7 +98,8 @@
         <div id="state-three" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga sarkok beforgatása">3</div>
     </div>
     <div id="steps-btn-container">
-        <button id="solve-pocket-button" class="btn btn-primary" title="Fehér oldal kirakása">START!<sup>1</sup></button>
+        <button id="solve-pocket-button" class="btn btn-primary" title="Fehér oldal kirakása">START<sup>1</sup></button>
+        <button id="yellow-corner-pocket-button" class="btn btn-primary" title="Sárga sarkok elhelyezése">TOVÁBB<sup>2</sup></button>
     </div>
     <div id="phase-title"></div>
     <div id="instructions"></div>

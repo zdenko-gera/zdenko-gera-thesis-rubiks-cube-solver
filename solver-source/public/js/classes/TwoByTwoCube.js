@@ -265,7 +265,7 @@ export class TwoByTwoCube {
     /**
      * First step of solving the cube. Solves the white side of the cube.
      */
-    whiteSideStep() {
+    whiteSidePocket() {
         let movingIndices = [[2, 0], [0, 1], [1, 3], [3, 2]];
         let movingWhiteIndices = [[1, 0, 2], [3, 1, 0], [2, 3, 1], [0, 2, 3]];
         let phaseTitle = 'Fehér oldal kirakása';
@@ -393,6 +393,67 @@ export class TwoByTwoCube {
             }
             console.log(i + 1 + '. oldal megvan');
         }
+    }
+
+    yellowCornerPositionPocket() {
+        // Lehetosegek: a) 3 helytelen van (ekkor úgy is lehet forgatni, hogy 2 legyen megfelelő helyen, de az algoritmust 1-helyes állással kell futtatni)
+        //              b) nincs helytelen
+        // a) pont utan mindig helyreall a sarkok elhelyezkedese (már ha jó helyen futtatjuk az algoritmust)
+
+        let cornersToCheck = [1, 0, 2, 3]
+        let rightStickerPos = 0;
+        let countOfRightStickers = 0;
+        let optimalRotation = 0;
+
+        while(countOfRightStickers !== 4) {
+            rightStickerPos = 0;
+            countOfRightStickers = 0;
+            for (let j = 0; j < 4; j++) {
+                for (let i = 0; i < 4; i++) {
+                    if ((this.yellowSide.stickers[cornersToCheck[i]].color === YELLOW && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
+                        (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[i % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
+                        (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[(i + 1) % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()))) {
+                        // sarokkocka megfelelő helyen van
+                        countOfRightStickers++;
+                        rightStickerPos = cornersToCheck[i];
+                    }
+                }
+                if (countOfRightStickers === 1 || countOfRightStickers === 4) {
+                    optimalRotation = j;
+                    break;
+                }
+                this.rotate(this.yellowSide, false);
+                countOfRightStickers = 0;
+            }
+
+            if (countOfRightStickers === 1) {
+                switch (rightStickerPos) {
+                    case 0:
+                        this.changeYellowCornersPocket(2);
+                        break;
+                    case 1:
+                        this.changeYellowCornersPocket(1);
+                        break;
+                    case 2:
+                        this.changeYellowCornersPocket(3);
+                        break;
+                    case 3:
+                        this.changeYellowCornersPocket(0);
+                        break;
+                }
+            }
+        }
+    }
+
+    changeYellowCornersPocket(sideIndex = 0) {
+        this.rotate(this.yellowSide, false);
+        this.rotate(this.sides[sideIndex % 4], false);
+        this.rotate(this.yellowSide, true);
+        this.rotate(this.sides[(sideIndex + 2) % 4], true);
+        this.rotate(this.yellowSide, false);
+        this.rotate(this.sides[sideIndex % 4], true);
+        this.rotate(this.yellowSide, true);
+        this.rotate(this.sides[(sideIndex + 2) % 4], false);
     }
 }
 

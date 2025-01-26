@@ -488,7 +488,15 @@ $('document').ready(function() {
 
     $('#solve-pocket-button').click(function (e) {
         $('#state-one').addClass('active-state');
-        cube.whiteSideStep();
+        cube.whiteSidePocket();
+        // $(this).hide();
+        // $('#white-corners-button').show();
+    });
+
+    $('#yellow-corner-pocket-button').click(function (e) {
+        $('#state-one').removeClass('active-state');
+        $('#state-two').addClass('active-state');
+        cube.yellowCornerPositionPocket();
         // $(this).hide();
         // $('#white-corners-button').show();
     });
