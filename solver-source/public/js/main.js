@@ -500,6 +500,13 @@ $('document').ready(function() {
         // $(this).hide();
         // $('#white-corners-button').show();
     });
+    $('#yellow-rotation-pocket-button').click(function (e) {
+        $('#state-two').removeClass('active-state');
+        $('#state-three').addClass('active-state');
+        cube.yellowCornerRotationPocket();
+        // $(this).hide();
+        // $('#white-corners-button').show();
+    });
 
 
     // *** TwoByTwo functions END ***

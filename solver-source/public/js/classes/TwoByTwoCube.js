@@ -49,6 +49,97 @@ export class TwoByTwoCube {
     }
 
     /**
+     * Returns if the cube is solved and validates the stickers.
+     *
+     * @returns {boolean} if cube is solved
+     */
+    isSolved() {
+        const validColors = [WHITE, RED, GREEN, ORANGE, BLUE, YELLOW];
+        let isValid = true;
+        let isSolved = true;
+
+        for (let i = 0; i < 4; i++) {
+            if (!validColors.includes(this.whiteSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.whiteSide.stickers[i].color !== this.whiteSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < 4; i++) {
+            if (!validColors.includes(this.redSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.redSide.stickers[i].color !== this.redSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < 4; i++) {
+            if (!validColors.includes(this.greenSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.greenSide.stickers[i].color !== this.greenSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < 4; i++) {
+            if (!validColors.includes(this.orangeSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.orangeSide.stickers[i].color !== this.orangeSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < 4; i++) {
+            if (!validColors.includes(this.blueSide.stickers[i].color)) {
+                isValid = false;
+
+            }
+            if (this.blueSide.stickers[i].color !== this.blueSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < 4; i++) {
+            if (!validColors.includes(this.yellowSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.yellowSide.stickers[i].color !== this.yellowSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        if (!isValid) {
+            document.getElementById('error-msg').style.display = "block";
+            document.getElementById('error-msg').innerText = 'Add meg minden kocka színét a kiválasztható színekkel!';
+            setTimeout(function () {
+                document.getElementById('error-msg').style.display = 'none'
+            }, 7000);
+            return false;
+        }
+
+        if (isSolved) {
+            document.getElementById('success-msg').style.display = "block";
+            document.getElementById('success-msg').innerText = 'A kocka ki van rakva!';
+            setTimeout(function () {
+                document.getElementById('success-msg').style.display = 'none'
+            }, 7000);
+            return true;
+        } else {
+            document.getElementById('error-msg').style.display = "block";
+            document.getElementById('error-msg').innerText = 'A kocka nincs kirakva!';
+            setTimeout(function () {
+                document.getElementById('error-msg').style.display = 'none'
+            }, 7000);
+            return false;
+        }
+    }
+
+    /**
      * Returns an array containing the location of the wanted sticker.
      *
      * @param stickerToFind sticker to be found
@@ -405,28 +496,30 @@ export class TwoByTwoCube {
         let countOfRightStickers = 0;
         let optimalRotation = 0;
 
+        let limit = 0;
+
         while(countOfRightStickers !== 4) {
+            limit++;
             rightStickerPos = 0;
             countOfRightStickers = 0;
-            for (let j = 0; j < 4; j++) {
-                for (let i = 0; i < 4; i++) {
-                    if ((this.yellowSide.stickers[cornersToCheck[i]].color === YELLOW && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
-                        (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[i % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
-                        (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[(i + 1) % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()))) {
-                        // sarokkocka megfelelő helyen van
-                        countOfRightStickers++;
-                        rightStickerPos = cornersToCheck[i];
-                    }
+            for (let i = 0; i < 4; i++) {
+                if ((this.yellowSide.stickers[cornersToCheck[i]].color === YELLOW && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
+                    (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[i % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
+                    (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[(i + 1) % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()))) {
+                    // sarokkocka megfelelő helyen van
+                    countOfRightStickers++;
+                    rightStickerPos = cornersToCheck[i];
                 }
-                if (countOfRightStickers === 1 || countOfRightStickers === 4) {
-                    optimalRotation = j;
-                    break;
-                }
-                this.rotate(this.yellowSide, false);
-                countOfRightStickers = 0;
+
             }
 
-            if (countOfRightStickers === 1) {
+            console.log('countOfRightStickers: ' + countOfRightStickers);
+
+            if (limit > 15) break;
+
+            if (countOfRightStickers === 0 || countOfRightStickers === 2 || countOfRightStickers === 3) {
+                this.rotate(this.yellowSide, false);
+            } else if (countOfRightStickers === 1) {
                 switch (rightStickerPos) {
                     case 0:
                         this.changeYellowCornersPocket(2);
@@ -445,6 +538,32 @@ export class TwoByTwoCube {
         }
     }
 
+    yellowCornerRotationPocket() {
+        let cornersToCheck = [1, 0, 2, 3]
+        let moveThisSide = 0;
+        let entryIndex = -1;
+
+        for (let i = 0; i < 4; i++) {
+            if (this.yellowSide.stickers[cornersToCheck[i]].color !== YELLOW) {
+                entryIndex = i;
+                break;
+            }
+        }
+
+        if (entryIndex >= 0) {
+            // sarokkocka nincs megfeleloen beofrgatva
+            while (!this.isYellowSideSolvedPocket()) {
+                this.rotateYellowCornersPocket(entryIndex);
+                if (this.yellowSide.stickers[cornersToCheck[entryIndex]].color === YELLOW) {
+                    this.rotate(this.yellowSide, false);
+                }
+
+            }
+        }
+
+        this.yellowToSolve();
+    }
+
     changeYellowCornersPocket(sideIndex = 0) {
         this.rotate(this.yellowSide, false);
         this.rotate(this.sides[sideIndex % 4], false);
@@ -454,6 +573,28 @@ export class TwoByTwoCube {
         this.rotate(this.sides[sideIndex % 4], true);
         this.rotate(this.yellowSide, true);
         this.rotate(this.sides[(sideIndex + 2) % 4], false);
+    }
+
+    rotateYellowCornersPocket(sideIndex) {
+        this.rotate(this.sides[sideIndex % 4], false);
+        this.rotate(this.whiteSide, false);
+        this.rotate(this.sides[sideIndex % 4], true);
+        this.rotate(this.whiteSide, true);
+    }
+
+    isYellowSideSolvedPocket() {
+        for (let i = 0; i < 4; i++) {
+            if (this.yellowSide.stickers[i].color !== this.yellowSide.getMiddleColor()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    yellowToSolve() {
+        while (!this.isSolved()) {
+            this.rotate(this.yellowSide, false);
+        }
     }
 }
 

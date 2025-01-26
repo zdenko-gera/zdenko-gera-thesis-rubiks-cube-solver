@@ -1408,8 +1408,8 @@ export class Cube {
         }
 
         if (entryIndex >= 0) {
-                // sarokkocka nincs megfeleloen beofrgatva
-                while (this.yellowSide.stickers[cornersToCheck[entryIndex]].color !== YELLOW) {
+            // sarokkocka nincs megfeleloen beofrgatva
+            while (!this.isYellowSideSolved()) {
                     console.log(this.yellowSide.stickers[cornersToCheck[entryIndex]].color);
                     this.rotateYellowCorners(entryIndex + 1);
                     console.log('alg fut.')
@@ -1417,14 +1417,12 @@ export class Cube {
                         this.rotate(this.yellowSide, false);
                         console.log('sargat forgatta.')
                     }
-                }
+
+            }
         }
         console.log('yellowCornerRotation() ended.');
 
-        if (!this.isSolved()) {
-            this.rotate(this.yellowSide, true);
-            this.rotate(this.yellowSide, true);
-        }
+        this.yellowToSolve();
     }
 
     changeYellowEdges(actualSideIndex, param) {
@@ -1451,10 +1449,24 @@ export class Cube {
 
     rotateYellowCorners(sideIndex) {
         this.rotate(this.sides[sideIndex % 4], true);
-        console.log('forgatott: ' + this.sides[sideIndex % 4].getMiddleColor());
         this.rotate(this.whiteSide, false);
         this.rotate(this.sides[sideIndex % 4], false);
         this.rotate(this.whiteSide, true);
+    }
+
+    isYellowSideSolved() {
+        for (let i = 0; i < 9; i++) {
+            if (this.yellowSide.stickers[i].color !== this.yellowSide.getMiddleColor()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    yellowToSolve() {
+        while (!this.isSolved()) {
+            this.rotate(this.yellowSide, false);
+        }
     }
 
     /*
