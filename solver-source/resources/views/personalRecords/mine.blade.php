@@ -6,8 +6,8 @@
         </div>
     @endif
     <main>
-        <h2>Rekordjaim</h2>
-        <a href={{ route('personalRecords.create') }}>Új rekord hozzáadása</a>
+        <h2>{{ __('messages.records') }}</h2>
+        <a href={{ route('personalRecords.create') }}>{{ __('messages.addRecord') }}</a>
         @if (count($personalRecords) > 0)
         @foreach($personalRecords as $record)
             <div class="py-12">
@@ -17,34 +17,34 @@
                 {{ $record->sec }}mp
                 {{ $record->msec }}ms -
                 {{ $record->created_at }}
-                <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Törlés</a>
+                <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ __('messages.delete') }}</a>
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="modal-content bg-dark">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Biztosan törölni szeretnéd a rekordot?</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ __('messages.confirmDelete') }}</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="modal-flex-body">
                                 <form action="{{ route('personalRecords.destroy', $record->id) }}" method="POST">
                                     @csrf
-                                    <input type="submit" class="btn btn-success" value="Megerősítem">
+                                    <input type="submit" class="btn btn-success" value="{{ __('messages.confirm') }}">
                                 </form>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Mégse</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
         @else
-            <p>Még nincs mentett rekordod!</p>
-            <a href={{ route('personalRecords.create') }}>Töltsd fel rekordod most!</a>
+            <p>{{ __('messages.noRecord') }}</p>
+            <a href={{ route('personalRecords.create') }}>{{ __('messages.addRecord') }}</a>
         @endif
     </main>
 @endsection

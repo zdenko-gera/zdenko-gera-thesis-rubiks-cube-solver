@@ -23,24 +23,24 @@
 <header>
     <h3 id="header-title"><a href="/">Rubik's cube solver</a></h3>
     <div>
-        @if (auth()->check() && auth()->user()->is_admin === 1)<a href={{ route('rubikEvents.create') }}>+Esemény</a> @endif
-        <a href={{ route('rubikEvents.index') }}>Események</a>
-        @auth <a href={{ route('personalRecords.mine') }}>Rekordjaim</a> @endauth
+        @if (auth()->check() && auth()->user()->is_admin === 1)<a href={{ route('rubikEvents.create') }}>+{{ __('messages.event') }}</a> @endif
+        <a href={{ route('rubikEvents.index') }}>{{ __('messages.events') }}</a>
+        @auth <a href={{ route('personalRecords.mine') }}>{{ __('messages.records') }}</a> @endauth
             <div class="dropdown">
-                <button class="dropbtn">Kocka útmutató</button>
+                <button class="dropbtn">{{ __('messages.cubeGuide') }}</button>
                 <div class="dropdown-content">
                     <a href={{ route('twoByTwoCube') }}>2x2</a>
                     <a href={{ route('classicCube') }}>3x3</a>
                 </div>
             </div>
         @guest
-            <a href={{ route('login') }}>Bejelentkezés</a>
-            <a href={{ route('register') }}>Regisztráció</a>
+            <a href={{ route('login') }}>{{ __('messages.login') }}</a>
+            <a href={{ route('register') }}>{{ __('messages.signup') }}</a>
         @endguest
         @auth
             <form method="POST" action="{{ route('logout') }}" id="logout-form">
                 @csrf
-                <button type="submit" class="btn btn-outline-danger">Kijelentkezés</button>
+                <button type="submit" class="btn btn-outline-danger">{{ __('messages.logout') }}</button>
             </form>
         @endauth
     </div>
@@ -51,8 +51,15 @@
 <div id="error-msg" class="msg-bubble bg-danger"></div>
 <div id="success-msg" class="msg-bubble bg-success"></div>
 
+@if(session('language_switched'))
+    <div id="info-msg" class="msg-bubble bg-info block">{{ __('messages.languageSwitched') }}{{ session('language_switched') === 'hu' ? __('messages.hungarian') : (session('language_switched') === 'en' ? __('messages.english') : '') }}</div>
+@endif
+
 <footer>
-    Gera Zdenkó szakdolgozati munkája | <a href="https://u-szeged.hu/" target="_blank">Szegedi Tudományegyetem</a> | 2025.
+    <div id="language-switch">
+        @include('components.language-switch')
+    </div>
+    {{ __('messages.thesisWork') }} | <a href="https://u-szeged.hu/" target="_blank">{{ __('messages.szte') }}</a> | 2025.
 </footer>
 
 </body>

@@ -6,7 +6,7 @@
         </div>
     @endif
     <main>
-    <h2 class="subpage-title">Események</h2>
+    <h2 class="subpage-title">{{ __('messages.events') }}</h2>
 
     @foreach($rubikEvents as $event)
         <a href="{{ route('rubikEvents.view', $event->id) }}" class="event-list-container">

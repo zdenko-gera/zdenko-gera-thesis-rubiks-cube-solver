@@ -8,6 +8,7 @@
     background-color: rgba(0, 0, 0, 0.2);
     align-items: flex-start;
     padding-inline: 5rem;
+    margin-bottom: 10rem;
 }
 
 .upload-form input, textarea {
@@ -20,4 +21,22 @@
 
 .upload-form label {
     margin-top: 1rem;
+}
+
+.auth-form {
+    background-color: rgba(150, 150, 150, 0.05);
+    box-shadow: 0 0 1rem rgba(10, 10, 10, 0.7);
+    border-radius: 0.2rem;
+    padding: 3rem;
+    width: 40dvw;
+    height: fit-content;
+    margin: 10rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-form div {
+    margin-block: .7rem;
 }

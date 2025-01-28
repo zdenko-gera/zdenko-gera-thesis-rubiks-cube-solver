@@ -80,27 +80,27 @@
         </div>
         <div id="cube-buttons-container">
             <button id="fill-to-solved-state" class="btn btn-outline-primary">TESZT KITÖLTÉS</button>
-            <button id="check-cube" class="btn btn-outline-success">Ellenőrzés</button>
-            <button id="submit-cube-button-tbt" class="btn btn-secondary">Kocka mentése</button>
-            <button id="mix-cube-button" class="btn btn-secondary">Keverés</button>
+            <button id="check-cube" class="btn btn-outline-success">{{ __('messages.check') }}</button>
+            <button id="submit-cube-button-tbt" class="btn btn-secondary">{{ __('messages.saveCube') }}</button>
+            <button id="mix-cube-button" class="btn btn-secondary">{{ __('messages.mixCube') }}</button>
             <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
         </div>
     </div>
     <div id="progress-bar-container">
-        <div id="state-one" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Fehér oldal">1</div>
+        <div id="state-one" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.whiteSide') }}">1</div>
         <div class="state-path"></div>
         <div class="state-path"></div>
         <div class="state-path"></div>
-        <div id="state-two" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga sarkok elhelyezése">2</div>
+        <div id="state-two" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.yellowCornersPosition') }}">2</div>
         <div class="state-path"></div>
         <div class="state-path"></div>
         <div class="state-path"></div>
-        <div id="state-three" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga sarkok beforgatása">3</div>
+        <div id="state-three" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.yellowCornersRotation') }}">3</div>
     </div>
     <div id="steps-btn-container">
         <button id="solve-pocket-button" class="btn btn-primary" title="Fehér oldal kirakása">START<sup>1</sup></button>
-        <button id="yellow-corner-pocket-button" class="btn btn-primary" title="Sárga sarkok elhelyezése">TOVÁBB<sup>2</sup></button>
-        <button id="yellow-rotation-pocket-button" class="btn btn-primary" title="Sárga sarkok beforgatása">TOVÁBB<sup>3</sup></button>
+        <button id="yellow-corner-pocket-button" class="btn btn-primary" title="Sárga sarkok elhelyezése">{{ __('messages.continue') }}<sup>2</sup></button>
+        <button id="yellow-rotation-pocket-button" class="btn btn-primary" title="Sárga sarkok beforgatása">{{ __('messages.continue') }}<sup>3</sup></button>
     </div>
     <div id="phase-title"></div>
     <div id="instructions"></div>

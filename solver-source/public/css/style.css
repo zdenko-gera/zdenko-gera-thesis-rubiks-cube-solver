@@ -453,7 +453,8 @@ body {
     position: absolute;
     background-color: rgba(50, 50, 50, 0.8);
     box-shadow: 0 0 1rem rgba(10, 10, 10, 0.7);
-    min-width: 160px;
+    min-width: fit-content;
+    width:6rem;
     z-index: 1;
 }
 
@@ -470,3 +471,8 @@ body {
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
+
+#language-select {
+    width: fit-content;
+    margin-inline: auto;
+}

@@ -4,7 +4,7 @@
 <!-- <div id="app"></div> -->
 <div id="main-container">
     <div id="color-picker">
-        <p>Színválasztó</p>
+        <p>{{ __('messages.colorPicker') }}</p>
         <div class="color-sample" id="white-color-picker"></div>
         <div class="color-sample" id="green-color-picker"></div>
         <div class="color-sample" id="red-color-picker"></div>
@@ -110,47 +110,47 @@
     </div>
     <div id="cube-buttons-container">
         <button id="fill-to-solved-state" class="btn btn-outline-primary">TESZT KITÖLTÉS</button>
-        <button id="check-cube" class="btn btn-outline-success">Ellenőrzés</button>
-        <button id="submit-cube-button" class="btn btn-secondary">Kocka mentése</button>
-        <button id="mix-cube-button" class="btn btn-secondary">Keverés</button>
+        <button id="check-cube" class="btn btn-outline-success">{{ __('messages.check') }}</button>
+        <button id="submit-cube-button" class="btn btn-secondary">{{ __('messages.saveCube') }}</button>
+        <button id="mix-cube-button" class="btn btn-secondary">{{ __('messages.mixCube') }}</button>
         <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
     </div>
 </div>
 <div id="progress-bar-container">
-    <div id="state-one" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Fehér kereszt">1</div>
+    <div id="state-one" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.whiteCross') }}">1</div>
     <div class="state-path"></div>
     <div class="state-path"></div>
     <div class="state-path"></div>
-    <div id="state-two" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Fehér sarkok">2</div>
+    <div id="state-two" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.whiteCorners') }}">2</div>
     <div class="state-path"></div>
     <div class="state-path"></div>
     <div class="state-path"></div>
-    <div id="state-three" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Színes élek">3</div>
+    <div id="state-three" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.coloredEdges') }}">3</div>
     <div class="state-path"></div>
     <div class="state-path"></div>
     <div class="state-path"></div>
-    <div id="state-four" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga kereszt">4</div>
+    <div id="state-four" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.yellowCross') }}">4</div>
     <div class="state-path"></div>
     <div class="state-path"></div>
     <div class="state-path"></div>
-    <div id="state-five" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga élek">5</div>
+    <div id="state-five" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.yellowEdges') }}">5</div>
     <div class="state-path"></div>
     <div class="state-path"></div>
     <div class="state-path"></div>
-    <div id="state-six" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga sarkok elhelyezése">6</div>
+    <div id="state-six" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.yellowCornersPosition') }}">6</div>
     <div class="state-path"></div>
     <div class="state-path"></div>
     <div class="state-path"></div>
-    <div  id="state-seven" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="Sárga sarkok beforgatása">7</div>
+    <div  id="state-seven" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.yellowCornersRotation') }}">7</div>
 </div>
 <div id="steps-btn-container">
     <button id="solve-button" class="btn btn-primary" title="Fehér kereszt kirakása">START!<sup>1</sup></button>
-    <button id="white-corners-button" class="btn btn-primary" title="Fehér sarkok elhelyezése">Tovább<sup>2</sup></button>
-    <button id="color-edges-button" class="btn btn-primary" title="Színes élek elhelyezése">Tovább<sup>3</sup></button>
-    <button id="yellow-cross-button" class="btn btn-primary" title="Sárga kereszt kirakása">Tovább<sup>4</sup></button>
-    <button id="yellow-edges-button" class="btn btn-primary" title="Sárga élek elhelyezése">Tovább<sup>5</sup></button>
-    <button id="yellow-corners-button" class="btn btn-primary" title="Sárga sarkok elhelyezése">Tovább<sup>6</sup></button>
-    <button id="yellow-corners-rotation-button" class="btn btn-primary" title="Sárga sarkok beforgatása">Tovább<sup>7</sup></button>
+    <button id="white-corners-button" class="btn btn-primary" title="Fehér sarkok elhelyezése">{{ __('messages.continue') }}<sup>2</sup></button>
+    <button id="color-edges-button" class="btn btn-primary" title="Színes élek elhelyezése">{{ __('messages.continue') }}<sup>3</sup></button>
+    <button id="yellow-cross-button" class="btn btn-primary" title="Sárga kereszt kirakása">{{ __('messages.continue') }}<sup>4</sup></button>
+    <button id="yellow-edges-button" class="btn btn-primary" title="Sárga élek elhelyezése">{{ __('messages.continue') }}<sup>5</sup></button>
+    <button id="yellow-corners-button" class="btn btn-primary" title="Sárga sarkok elhelyezése">{{ __('messages.continue') }}<sup>6</sup></button>
+    <button id="yellow-corners-rotation-button" class="btn btn-primary" title="Sárga sarkok beforgatása">{{ __('messages.continue') }}<sup>7</sup></button>
 </div>
 <div id="phase-title"></div>
 <div id="instructions"></div>

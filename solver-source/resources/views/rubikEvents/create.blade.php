@@ -16,37 +16,57 @@
                     <div>{{ $error }}</div>
             @endforeach
     @endif
-    <h2 class="subpage-title">Esemény létrehozása</h2>
+    <h2 class="subpage-title">{{ __('messages.createEvent') }}</h2>
     <form action="{{ route('rubikEvents.store') }}" method="post" class="upload-form">
         @csrf
-        <label for="title" class="form-label">Esemény megnevezése</label>
-        <input type="text" name="title" class="form-control bg-dark text-white" placeholder="pl. Országos Rubik kocka verseny">
-        <label for="description" class="form-label">Részletek</label>
-        <textarea name="description" class="form-control bg-dark text-white"></textarea>
-        <label for="price" class="form-label">Nevezési díj</label>
-        <input type="number" name="price" placeholder="pl. 5000" class="form-control bg-dark text-white">
-        <label for="award" class="form-label">Nyeremény</label>
-        <input type="text" name="award" placeholder="pl. MacBook Pro, 50000Ft" class="form-control bg-dark text-white">
-        <label for="email" class="form-label">Kapcsolattartó email-es elérhetősége</label>
-        <input type="email" name="email" placeholder="valaki@pelda.hu" class="form-control bg-dark text-white">
-        <label for="country" class="form-label">Ország</label>
-        <input type="text" name="country" placeholder="Magyarország" class="form-control bg-dark text-white">
-        <label for="postalCode" class="form-label">Irányítószám</label>
-        <input type="number" name="postalCode" placeholder="pl. 6725" class="form-control bg-dark text-white">
-        <label for="city" class="form-label">Város</label>
-        <input type="text" name="city" placeholder="pl. Szeged" class="form-control bg-dark text-white">
-        <label for="street" class="form-label">Utca</label>
-        <input type="text" name="street" placeholder="pl. Tisza Lajos krt." class="form-control bg-dark text-white">
-        <label for="houseNumber" class="form-label">Házszám</label>
-        <input type="text" name="houseNumber" placeholder="pl. 10" class="form-control bg-dark text-white">
-        <label for="fromDate" class="form-label">Kezdési dátum</label>
-        <input type="date" name="fromDate" class="form-control bg-dark text-white">
-        <label for="untilDate" aria-describedby="untilDateHelp" class="form-label">Befejező dátum</label>
-        <input type="date" name="untilDate" class="form-control bg-dark text-white">
-        <div id="untilDateHelp" class="form-text text-secondary">Ha a rendezvény egy napos, hagyd üresen ezt a mezőt.</div>
-        <label for="url" class="form-label">Esemény weboldalára vezető URL</label>
-        <input type="text" name="url" placeholder="pl. https://egylink.hu" class="form-control bg-dark text-white">
 
-        <button type="submit" class="btn btn-info">Feltöltés</button>
+        <label for="title" class="form-label">{{ __('messages.eventName') }}</label>
+        <input type="text" name="title" class="form-control" placeholder="{{ __('messages.eventNamePlaceholder') }}">
+
+        <label for="description" class="form-label">{{ __('messages.details') }}</label>
+        <textarea name="description" class="form-control" placeholder="{{ __('messages.detailsPlaceholder') }}"></textarea>
+
+        <label for="price" class="form-label">{{ __('messages.entryFee') }}</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">EUR</span>
+            </div>
+            <input type="number" name="price" placeholder="{{ __('messages.entryFeePlaceholder') }}" class="form-control">
+        </div>
+
+        <label for="award" class="form-label">{{ __('messages.award') }}</label>
+        <input type="text" name="award" placeholder="{{ __('messages.awardPlaceholder') }}" class="form-control">
+
+        <label for="email" class="form-label">{{ __('messages.contactEmail') }}</label>
+        <input type="email" name="email" placeholder="{{ __('messages.contactEmailPlaceholder') }}" class="form-control">
+
+        <label for="country" class="form-label">{{ __('messages.country') }}</label>
+        <input type="text" name="country" placeholder="{{ __('messages.countryPlaceholder') }}" class="form-control">
+
+        <label for="postalCode" class="form-label">{{ __('messages.postalCode') }}</label>
+        <input type="number" name="postalCode" placeholder="{{ __('messages.postalCodePlaceholder') }}" class="form-control">
+
+        <label for="city" class="form-label">{{ __('messages.city') }}</label>
+        <input type="text" name="city" placeholder="{{ __('messages.cityPlaceholder') }}" class="form-control">
+
+        <label for="street" class="form-label">{{ __('messages.street') }}</label>
+        <input type="text" name="street" placeholder="{{ __('messages.streetPlaceholder') }}" class="form-control">
+
+        <label for="houseNumber" class="form-label">{{ __('messages.houseNumber') }}</label>
+        <input type="text" name="houseNumber" placeholder="{{ __('messages.houseNumberPlaceholder') }}" class="form-control">
+
+        <label for="fromDate" class="form-label">{{ __('messages.startDate') }}</label>
+        <input type="date" name="fromDate" class="form-control">
+
+        <label for="untilDate" aria-describedby="untilDateHelp" class="form-label">{{ __('messages.endDate') }}</label>
+        <input type="date" name="untilDate" class="form-control">
+        <div id="untilDateHelp" class="form-text text-secondary">{{ __('messages.oneDayEvent') }}</div>
+
+        <label for="url" class="form-label">{{ __('messages.eventWebsiteUrl') }}</label>
+        <input type="text" name="url" placeholder="{{ __('messages.eventWebsiteUrlPlaceholder') }}" class="form-control">
+
+        <button type="submit" class="btn btn-info mt-5">{{ __('messages.upload') }}</button>
     </form>
+
+
 @endsection
