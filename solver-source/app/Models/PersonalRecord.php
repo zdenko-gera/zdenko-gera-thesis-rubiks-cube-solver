@@ -9,6 +9,10 @@ class PersonalRecord extends Model
 {
     use HasFactory;
 
+    protected $table = 'personal_records';
+
+    protected $primaryKey = 'id';
+
     protected $fillable = [
         'hour',
         'min',

@@ -519,3 +519,42 @@ body {
     width: fit-content;
     margin: 0.2rem auto 1rem auto;
 }
+
+#timer {
+    background-color: rgba(150, 150, 150, 0.05);
+    box-shadow: 0 0 1rem rgba(10, 10, 10, 0.7);
+    margin-top: 7rem;
+    padding-block: 3rem;
+}
+
+#timer p {
+    font-family: Monospace, sans-serif;
+    font-size: 8rem;
+    text-align: center;
+}
+
+.timer-buttons, #best-time-until-now {
+    width: fit-content;
+    margin-inline: auto;
+}
+
+#best-time-until-now {
+    font-size: medium;
+    margin-block: 3rem;
+    font-style: italic;
+}
+
+#sum-in-msec {
+    display: none;
+}
+
+.timer-add-record-form {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    margin: 0;
+    background-color: rgba(50, 50, 50, 0.5);
+    backdrop-filter: blur(20px);
+    border-radius: 0.2rem;
+
+}

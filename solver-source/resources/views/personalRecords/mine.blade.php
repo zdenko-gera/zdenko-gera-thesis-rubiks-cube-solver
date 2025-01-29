@@ -29,12 +29,12 @@
                     {{ $record->cubeType }}
                 </div>
                 <div>
-                    {{ $record->hour }}:{{ $record->min }}:{{ $record->sec }}.{{ $record->msec }}
+                    {{ $record->hour < 10 ? '0' . $record->hour : $record->hour }}:{{ $record->min < 10 ? '0' . $record->min : $record->min }}:{{ $record->sec < 10 ? '0' . $record->sec : $record->sec }}.{{ ($record->msec < 10 ? '00' . $record->msec : ($record->msec < 100 ? '0' . $record->msec : $record->msec)) }}
                 </div>
                 <div>
                     {{ substr($record->created_at,0 , 10) }}
                 </div>
-                <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ __('messages.delete') }}</a>
+                <a href="#" class="btn btn-sm btn-danger delete-pr-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ __('messages.delete') }}</a>
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

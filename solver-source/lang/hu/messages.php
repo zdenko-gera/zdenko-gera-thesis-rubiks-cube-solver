@@ -94,4 +94,7 @@ return [
     'eventSaved' => 'Az eseményt rögzítettük.',
     'welcome' => 'Bejelentkeztél, ',
     'goodbye' => 'Kijelentkeztél.',
+    'timer' => 'Stopper',
+    'bestUntilNow' => 'Eddigi legjobb',
+    'fasterThanEver' => 'Ez gyorsabb volt, mint az eddigi legjobbad. Szeretnéd menteni?',
 ];

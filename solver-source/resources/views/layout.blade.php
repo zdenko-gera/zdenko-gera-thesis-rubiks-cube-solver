@@ -33,6 +33,7 @@
                     <a href={{ route('classicCube') }}>3x3</a>
                 </div>
             </div>
+            <a href={{ route('timer') }}>{{ __('messages.timer') }}</a>
         @guest
             <a href={{ route('login') }}>{{ __('messages.login') }}</a>
             <a href={{ route('register') }}>{{ __('messages.signup') }}</a>
