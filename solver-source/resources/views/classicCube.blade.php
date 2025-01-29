@@ -2,6 +2,7 @@
 @section('title', '- 3x3 kocka')
 @section('content')
 <!-- <div id="app"></div> -->
+<main>
 <div id="main-container">
     <div id="color-picker">
         <p>{{ __('messages.colorPicker') }}</p>
@@ -166,4 +167,5 @@
     <p>(Vannak még hibák a kódban, ezért ha végtelen ciklusba esik, vagy nem sikerül elsőre kiraknia, meg kell próbálni újból.)</p>
 </div>
 <div id="three-container" style="width: 50vw; height: 50vh;"></div>
+</main>
 @endsection

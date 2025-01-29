@@ -49,7 +49,7 @@ class PersonalRecordController extends Controller
 
         $personalRecord->save();
 
-        return redirect()->route('personalRecords.mine')->with(['success' => 'Rekord sikeresen mentve.']);
+        return redirect()->route('personalRecords.mine')->with(['success' => __('messages.recordSaved')]);
     }
 
     /**
@@ -83,7 +83,7 @@ class PersonalRecordController extends Controller
     {
         $personalRecord = PersonalRecord::query()->where('id', $id)->where('email', auth()->user()->email)->delete();
 
-        return redirect()->route('personalRecords.mine')->with(['success' => 'Rekord törölve!']);
+        return redirect()->route('personalRecords.mine')->with(['success' => __('messages.recordDeleted')]);
     }
 
     /**

@@ -18,9 +18,16 @@ Alpine.start();
 /* document.addEventListener('DOMContentLoaded', () => {
     // Alapvető Three.js beállítás
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
     let controls;
+    const cubeGroup = new THREE.Group();
+    const whiteSide = new THREE.Group();
+    const blueSide = new THREE.Group();
+    const redSide = new THREE.Group();
+    const greenSide = new THREE.Group();
+    const orangeSide = new THREE.Group();
+    const yellowSide = new THREE.Group();
 
     // Méret beállítása
     renderer.setSize(800, 600);
@@ -40,11 +47,11 @@ Alpine.start();
     boxMesh.position.set(5, 0, 0);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     let stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     let stickerMaterial = new THREE.MeshPhongMaterial({
-        color: 0x00ff00,
+        color: 0x32a852,
         wireframe: false,
         metalness: 0.2,
         roughness: 1
@@ -53,7 +60,7 @@ Alpine.start();
     stickerMesh.position.set(7.5, 0, 0);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7, roughness: 1});
@@ -61,7 +68,7 @@ Alpine.start();
     boxMesh.position.set(0, 5, 0);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -70,7 +77,7 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7, roughness: 1});
@@ -78,16 +85,16 @@ Alpine.start();
     boxMesh.position.set(0, 0, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, 0, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7, roughness: 1});
@@ -95,16 +102,16 @@ Alpine.start();
     boxMesh.position.set(0, 0, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, 0, 7.5);
     stickerMesh.rotation.y = 1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7, roughness: 1});
@@ -112,15 +119,15 @@ Alpine.start();
     boxMesh.position.set(-5, 0, 0);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, 0, 0);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7, roughness: 1});
@@ -128,16 +135,16 @@ Alpine.start();
     boxMesh.position.set(0, -5, 0);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, -7.5, 0);
     stickerMesh.rotation.z = 1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     // *** kozepso kockak vege ***
 
@@ -148,15 +155,15 @@ Alpine.start();
     boxMesh.position.set(5, 5, 0);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x00ff00, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(7.5, 5, 0);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -165,7 +172,7 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // feher zold elkocka vege
 
     // feher narancs elkocka
@@ -175,16 +182,16 @@ Alpine.start();
     boxMesh.position.set(0, 5, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, 5, 7.55);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -193,7 +200,7 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // feher narancs elkocka vege
 
     // feher kek elkocka
@@ -203,15 +210,15 @@ Alpine.start();
     boxMesh.position.set(-5, 5, 0);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, 5, 0);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -220,7 +227,7 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // feher kek elkocka vege
 
     // feher piros elkocka
@@ -230,16 +237,16 @@ Alpine.start();
     boxMesh.position.set(0, 5, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, 5, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -248,7 +255,7 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // feher piros elkocka vege
 
     // citrom zold elkocka
@@ -258,24 +265,24 @@ Alpine.start();
     boxMesh.position.set(5, -5, 0);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x00ff00, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(7.5, -5, 0);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, -7.5, 0);
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // citrom zold elkocka vege
 
     // citrom narancs elkocka
@@ -285,25 +292,25 @@ Alpine.start();
     boxMesh.position.set(0, -5, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, -5, 7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, -7.5, 5);
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // citrom narancs elkocka vege
 
     // citrom kek elkocka
@@ -313,24 +320,24 @@ Alpine.start();
     boxMesh.position.set(-5, -5, 0);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, -5, 0);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, -7.5, 0);
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // citrom kek elkocka vege
 
     // citrom piros elkocka
@@ -340,25 +347,25 @@ Alpine.start();
     boxMesh.position.set(0, -5, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, -5, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(0, -7.5, -5);
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // citrom piros elkocka vege
 
 
@@ -370,15 +377,15 @@ Alpine.start();
     boxMesh.position.set(5, 5, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x00ff00, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(7.5, 5, -5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -387,16 +394,16 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, 5, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // feher zold piros sarokkocka vege
 
     // citrom zold narancs sarokkocka
@@ -406,33 +413,33 @@ Alpine.start();
     boxMesh.position.set(5, -5, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x00ff00, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(7.5, -5, -5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, -7.5, -5);
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, -5, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // citrom zold piros sarokkocka vege
 
     // feher zold narancs sarokkocka
@@ -442,15 +449,15 @@ Alpine.start();
     boxMesh.position.set(5, 5, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x00ff00, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(7.5, 5, 5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -459,16 +466,16 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, 5, 7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // feher zold narancs sarokkocka vege
 
     // citrom zold narancs sarokkocka
@@ -478,33 +485,33 @@ Alpine.start();
     boxMesh.position.set(5, -5, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x00ff00, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(7.5, -5, 5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, -7.5, 5);
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, -5, 7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // citrom zold narancs sarokkocka vege
 
     // feher kek narancs sarokkocka
@@ -514,15 +521,15 @@ Alpine.start();
     boxMesh.position.set(-5, 5, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, 5, 5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -531,16 +538,16 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, 5, 7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // feher kek narancs sarokkocka vege
 
     // citrom kek narancs sarokkocka
@@ -550,33 +557,33 @@ Alpine.start();
     boxMesh.position.set(-5, -5, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, -5, 5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, -7.5, 5);
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, -5, 7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // citrom kek narancs sarokkocka vege
 
     // feher kek piros sarokkocka
@@ -586,15 +593,15 @@ Alpine.start();
     boxMesh.position.set(-5, 5, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, 5, -5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
     stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false, metalness: 0.2, roughness: 1});
@@ -603,16 +610,16 @@ Alpine.start();
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, 5, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // feher kek piros sarokkocka vege
 
     // citrom kek piros sarokkocka
@@ -622,33 +629,33 @@ Alpine.start();
     boxMesh.position.set(-5, -5, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, -5, -5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff22, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, -7.5, -5);
     stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, -5, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // citrom kek piros sarokkocka vege
     // *** SAROKKOCKAK VEGE ***
 
@@ -659,24 +666,24 @@ Alpine.start();
     boxMesh.position.set(-5, 0, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, 0, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, 0, -5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // kek piros elkocka vege
 
     // kek narancs elkocka
@@ -686,24 +693,24 @@ Alpine.start();
     boxMesh.position.set(-5, 0, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-5, 0, 7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(-7.5, 0, 5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // kek narancs elkocka vege
 
     // zold narancs elkocka
@@ -713,24 +720,24 @@ Alpine.start();
     boxMesh.position.set(5, 0, 5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xef8822, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, 0, 7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x00ff00, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(7.5, 0, 5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
     // zold narancs elkocka vege
 
     // zold piros elkocka
@@ -740,29 +747,30 @@ Alpine.start();
     boxMesh.position.set(5, 0, -5);
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
-    scene.add(boxMesh);
+    cubeGroup.add(boxMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(5, 0, -7.5);
     stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
 
     stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x00ff00, wireframe: false, metalness: 0.2, roughness: 1});
+    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false, metalness: 0.2, roughness: 1});
     stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
     stickerMesh.position.set(7.5, 0, -5);
     stickerMesh.receiveShadow = true;
     stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
+    cubeGroup.add(stickerMesh);
+    scene.add(cubeGroup);
     // zold piros elkocka vege
 
 
     // Fények
-    let ambient = new THREE.AmbientLight(0x666666, Math.PI * 3);
+    let ambient = new THREE.AmbientLight(0x666666, Math.PI * 3.4);
     scene.add(ambient);
 
     let hLight = new THREE.HemisphereLight(0x343434, 0x000000, 80);
@@ -783,5 +791,6 @@ Alpine.start();
 
         controls.update();
     }
+
     animate();
 }); */

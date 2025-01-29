@@ -159,7 +159,7 @@ body {
     cursor: pointer;
 }
 
-#cube-container {
+#cube-container, #pocket-cube-container {
     display: flex;
     flex-direction: row;
     width: fit-content;
@@ -263,7 +263,6 @@ body {
 }
 
 .msg-bubble {
-    display: none;
     width: fit-content;
     height: fit-content;
     position: fixed;
@@ -312,7 +311,7 @@ body {
     display: none;
 }
 
-#solve-button, #white-corners-button, #color-edges-button, #yellow-cross-button, #yellow-edges-button, #yellow-corners-button, #yellow-corners-rotation-button {
+#solve-button, #white-corners-button, #color-edges-button, #yellow-cross-button, #yellow-edges-button, #yellow-corners-button, #yellow-corners-rotation-button, #solve-pocket-button, #yellow-corner-pocket-button, #yellow-rotation-pocket-button {
     display: none;
 }
 
@@ -475,4 +474,48 @@ body {
 #language-select {
     width: fit-content;
     margin-inline: auto;
+}
+
+.records-wrapper {
+    min-width: fit-content;
+    width: 60dvw;
+    margin: 6rem auto 0 auto;
+}
+
+.record {
+    padding: .5rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.record:hover {
+    background-color: rgba(150, 150, 150, 0.05);
+    box-shadow: 0 0 1rem rgba(10, 10, 10, 0.7);
+}
+
+.subpage-title, #add-record-btn {
+    text-align: center;
+    margin-inline: auto;
+    width: fit-content;
+    display: block;
+}
+
+#add-record-btn {
+    margin-bottom: 2rem;
+}
+
+#add-record-form {
+    display: none;
+    background-color: rgba(150, 150, 150, 0.05);
+    box-shadow: 0 0 1rem rgba(10, 10, 10, 0.7);
+    padding: 1rem;
+    width: 70%;
+    margin: .5rem auto 2rem auto;
+}
+
+#add-record-form div {
+    width: fit-content;
+    margin: 0.2rem auto 1rem auto;
 }

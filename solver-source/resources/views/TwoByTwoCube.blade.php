@@ -38,7 +38,7 @@
                 <button id="up-backwards" class="btn btn-outline-danger">U'</button>
             </div>
         </div>
-        <div id="cube-container">
+        <div id="pocket-cube-container">
             <div class="side alone-side" id="green-side">
                 <div class="sticker tbt-sticker"></div>
                 <div class="sticker tbt-sticker"></div>

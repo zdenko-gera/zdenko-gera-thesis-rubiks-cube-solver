@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('landing', absolute: false));
+        return redirect()->intended(route('landing', absolute: false))->with(['success' => __('messages.welcome') . auth()->user()->name . '!']);
     }
 
     /**
@@ -42,6 +42,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with(['success' => __('messages.goodbye')]);
     }
 }

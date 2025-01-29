@@ -423,6 +423,7 @@ $('document').ready(function() {
 
     // *** TwoByTwo Cube functions ***
     $('#submit-cube-button-tbt').click(function (e) {
+        $('#solve-pocket-button').show();
         // document.getElementById('solve-button').style.display = 'block';
         document.getElementById('submit-cube-button-tbt').style.display = 'none';
         document.getElementById('color-picker').style.display = 'none';
@@ -489,25 +490,32 @@ $('document').ready(function() {
     $('#solve-pocket-button').click(function (e) {
         $('#state-one').addClass('active-state');
         cube.whiteSidePocket();
-        // $(this).hide();
-        // $('#white-corners-button').show();
+        $(this).hide();
+        $('#yellow-corner-pocket-button').show();
     });
 
     $('#yellow-corner-pocket-button').click(function (e) {
         $('#state-one').removeClass('active-state');
         $('#state-two').addClass('active-state');
         cube.yellowCornerPositionPocket();
-        // $(this).hide();
-        // $('#white-corners-button').show();
+        $(this).hide();
+        $('#yellow-rotation-pocket-button').show();
     });
     $('#yellow-rotation-pocket-button').click(function (e) {
         $('#state-two').removeClass('active-state');
         $('#state-three').addClass('active-state');
         cube.yellowCornerRotationPocket();
-        // $(this).hide();
-        // $('#white-corners-button').show();
+        $(this).hide();
     });
 
 
     // *** TwoByTwo functions END ***
+
+    $('#add-record-btn').click(function (e) {
+        $('#add-record-form').toggle(200);
+    });
+
+    $('#info-msg').delay(5000).hide(200);
+    $('#error-msg').delay(5000).hide(200);
+    $('#success-msg').delay(5000).hide(200);
 });

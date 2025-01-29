@@ -54,7 +54,7 @@ class RubikEventController extends Controller
 
         $rubikEvent->save();
 
-        return view('index')->with(['success' => 'Esemény sikeresen mentve.']);
+        return view('index')->with(['success' => __('messages.eventSaved')]);
     }
 
     public function view(string $id)
