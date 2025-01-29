@@ -12,15 +12,10 @@
         </div>
         @endif
         <div class="timer-buttons">
-            <button class="btn btn-success" id="timer-start-btn">Start</button>
-            <button class="btn btn-outline-secondary" id="timer-pause-btn">Pause</button>
+            <button class="btn btn-success" id="timer-start-btn" title="Ctrl + Space"><i class="fa fa-play"></i> Start</button>
+            <button class="btn btn-outline-secondary" id="timer-pause-btn" title="Space"><i class="fa fa-pause"></i> Pause</button>
             <button class="btn btn-outline-danger" id="timer-reset-btn">Reset</button>
         </div>
-    </div>
-    <div>
-        <p><i class="fa fa-info-circle"></i></p>
-        <p>START - Ctrl + Space</p>
-        <p>PAUSE - Space</p>
     </div>
     <form action="{{ route('personalRecords.store') }}" method="post" id="add-record-form" class="timer-add-record-form">
         @csrf
