@@ -1,10 +1,5 @@
 @extends('layout')
 @section('content')
-    @if(session('success'))
-        <div>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
     <main>
     <h2 class="subpage-title">{{ __('messages.events') }}</h2>
 
