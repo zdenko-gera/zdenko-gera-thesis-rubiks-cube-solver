@@ -3,6 +3,10 @@
 @section('content')
 <!-- <div id="app"></div> -->
 <main>
+    <div id="dimension-selector-wrapper">
+        <div class="dim-option active-dim-option" id="2-dim">2D</div>
+        <div class="dim-option" id="3-dim">3D</div>
+    </div>
 <div id="main-container">
     <div id="color-picker">
         <p>{{ __('messages.colorPicker') }}</p>
@@ -115,6 +119,7 @@
         <button id="submit-cube-button" class="btn btn-secondary">{{ __('messages.saveCube') }}</button>
         <button id="mix-cube-button" class="btn btn-secondary">{{ __('messages.mixCube') }}</button>
         <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
+        <button id="reset-camera-button" class="btn btn-secondary">Reset camera</button>
     </div>
 </div>
 <div id="progress-bar-container">

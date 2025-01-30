@@ -214,23 +214,23 @@ export class Cube {
             document.getElementById('error-msg').innerText = 'Add meg minden kocka színét a kiválasztható színekkel!';
             setTimeout(function () {
                 document.getElementById('error-msg').style.display = 'none'
-            }, 7000);
+            }, 5000);
             return false;
         }
 
         if (isSolved) {
-            document.getElementById('success-msg').style.display = "block";
+            /*document.getElementById('success-msg').style.display = "block";
             document.getElementById('success-msg').innerText = 'A kocka ki van rakva!';
             setTimeout(function () {
                 document.getElementById('success-msg').style.display = 'none'
-            }, 7000);
+            }, 5000);*/
             return true;
         } else {
             document.getElementById('error-msg').style.display = "block";
             document.getElementById('error-msg').innerText = 'A kocka nincs kirakva!';
             setTimeout(function () {
                 document.getElementById('error-msg').style.display = 'none'
-            }, 7000);
+            }, 5000);
             return false;
         }
 

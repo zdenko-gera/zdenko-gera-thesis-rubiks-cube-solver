@@ -519,94 +519,115 @@ $('document').ready(function() {
     $('#error-msg').delay(5000).hide(200);
     $('#success-msg').delay(5000).hide(200);
 
-    let timerDisplay = document.getElementById('timer-display');
-    const startButton = document.getElementById("timer-start-btn");
-    const pauseButton = document.getElementById("timer-pause-btn");
-    const resetButton = document.getElementById("timer-reset-btn");
-    let elapsedTime = 0;
-    let startTime = 0;
-    let running = false;
-    let intervalId;
 
-    function formatTime(ms) {
-        let totalSeconds = Math.floor(ms / 1000);
-        let hours = Math.floor(totalSeconds / 3600);
-        let minutes = Math.floor((totalSeconds % 3600) / 60);
-        let seconds = totalSeconds % 60;
-        let milliseconds = ms % 1000;
 
-        return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}.${String(milliseconds).padStart(3, "0")}`;
-    }
 
-    function updateTimer() {
-        const currentTime = Date.now();
-        elapsedTime = currentTime - startTime;
-        timerDisplay.textContent = formatTime(elapsedTime);
-    }
+    if (location.pathname=="/timer") {
+        let timerDisplay = document.getElementById('timer-display');
+        const startButton = document.getElementById("timer-start-btn");
+        const pauseButton = document.getElementById("timer-pause-btn");
+        const resetButton = document.getElementById("timer-reset-btn");
+        let elapsedTime = 0;
+        let startTime = 0;
+        let running = false;
+        let intervalId;
 
-    startButton.addEventListener("click", () => {
-        if (!running) {
-            startTime = Date.now() - elapsedTime;
-            intervalId = setInterval(updateTimer, 10);
-            running = true;
+        function formatTime(ms) {
+            let totalSeconds = Math.floor(ms / 1000);
+            let hours = Math.floor(totalSeconds / 3600);
+            let minutes = Math.floor((totalSeconds % 3600) / 60);
+            let seconds = totalSeconds % 60;
+            let milliseconds = ms % 1000;
+
+            return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}.${String(milliseconds).padStart(3, "0")}`;
         }
-    });
 
-    document.addEventListener("keyup", function(event) {
-        if (event.ctrlKey && event.keyCode === 32) {
-            event.preventDefault();
+        function updateTimer() {
+            const currentTime = Date.now();
+            elapsedTime = currentTime - startTime;
+            timerDisplay.textContent = formatTime(elapsedTime);
+        }
+
+        startButton.addEventListener("click", () => {
             if (!running) {
                 startTime = Date.now() - elapsedTime;
-                intervalId = setInterval(updateTimer, 1);
+                intervalId = setInterval(updateTimer, 10);
                 running = true;
             }
-        }
-    });
+        });
 
-    document.addEventListener("keydown", function(event) {
-        if (event.keyCode === 32) {
-            event.preventDefault();
+        document.addEventListener("keyup", function (event) {
+            if (event.ctrlKey && event.keyCode === 32) {
+                event.preventDefault();
+                if (!running) {
+                    startTime = Date.now() - elapsedTime;
+                    intervalId = setInterval(updateTimer, 1);
+                    running = true;
+                }
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.keyCode === 32) {
+                event.preventDefault();
+                pauseTimer();
+            }
+        });
+
+        pauseButton.addEventListener("click", () => {
             pauseTimer();
-        }
-    });
+        });
 
-    pauseButton.addEventListener("click", () => {
-        pauseTimer();
-    });
-
-    resetButton.addEventListener("click", () => {
-        clearInterval(intervalId);
-        elapsedTime = 0;
-        running = false;
-        timerDisplay.textContent = "00:00:00.000";
-    });
-
-    function pauseTimer() {
-        if (running) {
+        resetButton.addEventListener("click", () => {
             clearInterval(intervalId);
+            elapsedTime = 0;
             running = false;
-        }
+            timerDisplay.textContent = "00:00:00.000";
+        });
 
-        if (document.getElementById('best-time-until-now') !== null) {
+        function pauseTimer() {
+            if (running) {
+                clearInterval(intervalId);
+                running = false;
+            }
 
-            let hour = parseInt(timerDisplay.innerText.substring(0, 2));
-            let minute = parseInt(timerDisplay.innerText.substring(3, 5));
-            let second = parseInt(timerDisplay.innerText.substring(6, 8));
-            let msecond = parseInt(timerDisplay.innerText.substring(9, 12));
-            let inMsec = hour * 3600000 + minute * 60000 + second * 1000 + msecond;
+            if (document.getElementById('best-time-until-now') !== null) {
 
-            if (inMsec < document.getElementById('sum-in-msec').innerText) {
-                $('#add-record-form').show();
-                $('#time-inputs').hide();
-                $("input[name=hour]").val(hour);
-                $("input[name=min]").val(minute);
-                $("input[name=sec]").val(second);
-                $("input[name=msec]").val(msecond);
+                let hour = parseInt(timerDisplay.innerText.substring(0, 2));
+                let minute = parseInt(timerDisplay.innerText.substring(3, 5));
+                let second = parseInt(timerDisplay.innerText.substring(6, 8));
+                let msecond = parseInt(timerDisplay.innerText.substring(9, 12));
+                let inMsec = hour * 3600000 + minute * 60000 + second * 1000 + msecond;
+
+                if (inMsec < document.getElementById('sum-in-msec').innerText) {
+                    $('#add-record-form').show();
+                    $('#time-inputs').hide();
+                    $("input[name=hour]").val(hour);
+                    $("input[name=min]").val(minute);
+                    $("input[name=sec]").val(second);
+                    $("input[name=msec]").val(msecond);
+                }
             }
         }
+
+        $('#cancel-record-save').click(function (e) {
+            $('#add-record-form').hide();
+        });
     }
 
-    $('#cancel-record-save').click(function (e) {
-        $('#add-record-form').hide();
+    $('#cube-container > canvas').hide();
+
+    $('#dimension-selector-wrapper').click(function (e) {
+        if ($('#2-dim').hasClass('active-dim-option')) {
+            $('#2-dim').removeClass('active-dim-option');
+            $('#3-dim').addClass('active-dim-option');
+            $('#cube-container > canvas').show();
+            $('#cube-container > div').hide();
+        } else {
+            $('#2-dim').addClass('active-dim-option');
+            $('#3-dim').removeClass('active-dim-option');
+            $('#cube-container > canvas').hide();
+            $('#cube-container > div').show();
+        }
     });
 });
