@@ -1,7 +1,11 @@
 @extends('layout')
 @section('title', '- 2x2 kocka')
 @section('content')
-    <!-- <div id="app"></div> -->
+<main>
+    <div id="dimension-selector-wrapper">
+        <button class="dim-option active-dim-option" id="2-dim">2D</button>
+        <button class="dim-option" id="3-dim">3D</button>
+    </div>
     <div id="main-container">
         <div id="color-picker">
             <p>Színválasztó</p>
@@ -38,7 +42,7 @@
                 <button id="up-backwards" class="btn btn-outline-danger">U'</button>
             </div>
         </div>
-        <div id="pocket-cube-container">
+        <div id="cube-container">
             <div class="side alone-side" id="green-side">
                 <div class="sticker tbt-sticker"></div>
                 <div class="sticker tbt-sticker"></div>
@@ -84,6 +88,7 @@
             <button id="submit-cube-button-tbt" class="btn btn-secondary">{{ __('messages.saveCube') }}</button>
             <button id="mix-cube-button" class="btn btn-secondary">{{ __('messages.mixCube') }}</button>
             <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
+            <button id="reset-camera-button" class="btn btn-secondary">Reset camera</button>
         </div>
     </div>
     <div id="progress-bar-container">
@@ -116,4 +121,5 @@
         <p>(Vannak még hibák a kódban, ezért ha végtelen ciklusba esik, vagy nem sikerül elsőre kiraknia, meg kell próbálni újból.)</p>
     </div>
     <div id="three-container" style="width: 50vw; height: 50vh;"></div>
+</main>
 @endsection

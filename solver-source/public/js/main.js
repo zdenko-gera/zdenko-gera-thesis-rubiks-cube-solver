@@ -409,56 +409,48 @@ $('document').ready(function() {
         document.getElementById('cube-rotation-buttons-container').style.display = 'block';
         document.getElementById('fill-to-solved-state').style.display = 'none';
         let tmpSide = [];
-        let index = 0;
 
-        $('#white-side').children().each(function () {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
-        });
-
+        let whiteSideHtml = document.getElementById('white-side');
+        for (let i = 0; i < whiteSideHtml.children.length; i++) {
+            tmpSide.push(new Sticker(whiteSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
+        }
         let whiteSideObj = new Side(WHITE, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#red-side').children().each(function () {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
-        });
+        let redSideHtml = document.getElementById('red-side');
+        for (let i = 0; i < redSideHtml.children.length; i++) {
+            tmpSide.push(new Sticker(redSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
+        }
         let redSideObj = new Side(RED, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#green-side').children().each(function () {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
-        });
+        let greenSideHtml = document.getElementById('green-side');
+        for (let i = 0; i < greenSideHtml.children.length; i++) {
+            tmpSide.push(new Sticker(greenSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
+        }
         let greenSideObj = new Side(GREEN, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#orange-side').children().each(function () {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
-        });
+        let orangeSideHtml = document.getElementById('orange-side');
+        for (let i = 0; i < orangeSideHtml.children.length; i++) {
+            tmpSide.push(new Sticker(orangeSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
+        }
         let orangeSideObj = new Side(ORANGE, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#blue-side').children().each(function () {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
-        });
+        let blueSideHtml = document.getElementById('blue-side');
+        for (let i = 0; i < blueSideHtml.children.length; i++) {
+            tmpSide.push(new Sticker(blueSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
+        }
         let blueSideObj = new Side(BLUE, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#yellow-side').children().each(function () {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
-        });
+        let yellowSideHtml = document.getElementById('yellow-side');
+        for (let i = 0; i < yellowSideHtml.children.length; i++) {
+            tmpSide.push(new Sticker(yellowSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
+        }
         let yellowSideObj = new Side(YELLOW, tmpSide);
-        tmpSide = [];
-        index = 0;
+
 
         cube = new TwoByTwoCube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
         /* if (!cube.isSolved()) {

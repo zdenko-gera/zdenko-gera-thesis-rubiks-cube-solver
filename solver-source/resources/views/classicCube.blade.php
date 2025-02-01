@@ -4,8 +4,8 @@
 <!-- <div id="app"></div> -->
 <main>
     <div id="dimension-selector-wrapper">
-        <div class="dim-option active-dim-option" id="2-dim">2D</div>
-        <div class="dim-option" id="3-dim">3D</div>
+        <button class="dim-option active-dim-option" id="2-dim">2D</button>
+        <button class="dim-option" id="3-dim">3D</button>
     </div>
 <div id="main-container">
     <div id="color-picker">
