@@ -23,6 +23,19 @@ document.addEventListener('DOMContentLoaded', () => {
     camera.position.set(0, 20, -25);
     const renderer = new THREE.WebGLRenderer();
     let controls;
+    let whiteSideStickers = [];
+    let redSideStickers = [];
+    let greenSideStickers = [];
+    let orangeSideStickers = [];
+    let blueSideStickers = [];
+    let yellowSideStickers = [];
+
+    const white = new THREE.Color(0xffffff);
+    const red = new THREE.Color(0xdb5856);
+    const green = new THREE.Color(0x32a852);
+    const orange = new THREE.Color(0xff9641);
+    const blue = new THREE.Color(0x3273ff);
+    const yellow = new THREE.Color(0xffff99);
 
     // Méret beállítása
     renderer.setSize(600, 600);
@@ -35,6 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
     //camera.lookAt(scene.position.x, scene.position.y, scene.position.z);
 
 // *** kozepso kockak start ***
+    let stickerGeometry;
+    let stickerMaterial;
+    let stickerMesh;
 
     let boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     let boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7});
@@ -44,16 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.castShadow = true;
     scene.add(boxMesh);
 
-    let stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    let stickerMaterial = new THREE.MeshPhongMaterial({
-        color: 0x32a852,
-        wireframe: false });
-    let stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, 0, 0);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7});
     boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
@@ -61,15 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false});
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, 7.5, 0);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
 
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7 });
@@ -79,15 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.castShadow = true;
     scene.add(boxMesh);
 
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, 0, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7 });
     boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
@@ -95,15 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, 0, 7.5);
-    stickerMesh.rotation.y = 1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
 
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7 });
@@ -113,14 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.castShadow = true;
     scene.add(boxMesh);
 
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, 0, 0);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
     boxGeometry = new THREE.BoxGeometry(5, 5, 5);
     boxMaterial = new THREE.MeshPhongMaterial({color: 0x343434, wireframe: false, shininess: 0.7 });
     boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
@@ -128,15 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, -7.5, 0);
-    stickerMesh.rotation.z = 1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
 
     // *** kozepso kockak vege ***
 
@@ -148,23 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, 5, 0);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, 7.5, 0);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // feher zold elkocka vege
 
     // feher narancs elkocka
@@ -175,24 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, 5, 7.55);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, 7.5, 5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // feher narancs elkocka vege
 
     // feher kek elkocka
@@ -203,23 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, 5, 0);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, 7.5, 0);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // feher kek elkocka vege
 
     // feher piros elkocka
@@ -230,24 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, 5, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, 7.5, -5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // feher piros elkocka vege
 
     // citrom zold elkocka
@@ -258,23 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, -5, 0);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, -7.5, 0);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // citrom zold elkocka vege
 
     // citrom narancs elkocka
@@ -285,24 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, -5, 7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, -7.5, 5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // citrom narancs elkocka vege
 
     // citrom kek elkocka
@@ -313,23 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, -5, 0);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, -7.5, 0);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // citrom kek elkocka vege
 
     // citrom piros elkocka
@@ -340,24 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, -5, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(0, -7.5, -5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // citrom piros elkocka vege
 
 
@@ -370,32 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, 5, -5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, 7.5, -5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, 5, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // feher zold piros sarokkocka vege
 
     // citrom zold narancs sarokkocka
@@ -406,32 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, -5, -5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, -7.5, -5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, -5, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // citrom zold piros sarokkocka vege
 
     // feher zold narancs sarokkocka
@@ -442,32 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, 5, 5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, 7.5, 5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, 5, 7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // feher zold narancs sarokkocka vege
 
     // citrom zold narancs sarokkocka
@@ -478,32 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, -5, 5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, -7.5, 5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, -5, 7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // citrom zold narancs sarokkocka vege
 
     // feher kek narancs sarokkocka
@@ -514,32 +232,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, 5, 5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, 7.5, 5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, 5, 7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // feher kek narancs sarokkocka vege
 
     // citrom kek narancs sarokkocka
@@ -550,32 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, -5, 5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, -7.5, 5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, -5, 7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // citrom kek narancs sarokkocka vege
 
     // feher kek piros sarokkocka
@@ -586,32 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, 5, -5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, 7.5, -5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, 5, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // feher kek piros sarokkocka vege
 
     // citrom kek piros sarokkocka
@@ -622,32 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, -5, -5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xffff99, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, -7.5, -5);
-    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, -5, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // citrom kek piros sarokkocka vege
     // *** SAROKKOCKAK VEGE ***
 
@@ -659,23 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, 0, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, 0, -5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // kek piros elkocka vege
 
     // kek narancs elkocka
@@ -686,23 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-5, 0, 7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x3273ff, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(-7.5, 0, 5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // kek narancs elkocka vege
 
     // zold narancs elkocka
@@ -713,23 +293,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xff9641, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, 0, 7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, 0, 5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // zold narancs elkocka vege
 
     // zold piros elkocka
@@ -740,23 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boxMesh.receiveShadow = true;
     boxMesh.castShadow = true;
     scene.add(boxMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0xdb5856, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(5, 0, -7.5);
-    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
-
-    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-    stickerMaterial = new THREE.MeshPhongMaterial({color: 0x32a852, wireframe: false });
-    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
-    stickerMesh.position.set(7.5, 0, -5);
-    stickerMesh.receiveShadow = true;
-    stickerMesh.castShadow = true;
-    scene.add(stickerMesh);
     // zold piros elkocka vege
 
 
@@ -775,6 +321,606 @@ document.addEventListener('DOMContentLoaded', () => {
     controls.rotateSpeed = 5.0;
     controls.panSpeed = 1.0;
 
+    // Matricák
+    // fehér matricák
+    // 0
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, 7.5, 5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+
+    // 1
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, 7.5, 5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+
+    // 2
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, 7.5, 5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+
+    // 3
+    let whiteStickerGeometry3 = new THREE.BoxGeometry(0.5, 4, 4);
+    let whiteStickerMaterial3 = new THREE.MeshPhongMaterial({color: white, wireframe: false });
+    stickerMesh = new THREE.Mesh(whiteStickerGeometry3, whiteStickerMaterial3);
+    stickerMesh.position.set(5, 7.5, 0);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+
+    // 4
+    let whiteStickerGeometry4 = new THREE.BoxGeometry(0.5, 4, 4);
+    let whiteStickerMaterial4 = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+    stickerMesh = new THREE.Mesh(whiteStickerGeometry4, whiteStickerMaterial4);
+    stickerMesh.position.set(0, 7.5, 0);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+
+    // 5
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, 7.5, 0);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+
+    // 6
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, 7.5, -5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+
+    // 7
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, 7.5, -5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+
+    //8
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, 7.5, -5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    whiteSideStickers.push(stickerMesh);
+    // fehér matricák vége
+
+    // piros matricák
+
+    // 0
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, 5, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // 1
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, 5, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // 2
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, 5, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // 3
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, 0, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // 4
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, 0, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // 5
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, 0, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // 6
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, -5, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // 7
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, -5, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // 8
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, -5, -7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    redSideStickers.push(stickerMesh);
+
+    // piros matricák vége
+
+    // zöld matricák
+
+    // 0
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, -5, 5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // 1
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, 0, 5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // 2
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, 5, 5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // 3
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, -5, 0);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // 4
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({
+        color: green,
+        wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, 0, 0);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // 5
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, 5, 0);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // 6
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, -5, -5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // 7
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, 0, -5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // 8
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(7.5, 5, -5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    greenSideStickers.push(stickerMesh);
+
+    // zöld matricák vége
+
+    // narancs matricák
+    // 0
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, -5, 7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // 1
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, -5, 7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // 2
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, -5, 7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // 3
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, 0, 7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // 4
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, 0, 7.5);
+    stickerMesh.rotation.y = 1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // 5
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, 0, 7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // 6
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, 5, 7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // 7
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, 5, 7.55);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // 8
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, 5, 7.5);
+    stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    orangeSideStickers.push(stickerMesh);
+
+    // narancs matricák vége
+
+    // citrom matricák
+
+    // 0
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, -7.5, -5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // 1
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, -7.5, -5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // 2
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, -7.5, -5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // 3
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, -7.5, 0);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // 4
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, -7.5, 0);
+    stickerMesh.rotation.z = 1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // 5
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, -7.5, 0);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // 6
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(5, -7.5, 5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // 7
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(0, -7.5, 5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // 8
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-5, -7.5, 5);
+    stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    yellowSideStickers.push(stickerMesh);
+
+    // citrom matricák vége
+
+    // kék matricák
+
+    // 0
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, 5, 5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // 1
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, 0, 5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // 2
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, -5, 5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // 3
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, 5, 0);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // 4
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, 0, 0);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // 5
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, -5, 0);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // 6
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, 5, -5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // 7
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, 0, -5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // 8
+    stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
+    stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false });
+    stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
+    stickerMesh.position.set(-7.5, -5, -5);
+    stickerMesh.receiveShadow = true;
+    stickerMesh.castShadow = true;
+    scene.add(stickerMesh);
+    blueSideStickers.push(stickerMesh);
+
+    // kék matricák vége
+
 
     const front = document.getElementById("front");
     const frontBackwards = document.getElementById("front-backwards");
@@ -789,6 +935,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bottom = document.getElementById("down");
     const bottomBackwards = document.getElementById("down-backwards");
     const resetCamera = document.getElementById("reset-camera-button");
+    const submitCubeButton = document.getElementById("submit-cube-button");
 
 
     let step = 0;
@@ -817,7 +964,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
-        console.log(sum);
+        // console.log(sum);
         for (let i = 0; i < selectedObjects.length; i++) {
             sideToRotate.add(selectedObjects[i]);
         }
@@ -843,7 +990,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectedObjects = [];
                 //scene.remove(sideToRotate);
                 rotating = false;
-                console.log('Children: ' + sideToRotate.children);
+                // console.log('Children: ' + sideToRotate.children);
                 //sideToRotate = null;
             }
         }
@@ -900,10 +1047,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     resetCamera.addEventListener("click", () => {
-        camera.position.set(0, 20, -25);
-        camera.quaternion.set(0, 0, 0, 1);
-        camera.lookAt(0,0,0);
         controls.reset();
+    });
+
+    submitCubeButton.addEventListener("click", () => {
+        let stickers = [ greenSideStickers, orangeSideStickers, whiteSideStickers, redSideStickers, yellowSideStickers, blueSideStickers];
+
+        let greenSideChildren = document.getElementById('green-side');
+        let orangeSideChildren = document.getElementById('orange-side');
+        let whiteSideChildren = document.getElementById('white-side');
+        let redSideChildren = document.getElementById('red-side');
+        let yellowSideChildren = document.getElementById('yellow-side');
+        let blueSideChildren = document.getElementById('blue-side');
+
+        let htmlSides = [greenSideChildren, orangeSideChildren, whiteSideChildren, redSideChildren, yellowSideChildren, blueSideChildren];
+
+        for (let i = 0; i < htmlSides.length; i++) {
+                for (let j = 0; j < 9; j++) {
+                    switch (htmlSides[i].children[j].style.backgroundColor) {
+                        case 'rgb(134, 213, 134)':
+                            stickers[i][j].material.color = green;
+                            break;
+                        case 'rgb(219, 88, 86)':
+                            stickers[i][j].material.color = red;
+                            break;
+                        case 'rgb(255, 150, 65)':
+                            stickers[i][j].material.color = orange;
+                            break;
+                        case 'rgb(50, 115, 255)':
+                            stickers[i][j].material.color = blue;
+                            break;
+                        case 'rgb(255, 255, 255)':
+                            stickers[i][j].material.color = white;
+                            break;
+                        case 'rgb(255, 255, 153)':
+                            stickers[i][j].material.color = yellow;
+                            break;
+                    }
+                }
+        }
+
     });
 
 

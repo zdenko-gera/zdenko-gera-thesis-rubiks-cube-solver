@@ -226,11 +226,11 @@ export class Cube {
             }, 5000);*/
             return true;
         } else {
-            document.getElementById('error-msg').style.display = "block";
+            /*document.getElementById('error-msg').style.display = "block";
             document.getElementById('error-msg').innerText = 'A kocka nincs kirakva!';
             setTimeout(function () {
                 document.getElementById('error-msg').style.display = 'none'
-            }, 5000);
+            }, 5000);*/
             return false;
         }
 

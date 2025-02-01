@@ -185,116 +185,95 @@ $('document').ready(function() {
         document.getElementById('cube-rotation-buttons-container').style.display = 'block';
         document.getElementById('fill-to-solved-state').style.display = 'none';
         let tmpSide = [];
-        let index = 0;
 
-        $('#white-side').children().each(function () {
-            if ([0, 2, 6, 8].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
+        let whiteSideHtml = document.getElementById('white-side');
+        for (let i = 0; i < whiteSideHtml.children.length; i++) {
+            if ([0, 2, 6, 8].includes(i)) {
+                tmpSide.push(new Sticker(whiteSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
             }
-            if ([1, 3, 5, 7].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
-                index++;
+            if ([1, 3, 5, 7].includes(i)) {
+                tmpSide.push(new Sticker(whiteSideHtml.children[i].style.backgroundColor, EDGE_CUBE));
             }
-            if (index === 4) {
-                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
-                index++;
+            if (i === 4) {
+                tmpSide.push(new Sticker(whiteSideHtml.children[i].style.backgroundColor, MIDDLE_CUBE));
             }
-        });
+        }
         let whiteSideObj = new Side(WHITE, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#red-side').children().each(function () {
-            if ([0, 2, 6, 8].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
+        let redSideHtml = document.getElementById('red-side');
+        for (let i = 0; i < redSideHtml.children.length; i++) {
+            if ([0, 2, 6, 8].includes(i)) {
+                tmpSide.push(new Sticker(redSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
             }
-            if ([1, 3, 5, 7].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
-                index++;
+            if ([1, 3, 5, 7].includes(i)) {
+                tmpSide.push(new Sticker(redSideHtml.children[i].style.backgroundColor, EDGE_CUBE));
             }
-            if (index === 4) {
-                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
-                index++;
+            if (i === 4) {
+                tmpSide.push(new Sticker(redSideHtml.children[i].style.backgroundColor, MIDDLE_CUBE));
             }
-        });
+        }
         let redSideObj = new Side(RED, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#green-side').children().each(function () {
-            if ([0, 2, 6, 8].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
+        let greenSideHtml = document.getElementById('green-side');
+        for (let i = 0; i < greenSideHtml.children.length; i++) {
+            if ([0, 2, 6, 8].includes(i)) {
+                tmpSide.push(new Sticker(greenSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
             }
-            if ([1, 3, 5, 7].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
-                index++;
+            if ([1, 3, 5, 7].includes(i)) {
+                tmpSide.push(new Sticker(greenSideHtml.children[i].style.backgroundColor, EDGE_CUBE));
             }
-            if (index === 4) {
-                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
-                index++;
+            if (i === 4) {
+                tmpSide.push(new Sticker(greenSideHtml.children[i].style.backgroundColor, MIDDLE_CUBE));
             }
-        });
+        }
         let greenSideObj = new Side(GREEN, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#orange-side').children().each(function () {
-            if ([0, 2, 6, 8].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
+        let orangeSideHtml = document.getElementById('orange-side');
+        for (let i = 0; i < orangeSideHtml.children.length; i++) {
+            if ([0, 2, 6, 8].includes(i)) {
+                tmpSide.push(new Sticker(orangeSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
             }
-            if ([1, 3, 5, 7].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
-                index++;
+            if ([1, 3, 5, 7].includes(i)) {
+                tmpSide.push(new Sticker(orangeSideHtml.children[i].style.backgroundColor, EDGE_CUBE));
             }
-            if (index === 4) {
-                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
-                index++;
+            if (i === 4) {
+                tmpSide.push(new Sticker(orangeSideHtml.children[i].style.backgroundColor, MIDDLE_CUBE));
             }
-        });
+        }
         let orangeSideObj = new Side(ORANGE, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#blue-side').children().each(function () {
-            if ([0, 2, 6, 8].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
+        let blueSideHtml = document.getElementById('blue-side');
+        for (let i = 0; i < blueSideHtml.children.length; i++) {
+            if ([0, 2, 6, 8].includes(i)) {
+                tmpSide.push(new Sticker(blueSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
             }
-            if ([1, 3, 5, 7].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
-                index++;
+            if ([1, 3, 5, 7].includes(i)) {
+                tmpSide.push(new Sticker(blueSideHtml.children[i].style.backgroundColor, EDGE_CUBE));
             }
-            if (index === 4) {
-                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
-                index++;
+            if (i === 4) {
+                tmpSide.push(new Sticker(blueSideHtml.children[i].style.backgroundColor, MIDDLE_CUBE));
             }
-        });
+        }
         let blueSideObj = new Side(BLUE, tmpSide);
         tmpSide = [];
-        index = 0;
 
-        $('#yellow-side').children().each(function () {
-            if ([0, 2, 6, 8].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), CORNER_CUBE));
-                index++;
+        let yellowSideHtml = document.getElementById('yellow-side');
+        for (let i = 0; i < yellowSideHtml.children.length; i++) {
+            if ([0, 2, 6, 8].includes(i)) {
+                tmpSide.push(new Sticker(yellowSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
             }
-            if ([1, 3, 5, 7].includes(index)) {
-                tmpSide.push(new Sticker($(this).css('background-color'), EDGE_CUBE));
-                index++;
+            if ([1, 3, 5, 7].includes(i)) {
+                tmpSide.push(new Sticker(yellowSideHtml.children[i].style.backgroundColor, EDGE_CUBE));
             }
-            if (index === 4) {
-                tmpSide.push(new Sticker($(this).css('background-color'), MIDDLE_CUBE));
-                index++;
+            if (i === 4) {
+                tmpSide.push(new Sticker(yellowSideHtml.children[i].style.backgroundColor, MIDDLE_CUBE));
             }
-        });
+        }
         let yellowSideObj = new Side(YELLOW, tmpSide);
-        tmpSide = [];
-        index = 0;
-
 
         cube = new Cube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
         if (!cube.isSolved()) {
