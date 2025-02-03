@@ -158,9 +158,11 @@
     <button id="yellow-corners-button" class="btn btn-primary" title="Sárga sarkok elhelyezése">{{ __('messages.continue') }}<sup>6</sup></button>
     <button id="yellow-corners-rotation-button" class="btn btn-primary" title="Sárga sarkok beforgatása">{{ __('messages.continue') }}<sup>7</sup></button>
 </div>
-<div id="phase-title"></div>
-<div id="instructions"></div>
-<a id="popup" class="btn btn-outline-info">Használati útmutató</a>
+<div id="instructions-bubble">
+    <div id="phase-title"></div>
+    <div id="instructions"></div>
+</div>
+    <a id="popup" class="btn btn-outline-info">Használati útmutató</a>
 <div id="usage-info-modal">
     <h3><i class="fa fa-info-circle"></i>  Használati útmutató</h3>
     <ol>

@@ -137,7 +137,7 @@ body {
     border: 0.1rem solid black;
     margin: 0;
     background-color: #222;
-    border-radius: 0.3rem;
+    border-radius: 0.2rem;
 }
 
 .sticker {
@@ -293,22 +293,26 @@ body {
     min-width: 100%;
 }
 
-#phase-title {
-    width: fit-content;
-    margin-inline: auto;
-    display: none;
-}
-
-#instructions {
-    background-color: #565656;
-    border: 1px solid #999;
+#instructions-bubble {
+    background-color: rgba(14, 186, 197, 0.3);
+    box-shadow: 0 0 1rem rgba(10, 10, 10, 0.7);
+    border-radius: 0.2rem;
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
     font-size: x-large;
     width: fit-content;
     height: fit-content;
-    padding: 0.5rem;
+    padding: 0.8rem 2rem;
     margin-inline: auto;
     font-weight: bold;
     display: none;
+    color: whitesmoke;
+}
+
+#phase-title {
+    color: whitesmoke;
+    font-size: small;
 }
 
 #solve-button, #white-corners-button, #color-edges-button, #yellow-cross-button, #yellow-edges-button, #yellow-corners-button, #yellow-corners-rotation-button, #solve-pocket-button, #yellow-corner-pocket-button, #yellow-rotation-pocket-button {
@@ -581,5 +585,13 @@ body {
     color: black;
     font-weight: bold;
     border-radius: 0.2rem;
+}
+
+progress {
+    width: 100%;
+}
+
+#success-msg, #error-msg {
+    display: none;
 }
 

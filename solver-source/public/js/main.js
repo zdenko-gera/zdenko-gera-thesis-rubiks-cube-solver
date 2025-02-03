@@ -399,7 +399,6 @@ $('document').ready(function() {
         console.log(cube.isSolvable());
     });
 
-
     // *** TwoByTwo Cube functions ***
     $('#submit-cube-button-tbt').click(function (e) {
         $('#solve-pocket-button').show();
@@ -450,7 +449,6 @@ $('document').ready(function() {
             tmpSide.push(new Sticker(yellowSideHtml.children[i].style.backgroundColor, CORNER_CUBE));
         }
         let yellowSideObj = new Side(YELLOW, tmpSide);
-
 
         cube = new TwoByTwoCube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
         /* if (!cube.isSolved()) {
@@ -585,8 +583,6 @@ $('document').ready(function() {
             $('#add-record-form').hide();
         });
     }
-
-    $('#cube-container > canvas').hide();
 
     $('#dimension-selector-wrapper').click(function (e) {
         if ($('#2-dim').hasClass('active-dim-option')) {

@@ -28,6 +28,7 @@ const green = new THREE.Color(0x32a852);
 const orange = new THREE.Color(0xff9641);
 const blue = new THREE.Color(0x3273ff);
 const yellow = new THREE.Color(0xffff99);
+const grey = new THREE.Color(0xaaaaaa);
 
 if (location.pathname == '/classicCube') {
     document.addEventListener('DOMContentLoaded', () => {
@@ -325,7 +326,7 @@ if (location.pathname == '/classicCube') {
         // fehér matricák
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, 7.5, 5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -336,7 +337,7 @@ if (location.pathname == '/classicCube') {
 
         // 1
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, 7.5, 5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -347,7 +348,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 7.5, 5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -358,7 +359,7 @@ if (location.pathname == '/classicCube') {
 
         // 3
         let whiteStickerGeometry3 = new THREE.BoxGeometry(0.5, 4, 4);
-        let whiteStickerMaterial3 = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        let whiteStickerMaterial3 = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(whiteStickerGeometry3, whiteStickerMaterial3);
         stickerMesh.position.set(5, 7.5, 0);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -369,7 +370,7 @@ if (location.pathname == '/classicCube') {
 
         // 4
         let whiteStickerGeometry4 = new THREE.BoxGeometry(0.5, 4, 4);
-        let whiteStickerMaterial4 = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        let whiteStickerMaterial4 = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(whiteStickerGeometry4, whiteStickerMaterial4);
         stickerMesh.position.set(0, 7.5, 0);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -380,7 +381,7 @@ if (location.pathname == '/classicCube') {
 
         // 5
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 7.5, 0);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -391,7 +392,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, 7.5, -5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -402,7 +403,7 @@ if (location.pathname == '/classicCube') {
 
         // 7
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, 7.5, -5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -413,7 +414,7 @@ if (location.pathname == '/classicCube') {
 
         //8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 7.5, -5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -427,7 +428,7 @@ if (location.pathname == '/classicCube') {
 
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, 5, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -438,7 +439,7 @@ if (location.pathname == '/classicCube') {
 
         // 1
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, 5, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -449,7 +450,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 5, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -460,7 +461,7 @@ if (location.pathname == '/classicCube') {
 
         // 3
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, 0, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -471,7 +472,7 @@ if (location.pathname == '/classicCube') {
 
         // 4
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, 0, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -482,7 +483,7 @@ if (location.pathname == '/classicCube') {
 
         // 5
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 0, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -493,7 +494,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, -5, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -504,7 +505,7 @@ if (location.pathname == '/classicCube') {
 
         // 7
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, -5, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -515,7 +516,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, -5, -7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -530,7 +531,7 @@ if (location.pathname == '/classicCube') {
 
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(7.5, -5, 5);
         stickerMesh.receiveShadow = true;
@@ -540,7 +541,7 @@ if (location.pathname == '/classicCube') {
 
         // 1
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(7.5, 0, 5);
         stickerMesh.receiveShadow = true;
@@ -550,7 +551,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(7.5, 5, 5);
         stickerMesh.receiveShadow = true;
@@ -560,7 +561,7 @@ if (location.pathname == '/classicCube') {
 
         // 3
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(7.5, -5, 0);
         stickerMesh.receiveShadow = true;
@@ -571,7 +572,7 @@ if (location.pathname == '/classicCube') {
         // 4
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
         stickerMaterial = new THREE.MeshPhongMaterial({
-            color: green,
+            color: grey,
             wireframe: false
         });
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
@@ -583,7 +584,7 @@ if (location.pathname == '/classicCube') {
 
         // 5
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(7.5, 5, 0);
         stickerMesh.receiveShadow = true;
@@ -593,7 +594,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(7.5, -5, -5);
         stickerMesh.receiveShadow = true;
@@ -603,7 +604,7 @@ if (location.pathname == '/classicCube') {
 
         // 7
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(7.5, 0, -5);
         stickerMesh.receiveShadow = true;
@@ -613,7 +614,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(7.5, 5, -5);
         stickerMesh.receiveShadow = true;
@@ -626,7 +627,7 @@ if (location.pathname == '/classicCube') {
         // narancs matricák
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, -5, 7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -637,7 +638,7 @@ if (location.pathname == '/classicCube') {
 
         // 1
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, -5, 7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -648,7 +649,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, -5, 7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -659,7 +660,7 @@ if (location.pathname == '/classicCube') {
 
         // 3
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, 0, 7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -670,7 +671,7 @@ if (location.pathname == '/classicCube') {
 
         // 4
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, 0, 7.5);
         stickerMesh.rotation.y = 1.0 * THREE.MathUtils.degToRad(90);
@@ -681,7 +682,7 @@ if (location.pathname == '/classicCube') {
 
         // 5
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 0, 7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -692,7 +693,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, 5, 7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -703,7 +704,7 @@ if (location.pathname == '/classicCube') {
 
         // 7
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, 5, 7.55);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -714,7 +715,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 5, 7.5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -729,7 +730,7 @@ if (location.pathname == '/classicCube') {
 
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, -7.5, -5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -740,7 +741,7 @@ if (location.pathname == '/classicCube') {
 
         // 1
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, -7.5, -5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -751,7 +752,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, -7.5, -5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -762,7 +763,7 @@ if (location.pathname == '/classicCube') {
 
         // 3
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, -7.5, 0);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -773,7 +774,7 @@ if (location.pathname == '/classicCube') {
 
         // 4
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, -7.5, 0);
         stickerMesh.rotation.z = 1.0 * THREE.MathUtils.degToRad(90);
@@ -784,7 +785,7 @@ if (location.pathname == '/classicCube') {
 
         // 5
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, -7.5, 0);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -795,7 +796,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, -7.5, 5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -806,7 +807,7 @@ if (location.pathname == '/classicCube') {
 
         // 7
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(0, -7.5, 5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -817,7 +818,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, -7.5, 5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -832,7 +833,7 @@ if (location.pathname == '/classicCube') {
 
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, 5, 5);
         stickerMesh.receiveShadow = true;
@@ -842,7 +843,7 @@ if (location.pathname == '/classicCube') {
 
         // 1
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, 0, 5);
         stickerMesh.receiveShadow = true;
@@ -852,7 +853,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, -5, 5);
         stickerMesh.receiveShadow = true;
@@ -862,7 +863,7 @@ if (location.pathname == '/classicCube') {
 
         // 3
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, 5, 0);
         stickerMesh.receiveShadow = true;
@@ -872,7 +873,7 @@ if (location.pathname == '/classicCube') {
 
         // 4
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, 0, 0);
         stickerMesh.receiveShadow = true;
@@ -882,7 +883,7 @@ if (location.pathname == '/classicCube') {
 
         // 5
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, -5, 0);
         stickerMesh.receiveShadow = true;
@@ -892,7 +893,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, 5, -5);
         stickerMesh.receiveShadow = true;
@@ -902,7 +903,7 @@ if (location.pathname == '/classicCube') {
 
         // 7
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, 0, -5);
         stickerMesh.receiveShadow = true;
@@ -912,7 +913,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-7.5, -5, -5);
         stickerMesh.receiveShadow = true;
@@ -937,16 +938,16 @@ if (location.pathname == '/classicCube') {
         const bottomBackwards = document.getElementById("down-backwards");
         const resetCamera = document.getElementById("reset-camera-button");
         const submitCubeButton = document.getElementById("submit-cube-button");
-
-
-        let step = 0;
+        const mixCubeButton = document.getElementById("mix-cube-button");
 
         let sum = 0;
         let selectedObjects = [];
         let rotating = false;
 
-        function rotateFace(axis, dist, backwards = false) {
-            if (rotating) return;
+        function rotateFace(axis, dist, backwards = false, callback) {
+            if (rotating) {
+                return;
+            }
             rotating = true;
             sum = 0;
             const sideToRotate = new THREE.Object3D();
@@ -974,11 +975,11 @@ if (location.pathname == '/classicCube') {
             let step = 0;
 
             function animateRotation() {
-                if (step < 20) {
+                if (step < 15) {
                     if (backwards === false) {
-                        sideToRotate.rotation[axis] += (Math.PI / 2) / 20;
+                        sideToRotate.rotation[axis] += (Math.PI / 2) / 15;
                     } else {
-                        sideToRotate.rotation[axis] -= (Math.PI / 2) / 20;
+                        sideToRotate.rotation[axis] -= (Math.PI / 2) / 15;
                     }
                     step++;
                     requestAnimationFrame(animateRotation);
@@ -994,6 +995,7 @@ if (location.pathname == '/classicCube') {
                     rotating = false;
                     // console.log('Children: ' + sideToRotate.children);
                     //sideToRotate = null;
+                    if (callback) callback();
                 }
             }
 
@@ -1090,6 +1092,70 @@ if (location.pathname == '/classicCube') {
             }
 
         });
+
+
+        mixCubeButton.addEventListener('click', () => {
+            followInstructions();
+        });
+
+        const stepsButtons = document.getElementById('steps-btn-container').children;
+
+        for (let i = 0; i < stepsButtons.length;i++) {
+            stepsButtons[i].addEventListener('click', () => {
+                followInstructions();
+            });
+        }
+
+        function followInstructions() {
+            const instructions = document.getElementById('instructions').innerText;
+            let index = 0;
+
+            function executeNext() {
+                if (index >= instructions.length) return; // Ha elfogytak az utasítások, kilépünk
+
+                let axis, dist, backwards = false;
+
+                switch (instructions[index]) {
+                    case 'F':
+                        axis = 'z'; dist = -4.9;
+                        if (instructions[index + 1] === "'") backwards = true;
+                        break;
+                    case 'U':
+                        axis = 'y'; dist = 4.9;
+                        if (instructions[index + 1] !== "'") backwards = true;
+                        break;
+                    case 'L':
+                        axis = 'x'; dist = 4.9;
+                        if (instructions[index + 1] !== "'") backwards = true;
+                        break;
+                    case 'R':
+                        axis = 'x'; dist = -4.9;
+                        if (instructions[index + 1] === "'") backwards = true;
+                        break;
+                    case 'D':
+                        axis = 'y'; dist = -4.9;
+                        if (instructions[index + 1] === "'") backwards = true;
+                        break;
+                    case 'B':
+                        axis = 'z'; dist = 4.9;
+                        if (instructions[index + 1] !== "'") backwards = true;
+                        break;
+                    default:
+                        index++;
+                        executeNext(); // Ha nincs érvényes utasítás, folytassuk a következővel
+                        return;
+                }
+
+                index++; // Következő karakterre lépünk
+                if (instructions[index] === "'") index++; // Ha aposztróf van, kihagyjuk
+
+                rotateFace(axis, dist, backwards, () => {
+                    setTimeout(executeNext, 500); // Várunk fél másodpercet, mielőtt a következő mozgást indítjuk
+                });
+            }
+
+            executeNext(); // Indítjuk a folyamatot
+        }
 
 
         // Animáció
@@ -1233,7 +1299,7 @@ if (location.pathname == '/classicCube') {
         // fehér matricák
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(2.5, 5, 2.5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1244,7 +1310,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-2.5, 5, 2.5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1255,7 +1321,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(2.5, 5, -2.5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1266,7 +1332,7 @@ if (location.pathname == '/classicCube') {
 
         //8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: white, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-2.5, 5, -2.5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1280,7 +1346,7 @@ if (location.pathname == '/classicCube') {
 
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(2.5, 2.5, -5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1291,7 +1357,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-2.5, 2.5, -5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1302,7 +1368,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(2.5, -2.5, -5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1313,7 +1379,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: red, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-2.5, -2.5, -5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1328,7 +1394,7 @@ if (location.pathname == '/classicCube') {
 
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, -2.5, 2.5);
         stickerMesh.receiveShadow = true;
@@ -1338,7 +1404,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, 2.5, 2.5);
         stickerMesh.receiveShadow = true;
@@ -1348,7 +1414,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, -2.5, -2.5);
         stickerMesh.receiveShadow = true;
@@ -1358,7 +1424,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: green, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(5, 2.5, -2.5);
         stickerMesh.receiveShadow = true;
@@ -1371,7 +1437,7 @@ if (location.pathname == '/classicCube') {
         // narancs matricák
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(2.5, -2.5, 5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1382,7 +1448,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-2.5, -2.5, 5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1393,7 +1459,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(2.5, 2.5, 5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1404,7 +1470,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: orange, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-2.5, 2.5, 5);
         stickerMesh.rotation.y = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1419,7 +1485,7 @@ if (location.pathname == '/classicCube') {
 
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(2.5, -5, -2.5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1430,7 +1496,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-2.5, -5, -2.5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1441,7 +1507,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(2.5, -5, 2.5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1452,7 +1518,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: yellow, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-2.5, -5, 2.5);
         stickerMesh.rotation.z = -1.0 * THREE.MathUtils.degToRad(90);
@@ -1467,7 +1533,7 @@ if (location.pathname == '/classicCube') {
 
         // 0
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 2.5, 2.5);
         stickerMesh.receiveShadow = true;
@@ -1477,7 +1543,7 @@ if (location.pathname == '/classicCube') {
 
         // 2
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, -2.5, 2.5);
         stickerMesh.receiveShadow = true;
@@ -1487,7 +1553,7 @@ if (location.pathname == '/classicCube') {
 
         // 6
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, 2.5, -2.5);
         stickerMesh.receiveShadow = true;
@@ -1497,7 +1563,7 @@ if (location.pathname == '/classicCube') {
 
         // 8
         stickerGeometry = new THREE.BoxGeometry(0.5, 4, 4);
-        stickerMaterial = new THREE.MeshPhongMaterial({color: blue, wireframe: false});
+        stickerMaterial = new THREE.MeshPhongMaterial({color: grey, wireframe: false});
         stickerMesh = new THREE.Mesh(stickerGeometry, stickerMaterial);
         stickerMesh.position.set(-5, -2.5, -2.5);
         stickerMesh.receiveShadow = true;
@@ -1521,17 +1587,14 @@ if (location.pathname == '/classicCube') {
         const bottomBackwards = document.getElementById("down-backwards");
         const resetCamera = document.getElementById("reset-camera-button");
         const submitCubeButton = document.getElementById("submit-cube-button-tbt");
+        const mixCubeButton = document.getElementById("mix-cube-button");
 
-        let step = 0;
-
-        let sum = 0;
         let selectedObjects = [];
         let rotating = false;
 
-        function rotateFace(axis, dist, backwards = false) {
+        function rotateFace(axis, dist, backwards = false, callback) {
             if (rotating) return;
             rotating = true;
-            sum = 0;
             const sideToRotate = new THREE.Object3D();
 
             for (let i = 0; i < scene.children.length; i++) {
@@ -1539,16 +1602,13 @@ if (location.pathname == '/classicCube') {
                 if (dist < 0) {
                     if (obj.position[axis] <= dist) {
                         selectedObjects.push(obj);
-                        sum++;
                     }
                 } else {
                     if (obj.position[axis] >= dist) {
                         selectedObjects.push(obj);
-                        sum++;
                     }
                 }
             }
-            // console.log(sum);
             for (let i = 0; i < selectedObjects.length; i++) {
                 sideToRotate.add(selectedObjects[i]);
             }
@@ -1569,14 +1629,10 @@ if (location.pathname == '/classicCube') {
                     for (let i = 0; i < selectedObjects.length; i++) {
                         scene.attach(selectedObjects[i]);
                     }
-                    //sideToRotate.rotation.set(0, 0, 0);
-                    //sideToRotate.updateMatrixWorld(true);
 
                     selectedObjects = [];
-                    //scene.remove(sideToRotate);
                     rotating = false;
-                    // console.log('Children: ' + sideToRotate.children);
-                    //sideToRotate = null;
+                    if (callback) callback();
                 }
             }
 
@@ -1677,6 +1733,70 @@ if (location.pathname == '/classicCube') {
 
 
 
+
+
+        mixCubeButton.addEventListener('click', () => {
+            followInstructions();
+        });
+
+        const stepsButtons = document.getElementById('steps-btn-container').children;
+
+        for (let i = 0; i < stepsButtons.length;i++) {
+            stepsButtons[i].addEventListener('click', () => {
+                followInstructions();
+            });
+        }
+
+        function followInstructions() {
+            const instructions = document.getElementById('instructions').innerText;
+            let index = 0;
+
+            function executeNext() {
+                if (index >= instructions.length) return;
+
+                let axis, dist, backwards = false;
+
+                switch (instructions[index]) {
+                    case 'F':
+                        axis = 'z'; dist = -2.4;
+                        if (instructions[index + 1] === "'") backwards = true;
+                        break;
+                    case 'U':
+                        axis = 'y'; dist = 2.4;
+                        if (instructions[index + 1] !== "'") backwards = true;
+                        break;
+                    case 'L':
+                        axis = 'x'; dist = 2.4;
+                        if (instructions[index + 1] !== "'") backwards = true;
+                        break;
+                    case 'R':
+                        axis = 'x'; dist = -2.4;
+                        if (instructions[index + 1] === "'") backwards = true;
+                        break;
+                    case 'D':
+                        axis = 'y'; dist = -2.4;
+                        if (instructions[index + 1] === "'") backwards = true;
+                        break;
+                    case 'B':
+                        axis = 'z'; dist = 2.4;
+                        if (instructions[index + 1] !== "'") backwards = true;
+                        break;
+                    default:
+                        index++;
+                        executeNext();
+                        return;
+                }
+
+                index++;
+                if (instructions[index] === "'") index++;
+
+                rotateFace(axis, dist, backwards, () => {
+                    setTimeout(executeNext, 500);
+                });
+            }
+
+            executeNext();
+        }
 
         // Animáció
         function animate() {

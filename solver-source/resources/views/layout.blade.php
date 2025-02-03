@@ -48,12 +48,8 @@
 </header>
 
 @yield('content')
-@if(session('error'))
     <div id="error-msg" class="msg-bubble bg-danger"{{ session('error') }}></div>
-@endif
-@if(session('success'))
     <div id="success-msg" class="msg-bubble bg-success">{{ session('success') }}</div>
-@endif
 
 @if(session('language_switched'))
     <div id="info-msg" class="msg-bubble bg-info block">{{ __('messages.languageSwitched') }} {{ session('language_switched') === 'hu' ? __('messages.hungarian') : (session('language_switched') === 'en' ? __('messages.english') : '') }}.</div>

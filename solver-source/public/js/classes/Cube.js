@@ -6,7 +6,8 @@ import {Side} from "./Side.js";
 
 export class Cube {
     sides;
-    rots;
+    rotsToDo;
+    rotsDone;
 
     constructor(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide) {
         this.whiteSide = whiteSide;
@@ -15,7 +16,8 @@ export class Cube {
         this.orangeSide = orangeSide;
         this.blueSide = blueSide;
         this.yellowSide = yellowSide;
-        this.rots = '';
+        this.rotsToDo = '';
+        this.rotsDone = '';
         this.prev = null;
 
         this.sides = [this.blueSide, this.redSide, this.greenSide, this.orangeSide, this.whiteSide, this.yellowSide];
@@ -219,18 +221,18 @@ export class Cube {
         }
 
         if (isSolved) {
-            /*document.getElementById('success-msg').style.display = "block";
+            document.getElementById('success-msg').style.display = "block";
             document.getElementById('success-msg').innerText = 'A kocka ki van rakva!';
             setTimeout(function () {
                 document.getElementById('success-msg').style.display = 'none'
-            }, 5000);*/
+            }, 5000);
             return true;
         } else {
-            /*document.getElementById('error-msg').style.display = "block";
+            document.getElementById('error-msg').style.display = "block";
             document.getElementById('error-msg').innerText = 'A kocka nincs kirakva!';
             setTimeout(function () {
                 document.getElementById('error-msg').style.display = 'none'
-            }, 5000);*/
+            }, 5000);
             return false;
         }
 
@@ -485,7 +487,9 @@ export class Cube {
             //A következő if-ek a forgatott oldal szomszédos oldalain lévő matricák forgatását garantálja.
             //FEHÉRET FORGATJUK
             if (side.getMiddleColor() === WHITE) {
-                this.rots += 'U';
+                if (i === 0) {
+                    this.rotsToDo += 'U';
+                }
                 this.redSide.stickers[0] = tmpBlueSide.stickers[6];
                 this.redSide.stickers[1] = tmpBlueSide.stickers[3];
                 this.redSide.stickers[2] = tmpBlueSide.stickers[0];
@@ -505,7 +509,9 @@ export class Cube {
 
             //PIROSAT FORGATJUK
             if (side.getMiddleColor() === RED) {
-                this.rots += 'F';
+                if (i === 0) {
+                    this.rotsToDo += 'F';
+                }
                 this.blueSide.stickers[6] = tmpWhiteSide.stickers[6];
                 this.blueSide.stickers[7] = tmpWhiteSide.stickers[7];
                 this.blueSide.stickers[8] = tmpWhiteSide.stickers[8];
@@ -525,7 +531,9 @@ export class Cube {
 
             //KÉKET FORGATJUK
             if (side.getMiddleColor() === BLUE) {
-                this.rots += 'R';
+                if (i === 0) {
+                    this.rotsToDo += 'R';
+                }
                 this.orangeSide.stickers[2] = tmpWhiteSide.stickers[2];
                 this.orangeSide.stickers[5] = tmpWhiteSide.stickers[5];
                 this.orangeSide.stickers[8] = tmpWhiteSide.stickers[8];
@@ -545,7 +553,9 @@ export class Cube {
 
             //NARANCSOT FORGATJUK
             if (side.getMiddleColor() === ORANGE) {
-                this.rots += 'B';
+                if (i === 0) {
+                    this.rotsToDo += 'B';
+                }
                 this.blueSide.stickers[0] = tmpYellowSide.stickers[8];
                 this.blueSide.stickers[1] = tmpYellowSide.stickers[7];
                 this.blueSide.stickers[2] = tmpYellowSide.stickers[6];
@@ -565,7 +575,9 @@ export class Cube {
 
             //ZÖLDET FORGATJUK
             if (side.getMiddleColor() === GREEN) {
-                this.rots += 'L';
+                if (i === 0) {
+                    this.rotsToDo += 'L';
+                }
                 this.orangeSide.stickers[0] = tmpYellowSide.stickers[0];
                 this.orangeSide.stickers[3] = tmpYellowSide.stickers[3];
                 this.orangeSide.stickers[6] = tmpYellowSide.stickers[6];
@@ -585,7 +597,9 @@ export class Cube {
 
             //CITROMOT FORGATJUK
             if (side.getMiddleColor() === YELLOW) {
-                this.rots += 'D';
+                if (i === 0) {
+                    this.rotsToDo += 'D';
+                }
                 this.orangeSide.stickers[0] = tmpBlueSide.stickers[2];
                 this.orangeSide.stickers[1] = tmpBlueSide.stickers[5];
                 this.orangeSide.stickers[2] = tmpBlueSide.stickers[8];
@@ -601,6 +615,10 @@ export class Cube {
                 this.blueSide.stickers[2] = tmpRedSide.stickers[8];
                 this.blueSide.stickers[5] = tmpRedSide.stickers[7];
                 this.blueSide.stickers[8] = tmpRedSide.stickers[6];
+            }
+
+            if (i === 0 && backwards) {
+                this.rotsToDo += '\'';
             }
 
             tmpSide = structuredClone(side);
@@ -678,22 +696,37 @@ export class Cube {
      * @returns {Cube} the mixed cube.
      */
     mixCube(numMoves = 50) {
+        this.rotsDone = '';
+        this.rotsToDo = '';
         for (let i = 0; i < numMoves; i++) {
             let randomIndex = Math.floor(Math.random() * 6);
             this.rotate(this.sides[randomIndex], Boolean(Math.round(Math.random())));
         }
         this.reRenderCube();
-        document.getElementById('instructions').style.display = 'block';
-        document.getElementById('instructions').innerText = this.rots;
-        setTimeout(function () {
-            document.getElementById('phase-title').style.display = 'none';
-            document.getElementById('instructions').style.display = 'none';
-            this.rots = '';
-        }.bind(this), 50000);
-
-        this.rots += '  ';
-        this.rots = '';
+        this.showRots(this.rotsToDo, document.getElementById('mix-cube-button').innerText);
         return this;
+    }
+
+    /**
+     * Shows the instructions message.
+     *
+     * @param instructions list of instructions to get to the shown state
+     * @param phaseTitle title of the phase which is being performed
+     */
+    showRots(instructions, phaseTitle = '', setEmpty = true) {
+        document.getElementById('instructions-bubble').style.display = 'block';
+        document.getElementById('instructions').innerText = instructions;
+        document.getElementById('phase-title').innerText = phaseTitle;
+
+        setTimeout(function () {
+            document.getElementById('instructions-bubble').style.display = 'none';
+        }.bind(this), 45000);
+
+        if (setEmpty) {
+            this.rotsDone += instructions + '  -->  ';
+            this.rotsToDo = '';
+        }
+        console.log(this.rotsDone);
     }
 
     /**
@@ -715,9 +748,6 @@ export class Cube {
         let movingWhiteIndices = [[1, 3, 7], [5, 1, 3], [7, 5, 1], [3, 7, 5]];
         let movingYellowIndices = [[1, 3, 5, 7], [3, 7, 1, 5], [7, 5, 3, 1], [5, 1, 7, 3]];
 
-        let rotations = '';
-
-        let phaseTitle = 'Fehér kereszt kirakása';
         for (let i = 0; i < 4; i++) {
             let pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', EDGE_CUBE, new Set([this.sides[i].getMiddleColor()])));
 
@@ -919,16 +949,14 @@ export class Cube {
 
         }
         this.reRenderCube();
+        this.showRots(this.rotsToDo, document.getElementById('state-one').getAttribute('data-bs-original-title'));
     }
 
-    whiteCorners() {
+    whiteCorners(setRotsEmpty = true) {
         let movingIndices = [[6, 0], [0, 2], [2, 8], [8, 6]];
         let movingWhiteIndices = [[2, 0, 6], [8, 2, 0], [6, 8, 2], [0, 6, 8]];
         let pos;
 
-        let rotations = '';
-
-        let phaseTitle = 'Fehér sarkok kirakása';
         // console.log('Fehér sarkok kirakása');
 
         for (let i = 0; i < 4; i++) {
@@ -954,23 +982,9 @@ export class Cube {
                     }
                 }
             }
-            /*
-                        if (pos['side'] !== this.whiteSide && pos['side'] !== this.yellowSide && pos['index'] === movingIndices[i][0]) {
-                            console.log('C-1');
-                            this.rotate(this.sides[(1 + i) % 4], false);
-                            this.rotate(this.yellowSide, true);
-                            this.rotate(this.sides[(1 + i) % 4], true);
-                        }
-
-                        if (pos['side'] !== this.whiteSide && pos['side'] !== this.yellowSide && pos['index'] === movingIndices[i][1]) {
-                            console.log('C-2');
-                            this.rotate(this.sides[(4 + i -1) % 4], true);
-                            this.rotate(this.yellowSide, false);
-                            this.rotate(this.sides[(4 + i -1) % 4], false);
-                        }*/
 
             if (pos['side'] === this.whiteSide && pos['index'] === movingWhiteIndices[i][0]) {
-                console.log('C-3');
+                // console.log('C-3');
                 this.rotate(this.sides[(4 + i - 1) % 4], true);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(4 + i - 1) % 4], false);
@@ -1074,16 +1088,17 @@ export class Cube {
             }
             // console.log(i + 1 + '. oldal megvan');
         }
+        if (setRotsEmpty) {
+            this.showRots(this.rotsToDo, document.getElementById('state-two').getAttribute('data-bs-original-title'));
+        } else {
+            this.showRots(this.rotsToDo, document.getElementById('state-two').getAttribute('data-bs-original-title'), false);
+        }
     }
 
     colorEdges() {
-        let rotations = '';
-
-        let phaseTitle = 'Élkockák kirakása';
-        console.log('Élkockák kirakása');
+        // console.log('Élkockák kirakása');
         let pos;
         let oppositeIndexOnYellow = [3, 7, 5, 1];
-        let isYellowReplacement = false;
         let posOnSolved;
 
         for (let i = 0; i < 4; i++) {
@@ -1095,7 +1110,7 @@ export class Cube {
             //                  b) bármely színes oldalon (a szomszédja a sárgán van)
             //                  c) bármely színes oldalon (a szomszédja egy másik színesen van), beékelődve két szín közé
 
-            console.log(i);
+            // console.log(i);
             if (posOnSolved['side'].getMiddleColor() === pos['side'].getMiddleColor() && posOnSolved['index'] === pos['index']) console.log(i + '. siker (alapból jó helyen).');
             // c)
             if (posOnSolved['side'].getMiddleColor() !== pos['side'].getMiddleColor() && posOnSolved['index'] !== pos['index'] &&
@@ -1108,7 +1123,7 @@ export class Cube {
                 pos['side'] === this.orangeSide && pos['index'] === 3 ||
                 pos['side'] === this.orangeSide && pos['index'] === 5)) {
 
-                console.log('Be van ékelődve valahova az ' + i + '. oldalé.');
+                // console.log('Be van ékelődve valahova az ' + i + '. oldalé.');
 
                 if (pos['side'] === this.blueSide && pos['index'] === 1 ||
                     pos['side'] === this.redSide && pos['index'] === 5 ||
@@ -1128,7 +1143,7 @@ export class Cube {
                     this.rotate(this.yellowSide, false);
                     this.rotate(pos['side'], false);
                 }
-                this.whiteCorners();
+                this.whiteCorners(false);
 
                 /*for (let j = 0; j < 9; j++) {
 
@@ -1150,7 +1165,7 @@ export class Cube {
 
             // a)
             if (pos['side'] === this.yellowSide) {
-                console.log(i + '. siker (sárgáról).')
+                // console.log(i + '. siker (sárgáról).')
                 while (pos['index'] !== oppositeIndexOnYellow[i]) {
                     this.rotate(this.yellowSide, false);
                     pos = this.getStickerPosition(new Sticker(this.sides[i].getMiddleColor(), EDGE_CUBE, new Set([this.sides[(i + 1) % 4].getMiddleColor()])));
@@ -1158,12 +1173,12 @@ export class Cube {
                 this.rotate(this.sides[i], true);
                 this.rotate(this.yellowSide, false);
                 this.rotate(this.sides[i], false);
-                this.whiteCorners();
+                this.whiteCorners(false);
             } else if (pos['side'] === this.blueSide && pos['index'] === 5 ||
                 pos['side'] === this.redSide && pos['index'] === 7 ||
                 pos['side'] === this.greenSide && pos['index'] === 3 ||
                 pos['side'] === this.orangeSide && pos['index'] === 1) {
-                console.log(i + '. siker (színesről).')
+                // console.log(i + '. siker (színesről).')
 
                 // b)
 
@@ -1174,16 +1189,17 @@ export class Cube {
                 this.rotate(this.sides[(i + 1) % 4], false);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(i + 1) % 4], true);
-                this.whiteCorners();
+                this.whiteCorners(false);
             } else {
                 console.log('HIBA.');
             }
-            console.log('control');
+            // console.log('control');
         }
+        this.showRots(this.rotsToDo, document.getElementById('state-three').getAttribute('data-bs-original-title'));
     }
 
     yellowCross() {
-        console.log('*** SÁRGA KERESZT ***')
+        // console.log('*** SÁRGA KERESZT ***')
         if (this.yellowSide.stickers[1].color.toString() !== YELLOW ||
         this.yellowSide.stickers[3].color.toString() !== YELLOW ||
         this.yellowSide.stickers[5].color.toString() !== YELLOW ||
@@ -1232,7 +1248,7 @@ export class Cube {
 
             for (let i = 0; i < 4; i++) {
                 if (affectedStickers[i % 4].color.toString() === YELLOW && affectedStickers[(i + 2) % 4].color.toString() === YELLOW) {
-                    console.log('I alak van a sárga oldalon.')
+                    // console.log('I alak van a sárga oldalon.')
                     // c) I alak esete:
                     this.rotate(this.sides[(i + 1) % 4], false);
                     this.rotate(this.sides[(i + 2) % 4], false);
@@ -1245,6 +1261,7 @@ export class Cube {
             }
         }
         this.reRenderCube();
+        this.showRots(this.rotsToDo, document.getElementById('state-four').getAttribute('data-bs-original-title'));
     }
 
     yellowEdges() {
@@ -1313,8 +1330,9 @@ export class Cube {
                 }
             }
         }
-        console.log('yellowEdges() stopped.')
+        // console.log('yellowEdges() stopped.')
         this.reRenderCube();
+        this.showRots(this.rotsToDo, document.getElementById('state-five').getAttribute('data-bs-original-title'));
     }
 
     yellowCornerPosition() {
@@ -1333,68 +1351,69 @@ export class Cube {
 
             for (let i = 0; i < 4; i++) {
                 this.yellowSide.stickers[cornersToCheck[i]].neighbors.forEach(value => string += value);
-                console.log(string);
+                // console.log(string);
                 string = '';
-                console.log(this.sides[i % 4].getMiddleColor());
-                console.log(this.sides[(i + 1) % 4].getMiddleColor());
-                console.log(cornersToCheck[i]);
+                // console.log(this.sides[i % 4].getMiddleColor());
+                // console.log(this.sides[(i + 1) % 4].getMiddleColor());
+                // console.log(cornersToCheck[i]);
                 if ((this.yellowSide.stickers[cornersToCheck[i]].color === YELLOW && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
                     (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[i % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) ||
                     (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[(i + 1) % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()))) {
                     // sarokkocka megfelelő helyen van
-                    console.log('sarga oldalon az ' + i + ' indexu sarokkocka van a helyen.');
-                    console.log(this.sides[i % 4].getMiddleColor());
-                    console.log(this.sides[(i + 1) % 4].getMiddleColor());
+                    // console.log('sarga oldalon az ' + i + ' indexu sarokkocka van a helyen.');
+                    // console.log(this.sides[i % 4].getMiddleColor());
+                    // console.log(this.sides[(i + 1) % 4].getMiddleColor());
                     countOfRightStickers++;
-                    console.log(countOfRightStickers);
+                    // console.log(countOfRightStickers);
                     rightStickerPos = cornersToCheck[i];
                 }
 
                 if (this.yellowSide.stickers[cornersToCheck[i]].color === YELLOW && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor()) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) {
-                    console.log('CASE-1');
+                    // console.log('CASE-1');
                 }
 
                 if (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[i % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[(i + 1) % 4].getMiddleColor())) {
-                    console.log('CASE-2');
+                    // console.log('CASE-2');
                 }
 
                 if (this.yellowSide.stickers[cornersToCheck[i]].color === this.sides[(i + 1) % 4].getMiddleColor() && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(YELLOW) && this.yellowSide.stickers[cornersToCheck[i]].neighbors.has(this.sides[i % 4].getMiddleColor())) {
-                    console.log('CASE-3');
+                    // console.log('CASE-3');
                 }
             }
 
             if (countOfRightStickers === 0) {
-                console.log('Nincs egy sarga sarok sem a helyen.');
+                // console.log('Nincs egy sarga sarok sem a helyen.');
                 this.changeYellowCorners();
             } else if (countOfRightStickers < 4) {
-                console.log('1 sarok biztosan a helyen van.');
+                // console.log('1 sarok biztosan a helyen van.');
                 switch (rightStickerPos) {
                     case 2:
                         this.changeYellowCorners(2);
-                        console.log('this.sides[2]');
+                        // console.log('this.sides[2]');
                         break;
                     case 0:
                         this.changeYellowCorners(3);
-                        console.log('this.sides[3]');
+                        // console.log('this.sides[3]');
                         break;
                     case 6:
                         this.changeYellowCorners(0);
-                        console.log('this.sides[0]');
+                        // console.log('this.sides[0]');
                         break;
                     case 8:
                         this.changeYellowCorners(1);
-                        console.log('this.sides[1]');
+                        // console.log('this.sides[1]');
                         break;
                 }
             } else {
-                console.log('Minden sarok a helyen van.');
+                // console.log('Minden sarok a helyen van.');
             }
         }
-        console.log('yellowCornerPosition() ended.');
+        // console.log('yellowCornerPosition() ended.');
+        this.showRots(this.rotsToDo, document.getElementById('state-six').getAttribute('data-bs-original-title'));
     }
 
     yellowCornerRotation() {
-        console.log('yellowCornerRotation() started.');
+        // console.log('yellowCornerRotation() started.');
         let cornersToCheck = [2, 0, 6, 8]
         let moveThisSide = 0;
         let entryIndex = -1;
@@ -1402,7 +1421,7 @@ export class Cube {
         for (let i = 0; i < 4; i++) {
             if (this.yellowSide.stickers[cornersToCheck[i]].color !== YELLOW) {
                 entryIndex = i;
-                console.log(entryIndex);
+                // console.log(entryIndex);
                 break;
             }
         }
@@ -1410,19 +1429,20 @@ export class Cube {
         if (entryIndex >= 0) {
             // sarokkocka nincs megfeleloen beofrgatva
             while (!this.isYellowSideSolved()) {
-                    console.log(this.yellowSide.stickers[cornersToCheck[entryIndex]].color);
+                    // console.log(this.yellowSide.stickers[cornersToCheck[entryIndex]].color);
                     this.rotateYellowCorners(entryIndex + 1);
-                    console.log('alg fut.')
+                   // console.log('alg fut.')
                     if (this.yellowSide.stickers[cornersToCheck[entryIndex]].color === YELLOW) {
                         this.rotate(this.yellowSide, false);
-                        console.log('sargat forgatta.')
+                        // console.log('sargat forgatta.')
                     }
 
             }
         }
-        console.log('yellowCornerRotation() ended.');
+        // console.log('yellowCornerRotation() ended.');
 
         this.yellowToSolve();
+        this.showRots(this.rotsToDo, document.getElementById('state-seven').getAttribute('data-bs-original-title'));
     }
 
     changeYellowEdges(actualSideIndex, param) {
@@ -1469,132 +1489,9 @@ export class Cube {
         }
     }
 
-    /*
-    copyCube() {
-        let newCube = new Cube(
-            new Side(WHITE, [
-                new Sticker(this.whiteSide.stickers[0].color.toString(), 2, new Set()),
-                new Sticker(this.whiteSide.stickers[1].color.toString(), 1, new Set()),
-                new Sticker(this.whiteSide.stickers[2].color.toString(), 2, new Set()),
-                new Sticker(this.whiteSide.stickers[3].color.toString(), 1, new Set()),
-                new Sticker(this.whiteSide.stickers[4].color.toString(), 0, new Set()),
-                new Sticker(this.whiteSide.stickers[5].color.toString(), 1, new Set()),
-                new Sticker(this.whiteSide.stickers[6].color.toString(), 2, new Set()),
-                new Sticker(this.whiteSide.stickers[7].color.toString(), 1, new Set()),
-                new Sticker(this.whiteSide.stickers[8].color.toString(), 2, new Set())]),
-            new Side(RED, [
-                new Sticker(this.redSide.stickers[0].color.toString(), 2, new Set()),
-                new Sticker(this.redSide.stickers[1].color.toString(), 1, new Set()),
-                new Sticker(this.redSide.stickers[2].color.toString(), 2, new Set()),
-                new Sticker(this.redSide.stickers[3].color.toString(), 1, new Set()),
-                new Sticker(this.redSide.stickers[4].color.toString(), 0, new Set()),
-                new Sticker(this.redSide.stickers[5].color.toString(), 1, new Set()),
-                new Sticker(this.redSide.stickers[6].color.toString(), 2, new Set()),
-                new Sticker(this.redSide.stickers[7].color.toString(), 1, new Set()),
-                new Sticker(this.redSide.stickers[8].color.toString(), 2, new Set())]),
-            new Side(GREEN, [
-                new Sticker(this.greenSide.stickers[0].color.toString(), 2, new Set()),
-                new Sticker(this.greenSide.stickers[1].color.toString(), 1, new Set()),
-                new Sticker(this.greenSide.stickers[2].color.toString(), 2, new Set()),
-                new Sticker(this.greenSide.stickers[3].color.toString(), 1, new Set()),
-                new Sticker(this.greenSide.stickers[4].color.toString(), 0, new Set()),
-                new Sticker(this.greenSide.stickers[5].color.toString(), 1, new Set()),
-                new Sticker(this.greenSide.stickers[6].color.toString(), 2, new Set()),
-                new Sticker(this.greenSide.stickers[7].color.toString(), 1, new Set()),
-                new Sticker(this.greenSide.stickers[8].color.toString(), 2, new Set())]),
-            new Side(ORANGE, [
-                new Sticker(this.orangeSide.stickers[0].color.toString(), 2, new Set()),
-                new Sticker(this.orangeSide.stickers[1].color.toString(), 1, new Set()),
-                new Sticker(this.orangeSide.stickers[2].color.toString(), 2, new Set()),
-                new Sticker(this.orangeSide.stickers[3].color.toString(), 1, new Set()),
-                new Sticker(this.orangeSide.stickers[4].color.toString(), 0, new Set()),
-                new Sticker(this.orangeSide.stickers[5].color.toString(), 1, new Set()),
-                new Sticker(this.orangeSide.stickers[6].color.toString(), 2, new Set()),
-                new Sticker(this.orangeSide.stickers[7].color.toString(), 1, new Set()),
-                new Sticker(this.orangeSide.stickers[8].color.toString(), 2, new Set())]),
-            new Side(BLUE, [
-                new Sticker(this.blueSide.stickers[0].color.toString(), 2, new Set()),
-                new Sticker(this.blueSide.stickers[1].color.toString(), 1, new Set()),
-                new Sticker(this.blueSide.stickers[2].color.toString(), 2, new Set()),
-                new Sticker(this.blueSide.stickers[3].color.toString(), 1, new Set()),
-                new Sticker(this.blueSide.stickers[4].color.toString(), 0, new Set()),
-                new Sticker(this.blueSide.stickers[5].color.toString(), 1, new Set()),
-                new Sticker(this.blueSide.stickers[6].color.toString(), 2, new Set()),
-                new Sticker(this.blueSide.stickers[7].color.toString(), 1, new Set()),
-                new Sticker(this.blueSide.stickers[8].color.toString(), 2, new Set())]),
-            new Side(YELLOW, [
-                new Sticker(this.yellowSide.stickers[0].color.toString(), 2, new Set()),
-                new Sticker(this.yellowSide.stickers[1].color.toString(), 1, new Set()),
-                new Sticker(this.yellowSide.stickers[2].color.toString(), 2, new Set()),
-                new Sticker(this.yellowSide.stickers[3].color.toString(), 1, new Set()),
-                new Sticker(this.yellowSide.stickers[4].color.toString(), 0, new Set()),
-                new Sticker(this.yellowSide.stickers[5].color.toString(), 1, new Set()),
-                new Sticker(this.yellowSide.stickers[6].color.toString(), 2, new Set()),
-                new Sticker(this.yellowSide.stickers[7].color.toString(), 1, new Set()),
-                new Sticker(this.yellowSide.stickers[8].color.toString(), 2, new Set())]),
-        );
-
-        newCube.whiteSide.stickers[0].neighbors.add(newCube.orangeSide.stickers[6].color.toString()).add(newCube.greenSide.stickers[2].color.toString());
-        newCube.whiteSide.stickers[1].neighbors.add(newCube.orangeSide.stickers[7].color.toString());
-        newCube.whiteSide.stickers[2].neighbors.add(newCube.orangeSide.stickers[8].color.toString()).add(newCube.blueSide.stickers[0].color.toString());
-        newCube.whiteSide.stickers[3].neighbors.add(newCube.greenSide.stickers[5].color.toString());
-        newCube.whiteSide.stickers[5].neighbors.add(newCube.blueSide.stickers[3].color.toString());
-        newCube.whiteSide.stickers[6].neighbors.add(newCube.greenSide.stickers[8].color.toString()).add(newCube.redSide.stickers[0].color.toString());
-        newCube.whiteSide.stickers[7].neighbors.add(newCube.redSide.stickers[1].color.toString());
-        newCube.whiteSide.stickers[8].neighbors.add(newCube.redSide.stickers[2].color.toString()).add(newCube.blueSide.stickers[6].color.toString());
-
-        newCube.blueSide.stickers[0].neighbors.add(newCube.orangeSide.stickers[8].color.toString()).add(newCube.whiteSide.stickers[2].color.toString());
-        newCube.blueSide.stickers[1].neighbors.add(newCube.orangeSide.stickers[5].color.toString());
-        newCube.blueSide.stickers[2].neighbors.add(newCube.orangeSide.stickers[2].color.toString()).add(newCube.yellowSide.stickers[8].color.toString());
-        newCube.blueSide.stickers[3].neighbors.add(newCube.whiteSide.stickers[5].color.toString());
-        newCube.blueSide.stickers[5].neighbors.add(newCube.yellowSide.stickers[5].color.toString());
-        newCube.blueSide.stickers[6].neighbors.add(newCube.whiteSide.stickers[8].color.toString()).add(newCube.redSide.stickers[2].color.toString());
-        newCube.blueSide.stickers[7].neighbors.add(newCube.redSide.stickers[5].color.toString());
-        newCube.blueSide.stickers[8].neighbors.add(newCube.redSide.stickers[8].color.toString()).add(newCube.yellowSide.stickers[2].color.toString());
-
-        newCube.orangeSide.stickers[0].neighbors.add(newCube.greenSide.stickers[0].color.toString()).add(newCube.yellowSide.stickers[6].color.toString());
-        newCube.orangeSide.stickers[1].neighbors.add(newCube.yellowSide.stickers[6].color.toString());
-        newCube.orangeSide.stickers[2].neighbors.add(newCube.yellowSide.stickers[8].color.toString()).add(newCube.blueSide.stickers[2].color.toString());
-        newCube.orangeSide.stickers[3].neighbors.add(newCube.greenSide.stickers[3].color.toString());
-        newCube.orangeSide.stickers[5].neighbors.add(newCube.blueSide.stickers[1].color.toString());
-        newCube.orangeSide.stickers[6].neighbors.add(newCube.greenSide.stickers[2].color.toString()).add(newCube.whiteSide.stickers[0].color.toString());
-        newCube.orangeSide.stickers[7].neighbors.add(newCube.whiteSide.stickers[1].color.toString());
-        newCube.orangeSide.stickers[8].neighbors.add(newCube.whiteSide.stickers[2].color.toString()).add(newCube.blueSide.stickers[0].color.toString());
-
-        newCube.greenSide.stickers[0].neighbors.add(newCube.orangeSide.stickers[0].color.toString()).add(newCube.yellowSide.stickers[6].color.toString());
-        newCube.greenSide.stickers[1].neighbors.add(newCube.orangeSide.stickers[3].color.toString());
-        newCube.greenSide.stickers[2].neighbors.add(newCube.orangeSide.stickers[6].color.toString()).add(newCube.whiteSide.stickers[0].color.toString());
-        newCube.greenSide.stickers[3].neighbors.add(newCube.yellowSide.stickers[3].color.toString());
-        newCube.greenSide.stickers[5].neighbors.add(newCube.whiteSide.stickers[3].color.toString());
-        newCube.greenSide.stickers[6].neighbors.add(newCube.yellowSide.stickers[0].color.toString()).add(newCube.redSide.stickers[6].color.toString());
-        newCube.greenSide.stickers[7].neighbors.add(newCube.redSide.stickers[3].color.toString());
-        newCube.greenSide.stickers[8].neighbors.add(newCube.whiteSide.stickers[6].color.toString()).add(newCube.redSide.stickers[0].color.toString());
-
-        newCube.redSide.stickers[0].neighbors.add(newCube.greenSide.stickers[8].color.toString()).add(newCube.whiteSide.stickers[6].color.toString());
-        newCube.redSide.stickers[1].neighbors.add(newCube.whiteSide.stickers[7].color.toString());
-        newCube.redSide.stickers[2].neighbors.add(newCube.whiteSide.stickers[8].color.toString()).add(newCube.blueSide.stickers[6].color.toString());
-        newCube.redSide.stickers[3].neighbors.add(newCube.greenSide.stickers[7].color.toString());
-        newCube.redSide.stickers[5].neighbors.add(newCube.blueSide.stickers[7].color.toString());
-        newCube.redSide.stickers[6].neighbors.add(newCube.yellowSide.stickers[0].color.toString()).add(newCube.greenSide.stickers[6].color.toString());
-        newCube.redSide.stickers[7].neighbors.add(newCube.yellowSide.stickers[1].color.toString());
-        newCube.redSide.stickers[8].neighbors.add(newCube.yellowSide.stickers[2].color.toString()).add(newCube.blueSide.stickers[8].color.toString());
-
-        newCube.yellowSide.stickers[0].neighbors.add(newCube.redSide.stickers[6].color.toString()).add(newCube.greenSide.stickers[6].color.toString());
-        newCube.yellowSide.stickers[1].neighbors.add(newCube.redSide.stickers[7].color.toString());
-        newCube.yellowSide.stickers[2].neighbors.add(newCube.blueSide.stickers[8].color.toString()).add(newCube.redSide.stickers[8].color.toString());
-        newCube.yellowSide.stickers[3].neighbors.add(newCube.greenSide.stickers[3].color.toString());
-        newCube.yellowSide.stickers[5].neighbors.add(newCube.blueSide.stickers[5].color.toString());
-        newCube.yellowSide.stickers[6].neighbors.add(newCube.orangeSide.stickers[0].color.toString()).add(newCube.greenSide.stickers[0].color.toString());
-        newCube.yellowSide.stickers[7].neighbors.add(newCube.orangeSide.stickers[1].color.toString());
-        newCube.yellowSide.stickers[8].neighbors.add(newCube.blueSide.stickers[2].color.toString()).add(newCube.orangeSide.stickers[2].color.toString());
-
-        return newCube;
-
-    }*/
-
     getTargetPosition(solvedCube, sticker) {
-        console.log('getTargetPosition() - A kérdéses matrica:');
-        console.log(sticker);
+        // console.log('getTargetPosition() - A kérdéses matrica:');
+        // console.log(sticker);
         // console.log(solvedCube.getStickerPosition(sticker));
         return solvedCube.getStickerPosition(sticker);
     }

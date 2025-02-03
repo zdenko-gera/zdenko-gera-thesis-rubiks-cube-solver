@@ -4,7 +4,8 @@ import {Sticker} from "./Sticker.js";
 
 export class TwoByTwoCube {
     sides;
-    rots;
+    rotsToDo;
+    rotsDone;
 
     constructor(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide) {
         this.whiteSide = whiteSide;
@@ -14,7 +15,8 @@ export class TwoByTwoCube {
         this.blueSide = blueSide;
         this.yellowSide = yellowSide;
         this.sides = [this.blueSide, this.redSide, this.greenSide, this.orangeSide, this.whiteSide, this.yellowSide];
-        this.rots = '';
+        this.rotsToDo = '';
+        this.rotsDone = '';
 
         // Matricák szomszédsági viszonyának megadása oldalanként:
         this.whiteSide.stickers[0].neighbors.add(this.orangeSide.stickers[2].color.toString()).add(this.greenSide.stickers[1].color.toString());
@@ -140,6 +142,74 @@ export class TwoByTwoCube {
     }
 
     /**
+     * Part of the cube state validation process. Checks if the corner cubes are validly rotated.
+     *
+     * @returns {boolean} if the current state of corner cubes are legal
+     */
+    cornerRotationCheck() {
+        let cornerSum = 0;
+
+        // bal felső fehér oldalon
+        if (this.greenSide.stickers[1].color === WHITE || this.greenSide.stickers[1].color === YELLOW) {
+            cornerSum++;
+        } else if (this.orangeSide.stickers[2].color === WHITE || this.orangeSide.stickers[2].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // jobb felső fehér oldalon
+        if (this.orangeSide.stickers[3].color === WHITE || this.orangeSide.stickers[3].color === YELLOW) {
+            cornerSum++;
+        } else if (this.blueSide.stickers[0].color === WHITE || this.blueSide.stickers[0].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // jobb alsó fehér oldalon
+        if (this.blueSide.stickers[2].color === WHITE || this.blueSide.stickers[2].color === YELLOW) {
+            cornerSum++;
+        } else if (this.redSide.stickers[1].color === WHITE || this.redSide.stickers[1].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // bal alsó fehér oldalon
+        if (this.redSide.stickers[0].color === WHITE || this.redSide.stickers[0].color === YELLOW) {
+            cornerSum++;
+        } else if (this.greenSide.stickers[3].color === WHITE || this.greenSide.stickers[3].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // *** sárga oldalon ugyanígy***
+        // bal felső sárga oldalon
+        if (this.greenSide.stickers[2].color === WHITE || this.greenSide.stickers[2].color === YELLOW) {
+            cornerSum++;
+        } else if (this.redSide.stickers[2].color === WHITE || this.redSide.stickers[2].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // jobb felső sárga oldalon
+        if (this.redSide.stickers[3].color === WHITE || this.redSide.stickers[3].color === YELLOW) {
+            cornerSum++;
+        } else if (this.blueSide.stickers[3].color === WHITE || this.blueSide.stickers[3].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // jobb alsó sárga oldalon
+        if (this.blueSide.stickers[1].color === WHITE || this.blueSide.stickers[1].color === YELLOW) {
+            cornerSum++;
+        } else if (this.orangeSide.stickers[1].color === WHITE || this.orangeSide.stickers[1].color === YELLOW) {
+            cornerSum--;
+        }
+
+        // bal alsó sárga oldalon
+        if (this.orangeSide.stickers[0].color === WHITE || this.orangeSide.stickers[0].color === YELLOW) {
+            cornerSum++;
+        } else if (this.greenSide.stickers[0].color === WHITE || this.greenSide.stickers[0].color === YELLOW) {
+            cornerSum--;
+        }
+
+        return (cornerSum % 3) === 0;
+    }
+
+    /**
      * Returns an array containing the location of the wanted sticker.
      *
      * @param stickerToFind sticker to be found
@@ -164,6 +234,15 @@ export class TwoByTwoCube {
             }
         }
         return result;
+    }
+
+    /**
+     * Decides if the cube is in a solvable state or not using corner rotations, edge parity and permutation parity.
+     *
+     * @returns {boolean}
+     */
+    isSolvable() {
+        return (this.cornerRotationCheck()/* && this.edgeParityCheck()*/);
     }
 
     /**
@@ -194,7 +273,9 @@ export class TwoByTwoCube {
             side.stickers[3] = tmpSide.stickers[1];
 
             if (side.getMiddleColor() === WHITE) {
-                this.rots += 'U';
+                if (i === 0) {
+                    this.rotsToDo += 'U';
+                }
                 this.redSide.stickers[0] = tmpBlueSide.stickers[2];
                 this.redSide.stickers[1] = tmpBlueSide.stickers[0];
 
@@ -209,7 +290,9 @@ export class TwoByTwoCube {
             }
 
             if (side.getMiddleColor() === RED) {
-                this.rots += 'F';
+                if (i === 0) {
+                    this.rotsToDo += 'F';
+                }
                 this.blueSide.stickers[2] = tmpWhiteSide.stickers[2];
                 this.blueSide.stickers[3] = tmpWhiteSide.stickers[3];
 
@@ -224,7 +307,9 @@ export class TwoByTwoCube {
             }
 
             if (side.getMiddleColor() === BLUE) {
-                this.rots += 'R';
+                if (i === 0) {
+                    this.rotsToDo += 'R';
+                }
                 this.orangeSide.stickers[1] = tmpWhiteSide.stickers[1];
                 this.orangeSide.stickers[3] = tmpWhiteSide.stickers[3];
 
@@ -239,7 +324,9 @@ export class TwoByTwoCube {
             }
 
             if (side.getMiddleColor() === ORANGE) {
-                this.rots += 'B';
+                if (i === 0) {
+                    this.rotsToDo += 'B';
+                }
                 this.blueSide.stickers[0] = tmpYellowSide.stickers[3];
                 this.blueSide.stickers[1] = tmpYellowSide.stickers[2];
 
@@ -254,7 +341,9 @@ export class TwoByTwoCube {
             }
 
             if (side.getMiddleColor() === GREEN) {
-                this.rots += 'L';
+                if (i === 0) {
+                    this.rotsToDo += 'L';
+                }
                 this.orangeSide.stickers[0] = tmpYellowSide.stickers[0];
                 this.orangeSide.stickers[2] = tmpYellowSide.stickers[2];
 
@@ -269,7 +358,9 @@ export class TwoByTwoCube {
             }
 
             if (side.getMiddleColor() === YELLOW) {
-                this.rots += 'D';
+                if (i === 0) {
+                    this.rotsToDo += 'D';
+                }
                 this.orangeSide.stickers[0] = tmpBlueSide.stickers[1];
                 this.orangeSide.stickers[1] = tmpBlueSide.stickers[3];
 
@@ -281,6 +372,10 @@ export class TwoByTwoCube {
 
                 this.blueSide.stickers[1] = tmpRedSide.stickers[3];
                 this.blueSide.stickers[3] = tmpRedSide.stickers[2];
+            }
+
+            if (i === 0 && backwards) {
+                this.rotsToDo += '\'';
             }
 
             tmpSide = structuredClone(side);
@@ -335,6 +430,8 @@ export class TwoByTwoCube {
      * @returns {Cube} the mixed cube.
      */
     mixCube(numMoves = 50) {
+        this.rotsDone = '';
+        this.rotsToDo = '';
         for (let i = 0; i < numMoves; i++) {
             let randomIndex = Math.floor(Math.random() * 6);
             this.rotate(this.sides[randomIndex], Boolean(Math.round(Math.random())));
@@ -348,9 +445,28 @@ export class TwoByTwoCube {
             this.rots = '';
         }.bind(this), 50000);
 
-        this.rots += '  ';
-        this.rots = '';
+        this.showRots(this.rotsToDo, document.getElementById('mix-cube-button').innerText);
         return this;
+    }
+
+
+    /**
+     * Shows the instructions message.
+     *
+     * @param instructions list of instructions to get to the shown state
+     * @param phaseTitle title of the phase which is being performed
+     */
+    showRots(instructions, phaseTitle = '') {
+        document.getElementById('instructions-bubble').style.display = 'block';
+        document.getElementById('instructions').innerText = instructions;
+        document.getElementById('phase-title').innerText = phaseTitle;
+        setTimeout(function () {
+            document.getElementById('instructions-bubble').style.display = 'none';
+        }.bind(this), 45000);
+
+        this.rotsDone += instructions + '  -->  ';
+        this.rotsToDo = '';
+        console.log(this.rotsDone);
     }
 
     /**
@@ -359,7 +475,6 @@ export class TwoByTwoCube {
     whiteSidePocket() {
         let movingIndices = [[2, 0], [0, 1], [1, 3], [3, 2]];
         let movingWhiteIndices = [[1, 0, 2], [3, 1, 0], [2, 3, 1], [0, 2, 3]];
-        let phaseTitle = 'Fehér oldal kirakása';
         let pos = null;
 
         for (let i = 0; i < 4; i++) {
@@ -484,6 +599,7 @@ export class TwoByTwoCube {
             }
             console.log(i + 1 + '. oldal megvan');
         }
+        this.showRots(this.rotsToDo, document.getElementById('state-one').getAttribute('data-bs-original-title'));
     }
 
     yellowCornerPositionPocket() {
@@ -536,6 +652,7 @@ export class TwoByTwoCube {
                 }
             }
         }
+        this.showRots(this.rotsToDo, document.getElementById('state-two').getAttribute('data-bs-original-title'));
     }
 
     yellowCornerRotationPocket() {
@@ -562,6 +679,7 @@ export class TwoByTwoCube {
         }
 
         this.yellowToSolve();
+        this.showRots(this.rotsToDo, document.getElementById('state-three').getAttribute('data-bs-original-title'));
     }
 
     changeYellowCornersPocket(sideIndex = 0) {
@@ -593,6 +711,7 @@ export class TwoByTwoCube {
 
     yellowToSolve() {
         while (!this.isSolved()) {
+            console.log('beragadt');
             this.rotate(this.yellowSide, false);
         }
     }
