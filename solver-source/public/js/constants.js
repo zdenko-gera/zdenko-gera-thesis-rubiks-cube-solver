@@ -18,3 +18,7 @@ export const BLUE = 'rgb(50, 115, 255)';
 export const YELLOW = 'rgb(255, 255, 153)';
 
 // *** COLORS END ***
+
+export const eqSet = (xs, ys) =>
+    xs.size === ys.size &&
+    [...xs].every((x) => ys.has(x));

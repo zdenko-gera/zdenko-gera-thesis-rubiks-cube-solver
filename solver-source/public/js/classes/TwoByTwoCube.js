@@ -1,22 +1,12 @@
 import {WHITE, RED, GREEN, ORANGE, BLUE, YELLOW, CORNER_CUBE} from "../constants.js";
+import { eqSet } from "../constants.js";
 import {Cube} from "./Cube.js";
 import {Sticker} from "./Sticker.js";
 
-export class TwoByTwoCube {
-    sides;
-    rotsToDo;
-    rotsDone;
+export class TwoByTwoCube extends Cube {
 
     constructor(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide) {
-        this.whiteSide = whiteSide;
-        this.redSide = redSide;
-        this.greenSide = greenSide;
-        this.orangeSide = orangeSide;
-        this.blueSide = blueSide;
-        this.yellowSide = yellowSide;
-        this.sides = [this.blueSide, this.redSide, this.greenSide, this.orangeSide, this.whiteSide, this.yellowSide];
-        this.rotsToDo = '';
-        this.rotsDone = '';
+        super(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide);
 
         // Matricák szomszédsági viszonyának megadása oldalanként:
         this.whiteSide.stickers[0].neighbors.add(this.orangeSide.stickers[2].color.toString()).add(this.greenSide.stickers[1].color.toString());
@@ -48,97 +38,6 @@ export class TwoByTwoCube {
         this.yellowSide.stickers[1].neighbors.add(this.blueSide.stickers[3].color.toString()).add(this.redSide.stickers[3].color.toString());
         this.yellowSide.stickers[2].neighbors.add(this.orangeSide.stickers[0].color.toString()).add(this.greenSide.stickers[0].color.toString());
         this.yellowSide.stickers[3].neighbors.add(this.blueSide.stickers[1].color.toString()).add(this.orangeSide.stickers[1].color.toString());
-    }
-
-    /**
-     * Returns if the cube is solved and validates the stickers.
-     *
-     * @returns {boolean} if cube is solved
-     */
-    isSolved() {
-        const validColors = [WHITE, RED, GREEN, ORANGE, BLUE, YELLOW];
-        let isValid = true;
-        let isSolved = true;
-
-        for (let i = 0; i < 4; i++) {
-            if (!validColors.includes(this.whiteSide.stickers[i].color)) {
-                isValid = false;
-            }
-            if (this.whiteSide.stickers[i].color !== this.whiteSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 4; i++) {
-            if (!validColors.includes(this.redSide.stickers[i].color)) {
-                isValid = false;
-            }
-            if (this.redSide.stickers[i].color !== this.redSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 4; i++) {
-            if (!validColors.includes(this.greenSide.stickers[i].color)) {
-                isValid = false;
-            }
-            if (this.greenSide.stickers[i].color !== this.greenSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 4; i++) {
-            if (!validColors.includes(this.orangeSide.stickers[i].color)) {
-                isValid = false;
-            }
-            if (this.orangeSide.stickers[i].color !== this.orangeSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 4; i++) {
-            if (!validColors.includes(this.blueSide.stickers[i].color)) {
-                isValid = false;
-
-            }
-            if (this.blueSide.stickers[i].color !== this.blueSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        for (let i = 0; i < 4; i++) {
-            if (!validColors.includes(this.yellowSide.stickers[i].color)) {
-                isValid = false;
-            }
-            if (this.yellowSide.stickers[i].color !== this.yellowSide.getMiddleColor()) {
-                isSolved = false;
-            }
-        }
-
-        if (!isValid) {
-            document.getElementById('error-msg').style.display = "block";
-            document.getElementById('error-msg').innerText = 'Add meg minden kocka színét a kiválasztható színekkel!';
-            setTimeout(function () {
-                document.getElementById('error-msg').style.display = 'none'
-            }, 7000);
-            return false;
-        }
-
-        if (isSolved) {
-            document.getElementById('success-msg').style.display = "block";
-            document.getElementById('success-msg').innerText = 'A kocka ki van rakva!';
-            setTimeout(function () {
-                document.getElementById('success-msg').style.display = 'none'
-            }, 7000);
-            return true;
-        } else {
-            document.getElementById('error-msg').style.display = "block";
-            document.getElementById('error-msg').innerText = 'A kocka nincs kirakva!';
-            setTimeout(function () {
-                document.getElementById('error-msg').style.display = 'none'
-            }, 7000);
-            return false;
-        }
     }
 
     /**
@@ -177,7 +76,6 @@ export class TwoByTwoCube {
             cornerSum--;
         }
 
-        // *** sárga oldalon ugyanígy***
         // bal felső sárga oldalon
         if (this.greenSide.stickers[2].color === WHITE || this.greenSide.stickers[2].color === YELLOW) {
             cornerSum++;
@@ -449,26 +347,6 @@ export class TwoByTwoCube {
         return this;
     }
 
-
-    /**
-     * Shows the instructions message.
-     *
-     * @param instructions list of instructions to get to the shown state
-     * @param phaseTitle title of the phase which is being performed
-     */
-    showRots(instructions, phaseTitle = '') {
-        document.getElementById('instructions-bubble').style.display = 'block';
-        document.getElementById('instructions').innerText = instructions;
-        document.getElementById('phase-title').innerText = phaseTitle;
-        setTimeout(function () {
-            document.getElementById('instructions-bubble').style.display = 'none';
-        }.bind(this), 45000);
-
-        this.rotsDone += instructions + '  -->  ';
-        this.rotsToDo = '';
-        console.log(this.rotsDone);
-    }
-
     /**
      * First step of solving the cube. Solves the white side of the cube.
      */
@@ -708,18 +586,7 @@ export class TwoByTwoCube {
         }
         return true;
     }
-
-    yellowToSolve() {
-        while (!this.isSolved()) {
-            console.log('beragadt');
-            this.rotate(this.yellowSide, false);
-        }
-    }
 }
-
-const eqSet = (xs, ys) =>
-    xs.size === ys.size &&
-    [...xs].every((x) => ys.has(x));
 
 function getPosOnTop(paramPos) {
     if (paramPos === 0) return 2;
