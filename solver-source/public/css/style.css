@@ -499,6 +499,10 @@ body {
     box-shadow: 0 0 1rem rgba(10, 10, 10, 0.7);
 }
 
+.session-msg-bubble {
+    display: block;
+}
+
 .subpage-title, #add-record-btn {
     text-align: center;
     margin-inline: auto;

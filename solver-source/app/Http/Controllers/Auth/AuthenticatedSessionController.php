@@ -26,6 +26,10 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        if (isset($request->remember)) {
+
+        }
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('landing', absolute: false))->with(['success' => __('messages.welcome') . auth()->user()->name . '!']);

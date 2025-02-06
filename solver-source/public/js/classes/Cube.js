@@ -3,7 +3,6 @@ import {WHITE, RED, GREEN, ORANGE, BLUE, YELLOW} from "../constants.js";
 import { eqSet } from "../constants.js";
 import {solvedCube} from "../main.js";
 import {Sticker} from "./Sticker.js";
-import {Side} from "./Side.js";
 
 export class Cube {
     sides;
@@ -199,8 +198,6 @@ export class Cube {
             }, 5000);
             return false;
         }
-
-        return isSolved;
     }
 
     /**
@@ -420,6 +417,7 @@ export class Cube {
      *
      * @param side Side to rotate (clockwise by default).
      * @param backwards Decides if the rotation should be made clockwise or counter-clockwise.
+     * @param humanMove If the rotation is started by the user using the rotation buttons.
      * @returns {Cube} The transformed cube.
      */
     rotate(side, backwards = false, humanMove = true) {
@@ -891,6 +889,13 @@ export class Cube {
         this.showRots(this.rotsToDo, document.getElementById('state-one').getAttribute('data-bs-original-title'));
     }
 
+
+    /**
+     * Places the white corners of the cube to the solved place. Second step of solving the cube.
+     *
+     * @param setRotsEmpty If this function is called by another function, this should be false: this way
+     * it adds the rotations made by this function to the last rotations of the cube.
+     */
     whiteCorners(setRotsEmpty = true) {
         let movingIndices = [[6, 0], [0, 2], [2, 8], [8, 6]];
         let movingWhiteIndices = [[2, 0, 6], [8, 2, 0], [6, 8, 2], [0, 6, 8]];
@@ -1034,6 +1039,10 @@ export class Cube {
         }
     }
 
+
+    /**
+     * Third step of solving the cube. Places the second layer edges.
+     */
     colorEdges() {
         // console.log('Élkockák kirakása');
         let pos;
@@ -1137,6 +1146,9 @@ export class Cube {
         this.showRots(this.rotsToDo, document.getElementById('state-three').getAttribute('data-bs-original-title'));
     }
 
+    /**
+     * Fourth step of solving the cube. Makes the yellow cross on the bottom of the cube.
+     */
     yellowCross() {
         // console.log('*** SÁRGA KERESZT ***')
         if (this.yellowSide.stickers[1].color.toString() !== YELLOW ||
@@ -1203,6 +1215,9 @@ export class Cube {
         this.showRots(this.rotsToDo, document.getElementById('state-four').getAttribute('data-bs-original-title'));
     }
 
+    /**
+     * Fifth step of solving the cube. Places the yellow edges.
+     */
     yellowEdges() {
         let affectedIndices = [5, 7, 3, 1];
         for (let k = 0; k < 4; k++) {
@@ -1274,6 +1289,9 @@ export class Cube {
         this.showRots(this.rotsToDo, document.getElementById('state-five').getAttribute('data-bs-original-title'));
     }
 
+    /**
+     * Sixth step of solving the cube. Places the yellow corners of the cube.
+     */
     yellowCornerPosition() {
         // Lehetosegek: a) 4 helytelen van
         //              b) 3 helytelen van
@@ -1351,10 +1369,12 @@ export class Cube {
         this.showRots(this.rotsToDo, document.getElementById('state-six').getAttribute('data-bs-original-title'));
     }
 
+    /**
+     * Seventh step of solving the cube. Rotates the already placed yellow corner cubicles to the solved state.
+     */
     yellowCornerRotation() {
         // console.log('yellowCornerRotation() started.');
         let cornersToCheck = [2, 0, 6, 8]
-        let moveThisSide = 0;
         let entryIndex = -1;
 
         for (let i = 0; i < 4; i++) {
@@ -1384,6 +1404,12 @@ export class Cube {
         this.showRots(this.rotsToDo, document.getElementById('state-seven').getAttribute('data-bs-original-title'));
     }
 
+    /**
+     * Changes two yellow edge cubicles.
+     *
+     * @param actualSideIndex
+     * @param param
+     */
     changeYellowEdges(actualSideIndex, param) {
         this.rotate(this.sides[(actualSideIndex + param) % 4], false);
         this.rotate(this.yellowSide, false);
@@ -1395,6 +1421,11 @@ export class Cube {
         this.rotate(this.sides[(actualSideIndex + param) % 4], true);
     }
 
+    /**
+     * Changes three yellow corner cubicles.
+     *
+     * @param sideIndex
+     */
     changeYellowCorners(sideIndex = 0) {
         this.rotate(this.sides[sideIndex % 4], false);
         this.rotate(this.yellowSide, true);
@@ -1406,6 +1437,11 @@ export class Cube {
         this.rotate(this.yellowSide, false);
     }
 
+    /**
+     * Rotates a yellow corner cubicle.
+     *
+     * @param sideIndex
+     */
     rotateYellowCorners(sideIndex) {
         this.rotate(this.sides[sideIndex % 4], true);
         this.rotate(this.whiteSide, false);
@@ -1413,6 +1449,11 @@ export class Cube {
         this.rotate(this.whiteSide, true);
     }
 
+    /**
+     * Checks if the yellow side is solved.
+     *
+     * @returns {boolean}
+     */
     isYellowSideSolved() {
         for (let i = 0; i < 9; i++) {
             if (this.yellowSide.stickers[i].color !== this.yellowSide.getMiddleColor()) {
@@ -1422,20 +1463,30 @@ export class Cube {
         return true;
     }
 
+    /**
+     * If the last layer is not solved, it solves it with the fewest rotations.
+     */
     yellowToSolve() {
         while (!this.isSolved()) {
             this.rotate(this.yellowSide, false);
         }
     }
 
-    getTargetPosition(solvedCube, sticker) {
+    /* getTargetPosition(solvedCube, sticker) {
         // console.log('getTargetPosition() - A kérdéses matrica:');
         // console.log(sticker);
         // console.log(solvedCube.getStickerPosition(sticker));
         return solvedCube.getStickerPosition(sticker);
-    }
+    } */
 }
 
+
+/**
+ * Returns the sticker index on the white side above the given yellow side index.
+ *
+ * @param paramPos
+ * @returns {number}
+ */
 function getPosOnTop(paramPos) {
     if (paramPos === 0) return 6;
     if (paramPos === 2) return 8;

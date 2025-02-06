@@ -34,29 +34,11 @@
                 <div>
                     {{ substr($record->created_at,0 , 10) }}
                 </div>
-                <a href="#" class="btn btn-sm btn-danger delete-pr-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ __('messages.delete') }}</a>
-            </div>
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content bg-dark">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{ __('messages.confirmDelete') }}</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-flex-body">
-                                <form action="{{ route('personalRecords.destroy', $record->id) }}" method="POST">
-                                    @csrf
-                                    <input type="submit" class="btn btn-success" value="{{ __('messages.confirm') }}">
-                                </form>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
-                        </div>
-                    </div>
-                </div>
+                <form action=""></form>
+                <form action="{{ route('personalRecords.destroy', $record->id) }}" method="POST">
+                    @csrf
+                    <input type="submit" class="btn btn-sm btn-danger delete-pr-btn" value="{{ __('messages.delete') }}">
+                </form>
             </div>
         @endforeach
         @else

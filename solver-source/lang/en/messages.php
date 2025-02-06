@@ -96,4 +96,5 @@ return [
     'timer' => 'Timer',
     'bestUntilNow' => 'Previous best',
     'fasterThanEver' => 'This was faster than your personal best. Would you like to save it?',
+    'recordSavedError' => 'Error: Enter a real value!',
 ];

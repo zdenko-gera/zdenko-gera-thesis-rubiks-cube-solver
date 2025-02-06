@@ -97,4 +97,5 @@ return [
     'timer' => 'Stopper',
     'bestUntilNow' => 'Eddigi legjobb',
     'fasterThanEver' => 'Ez gyorsabb volt, mint az eddigi legjobbad. Szeretnéd menteni?',
+    'recordSavedError' => 'Hiba: Valós értéket adj meg!',
 ];

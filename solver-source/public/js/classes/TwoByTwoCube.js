@@ -148,6 +148,7 @@ export class TwoByTwoCube extends Cube {
      *
      * @param side Side to rotate (clockwise by default).
      * @param backwards Decides if the rotation should be made clockwise or counter-clockwise.
+     * @param humanMove If the rotation is started by the user using the rotation buttons.
      * @returns {Cube} The transformed cube.
      */
     rotate(side, backwards = false, humanMove = true) {
@@ -292,62 +293,6 @@ export class TwoByTwoCube extends Cube {
     }
 
     /**
-     * Renders the cube according to the stored values.
-     */
-    reRenderCube() {
-        let redChildren = document.getElementById('red-side').children;
-        for (let i = 0; i < document.getElementById('red-side').children.length; i++) {
-            redChildren[i].style.backgroundColor = this.redSide.stickers[i].color.toString();
-        }
-        let blueChildren = document.getElementById('blue-side').children;
-        for (let i = 0; i < document.getElementById('blue-side').children.length; i++) {
-            blueChildren[i].style.backgroundColor = this.blueSide.stickers[i].color.toString();
-        }
-        let greenChildren = document.getElementById('green-side').children;
-        for (let i = 0; i < document.getElementById('green-side').children.length; i++) {
-            greenChildren[i].style.backgroundColor = this.greenSide.stickers[i].color.toString();
-        }
-        let yellowChildren = document.getElementById('yellow-side').children;
-        for (let i = 0; i < document.getElementById('yellow-side').children.length; i++) {
-            yellowChildren[i].style.backgroundColor = this.yellowSide.stickers[i].color.toString();
-        }
-        let whiteChildren = document.getElementById('white-side').children;
-        for (let i = 0; i < document.getElementById('white-side').children.length; i++) {
-            whiteChildren[i].style.backgroundColor = this.whiteSide.stickers[i].color.toString();
-        }
-        let orangeChildren = document.getElementById('orange-side').children;
-        for (let i = 0; i < document.getElementById('orange-side').children.length; i++) {
-            orangeChildren[i].style.backgroundColor = this.orangeSide.stickers[i].color.toString();
-        }
-    }
-
-    /**
-     * Mixes the cube using legal rotations. By default, 50 moves are used.
-     *
-     * @param numMoves the number of moves to mix the cube.
-     * @returns {Cube} the mixed cube.
-     */
-    mixCube(numMoves = 50) {
-        this.rotsDone = '';
-        this.rotsToDo = '';
-        for (let i = 0; i < numMoves; i++) {
-            let randomIndex = Math.floor(Math.random() * 6);
-            this.rotate(this.sides[randomIndex], Boolean(Math.round(Math.random())));
-        }
-        this.reRenderCube();
-        document.getElementById('instructions').style.display = 'block';
-        document.getElementById('instructions').innerText = this.rots;
-        setTimeout(function () {
-            document.getElementById('phase-title').style.display = 'none';
-            document.getElementById('instructions').style.display = 'none';
-            this.rots = '';
-        }.bind(this), 50000);
-
-        this.showRots(this.rotsToDo, document.getElementById('mix-cube-button').innerText);
-        return this;
-    }
-
-    /**
      * First step of solving the cube. Solves the white side of the cube.
      */
     whiteSidePocket() {
@@ -363,13 +308,13 @@ export class TwoByTwoCube extends Cube {
                     if (pos['side'].getMiddleColor() === this.sides[j].getMiddleColor()) {
                         switch (pos['index']) {
                             case movingIndices[j][0]:
-                                 console.log('C-1');
+                                // console.log('C-1');
                                 this.rotate(this.sides[j], true);
                                 this.rotate(this.yellowSide, true);
                                 this.rotate(this.sides[j], false);
                                 break;
                             case movingIndices[j][1]:
-                                 console.log('C-2');
+                                // console.log('C-2');
                                 this.rotate(this.sides[j], false);
                                 this.rotate(this.yellowSide, false);
                                 this.rotate(this.sides[j], true);
@@ -380,28 +325,28 @@ export class TwoByTwoCube extends Cube {
             }
 
             if (pos['side'] === this.whiteSide && pos['index'] === movingWhiteIndices[i][0]) {
-                console.log('C-3');
+                // console.log('C-3');
                 this.rotate(this.sides[(4 + i - 1) % 4], true);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(4 + i - 1) % 4], false);
             }
 
             if (pos['side'] === this.whiteSide && pos['index'] === movingWhiteIndices[i][1]) {
-                 console.log('C-4');
+                // console.log('C-4');
                 this.rotate(this.sides[(i + 2) % 4], true);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(i + 2) % 4], false);
             }
 
             if (pos['side'] === this.whiteSide && pos['index'] === movingWhiteIndices[i][2]) {
-                 console.log('C-5');
+                // console.log('C-5');
                 this.rotate(this.sides[(i + 2) % 4], false);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(i + 2) % 4], true);
             }
 
             if (pos['side'] === this.yellowSide) {
-                 console.log('C-6');
+                // console.log('C-6');
                 let flag2 = false;
                 while (flag2 === false) {
 
@@ -444,7 +389,7 @@ export class TwoByTwoCube extends Cube {
             //bal sarokban
             if (pos['side'] === this.blueSide && pos['index'] === 3 || pos['side'] === this.redSide && pos['index'] === 2 || pos['side'] === this.greenSide && pos['index'] === 0 ||
                 pos['side'] === this.orangeSide && pos['index'] === 1) {
-                 console.log('C-7');
+                // console.log('C-7');
                 while (pos['side'] !== this.sides[(4 + i - 1) % 4]) {
                     this.rotate(this.yellowSide, false);
                     pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', CORNER_CUBE, new Set([this.sides[i].getMiddleColor(), this.sides[(i + 1) % 4].getMiddleColor()])));
@@ -454,7 +399,7 @@ export class TwoByTwoCube extends Cube {
             //jobb sarokban
             if (pos['side'] === this.blueSide && pos['index'] === 1 || pos['side'] === this.redSide && pos['index'] === 3 || pos['side'] === this.greenSide && pos['index'] === 2 ||
                 pos['side'] === this.orangeSide && pos['index'] === 0) {
-                 console.log('C-8');
+                // console.log('C-8');
                 while (pos['side'] !== this.sides[(i + 2) % 4]) {
                     this.rotate(this.yellowSide, true);
                     pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', CORNER_CUBE, new Set([this.sides[i].getMiddleColor(), this.sides[(i + 1) % 4].getMiddleColor()])));
@@ -465,21 +410,24 @@ export class TwoByTwoCube extends Cube {
             pos = this.getStickerPosition(new Sticker('rgb(255, 255, 255)', CORNER_CUBE, new Set([this.sides[i].getMiddleColor(), this.sides[(i + 1) % 4].getMiddleColor()])));
             // he a saraokkocka a jobbra eső oldalon helyezkedik el
             if (pos['side'] === this.sides[(4 + i - 1) % 4]) {
-                 console.log('C-9');
+                // console.log('C-9');
                 this.rotate(this.sides[(1 + i) % 4], false);
                 this.rotate(this.yellowSide, true);
                 this.rotate(this.sides[(1 + i) % 4], true);
             } else if (pos['side'] === this.sides[(i + 2) % 4]) {
-                 console.log('C-10');
+                // console.log('C-10');
                 this.rotate(this.sides[i % 4], true);
                 this.rotate(this.yellowSide, false);
                 this.rotate(this.sides[i % 4], false);
             }
-            console.log(i + 1 + '. oldal megvan');
+            // console.log(i + 1 + '. oldal megvan');
         }
         this.showRots(this.rotsToDo, document.getElementById('state-one').getAttribute('data-bs-original-title'));
     }
 
+    /**
+     * Second step of solving the cube. Places the yellow corners of the cube.
+     */
     yellowCornerPositionPocket() {
         // Lehetosegek: a) 3 helytelen van (ekkor úgy is lehet forgatni, hogy 2 legyen megfelelő helyen, de az algoritmust 1-helyes állással kell futtatni)
         //              b) nincs helytelen
@@ -488,7 +436,6 @@ export class TwoByTwoCube extends Cube {
         let cornersToCheck = [1, 0, 2, 3]
         let rightStickerPos = 0;
         let countOfRightStickers = 0;
-        let optimalRotation = 0;
 
         let limit = 0;
 
@@ -533,9 +480,11 @@ export class TwoByTwoCube extends Cube {
         this.showRots(this.rotsToDo, document.getElementById('state-two').getAttribute('data-bs-original-title'));
     }
 
+    /**
+     * Third step of solving the pocket cube. Rotates the already placed yellow corner cubicles to the solved state.
+     */
     yellowCornerRotationPocket() {
         let cornersToCheck = [1, 0, 2, 3]
-        let moveThisSide = 0;
         let entryIndex = -1;
 
         for (let i = 0; i < 4; i++) {
@@ -560,6 +509,11 @@ export class TwoByTwoCube extends Cube {
         this.showRots(this.rotsToDo, document.getElementById('state-three').getAttribute('data-bs-original-title'));
     }
 
+    /**
+     * Changes the yellow cubicles.
+     *
+     * @param sideIndex
+     */
     changeYellowCornersPocket(sideIndex = 0) {
         this.rotate(this.yellowSide, false);
         this.rotate(this.sides[sideIndex % 4], false);
@@ -571,6 +525,11 @@ export class TwoByTwoCube extends Cube {
         this.rotate(this.sides[(sideIndex + 2) % 4], false);
     }
 
+    /**
+     * Rotates the yellow cubicles.
+     *
+     * @param sideIndex
+     */
     rotateYellowCornersPocket(sideIndex) {
         this.rotate(this.sides[sideIndex % 4], false);
         this.rotate(this.whiteSide, false);
@@ -578,6 +537,11 @@ export class TwoByTwoCube extends Cube {
         this.rotate(this.whiteSide, true);
     }
 
+    /**
+     * Checks if the yellow side is solved.
+     *
+     * @returns {boolean}
+     */
     isYellowSideSolvedPocket() {
         for (let i = 0; i < 4; i++) {
             if (this.yellowSide.stickers[i].color !== this.yellowSide.getMiddleColor()) {
@@ -588,6 +552,12 @@ export class TwoByTwoCube extends Cube {
     }
 }
 
+/**
+ * Returns the sticker index on the white side above the given yellow side index.
+ *
+ * @param paramPos
+ * @returns {number}
+ */
 function getPosOnTop(paramPos) {
     if (paramPos === 0) return 2;
     if (paramPos === 1) return 3;

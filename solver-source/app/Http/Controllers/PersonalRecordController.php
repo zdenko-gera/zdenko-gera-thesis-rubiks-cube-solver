@@ -47,9 +47,12 @@ class PersonalRecordController extends Controller
         $personalRecord->sumTimeInMsec = $personalRecord->hour * 3600000 + $personalRecord->min * 60000 + $personalRecord->sec * 1000 + $personalRecord->msec;
         $personalRecord->email = auth()->user()->email;
 
-        $personalRecord->save();
-
-        return redirect()->route('personalRecords.mine')->with(['success' => __('messages.recordSaved')]);
+        if ($personalRecord->hour > 0 || $personalRecord->min > 0 || $personalRecord->sec > 0 || $personalRecord->msec > 0) {
+            $personalRecord->save();
+            return redirect()->route('personalRecords.mine')->with(['success' => __('messages.recordSaved')]);
+        } else {
+            return redirect()->route('personalRecords.mine')->with(['error' => __('messages.recordSavedError')]);
+        }
     }
 
     /**

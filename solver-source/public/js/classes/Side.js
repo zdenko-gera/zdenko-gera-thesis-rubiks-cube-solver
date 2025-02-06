@@ -1,5 +1,3 @@
-import { Sticker } from './Sticker.js';
-
 export class Side {
     #middleColor;
     stickers;
@@ -23,7 +21,7 @@ export class Side {
         return this.#middleColor;
     }
 
-    deepCopy() {
+    /* deepCopy() {
         let newSide = new Side(this.getMiddleColor(),
             new Sticker(this.stickers[0].getColor(), 2, new Set([])),
             new Sticker(this.stickers[1].getColor(), 1, new Set([])),
@@ -36,5 +34,5 @@ export class Side {
             new Sticker(this.stickers[8].getColor(), 2, new Set()));
 
         return newSide;
-    }
+    } */
 }
