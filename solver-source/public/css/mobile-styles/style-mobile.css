@@ -154,4 +154,13 @@
     #instructions {
         overflow-wrap: break-word;
     }
+
+    #logout-form * {
+        border: none;
+        text-align: left;
+    }
+
+    #logout-form {
+        padding: 0;
+    }
 }
