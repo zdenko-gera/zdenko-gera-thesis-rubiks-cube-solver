@@ -42,8 +42,8 @@ if (location.pathname == '/classicCube') {
 
         // Méret beállítása
         renderer.setSize(600, 600);
-        renderer.domElement.style.width = '35rem';
-        renderer.domElement.style.height = '22rem';
+        renderer.domElement.style.width = '35dvw';
+        renderer.domElement.style.height = '40svh';
         renderer.setClearColor(0x000000, 0);
         renderer.shadowMap.enabled = true;
         document.getElementById('cube-container').appendChild(renderer.domElement);

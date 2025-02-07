@@ -98,4 +98,14 @@ return [
     'bestUntilNow' => 'Eddigi legjobb',
     'fasterThanEver' => 'Ez gyorsabb volt, mint az eddigi legjobbad. Szeretnéd menteni?',
     'recordSavedError' => 'Hiba: Valós értéket adj meg!',
-];
+
+    'verifyEmailAddress' => 'E-mail cím megerősítése',
+    'clickToVerify' => 'Kattints az alábbi gombra az e-mail címed megerősítéséhez.',
+    'verifyButton' => 'Email megerősítése',
+    'verificationLinkSent' => 'Új megerősítő link lett elküldve a regisztráció során megadott e-mail címre.',
+    'resendEmailVerification' => 'Hitelesítő email újraküldése',
+    'resendText' => 'Köszönjük, hogy regisztráltál! Mielőtt elkezdenéd használni az oldalt, kérlek, erősítsd meg az e-mail címed a most elküldött linkre kattintva. Ha nem kaptad meg az e-mailt, szívesen elküldjük újra.',
+
+    'salutation' => 'Üdvözlettel: Gera Zdenkó',
+    'greeting' => 'Szia!',
+    ];

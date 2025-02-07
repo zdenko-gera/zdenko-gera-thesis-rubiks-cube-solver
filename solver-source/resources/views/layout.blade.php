@@ -10,6 +10,7 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/forms.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/mobile-styles/style-mobile.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
@@ -22,7 +23,7 @@
 <!-- <div id="app"></div> -->
 <header>
     <h3 id="header-title"><a href="/">Rubik's cube solver</a></h3>
-    <div>
+    <div class="header-links">
         @if (auth()->check() && auth()->user()->is_admin === 1)<a href={{ route('rubikEvents.create') }}>+{{ __('messages.event') }}</a> @endif
         <a href={{ route('rubikEvents.index') }}>{{ __('messages.events') }}</a>
         @auth <a href={{ route('personalRecords.mine') }}>{{ __('messages.records') }}</a> @endauth
@@ -45,7 +46,29 @@
             </form>
         @endauth
     </div>
+    <div id="hamburger-menu-icons-container">
+        <div id="hamburger-menu-icon"><i class="fa fa-bars"></i></div>
+        <div id="hamburger-menu-close-icon"><i class="fa fa-times"></i></div>
+    </div>
 </header>
+<div id="hamburger-menu">
+    @if (auth()->check() && auth()->user()->is_admin === 1)<a href={{ route('rubikEvents.create') }}>+{{ __('messages.event') }}</a> @endif
+    @auth <a href={{ route('personalRecords.mine') }}>{{ __('messages.records') }}</a> @endauth
+        <a href={{ route('twoByTwoCube') }}>2x2 {{ __('messages.cubeGuide') }}</a>
+        <a href={{ route('classicCube') }}>3x3 {{ __('messages.cubeGuide') }}</a>
+        <a href={{ route('rubikEvents.index') }}>{{ __('messages.events') }}</a>
+        <a href={{ route('timer') }}>{{ __('messages.timer') }}</a>
+    @guest
+        <a href={{ route('login') }}>{{ __('messages.login') }}</a>
+        <a href={{ route('register') }}>{{ __('messages.signup') }}</a>
+    @endguest
+    @auth
+        <form method="POST" action="{{ route('logout') }}" id="logout-form">
+            @csrf
+            <button type="submit">{{ __('messages.logout') }}</button>
+        </form>
+    @endauth
+</div>
 
 @yield('content')
     <div id="error-msg" class="msg-bubble bg-danger"{{ session('error') }}></div>

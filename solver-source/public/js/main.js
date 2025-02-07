@@ -182,7 +182,7 @@ $('document').ready(function() {
         document.getElementById('solve-button').style.display = 'block';
         document.getElementById('submit-cube-button').style.display = 'none';
         document.getElementById('color-picker').style.display = 'none';
-        document.getElementById('cube-rotation-buttons-container').style.display = 'block';
+        document.getElementById('cube-rotation-buttons-container').style.display = 'flex';
         document.getElementById('fill-to-solved-state').style.display = 'none';
         let tmpSide = [];
 
@@ -405,7 +405,7 @@ $('document').ready(function() {
         // document.getElementById('solve-button').style.display = 'block';
         document.getElementById('submit-cube-button-tbt').style.display = 'none';
         document.getElementById('color-picker').style.display = 'none';
-        document.getElementById('cube-rotation-buttons-container').style.display = 'block';
+        document.getElementById('cube-rotation-buttons-container').style.display = 'flex';
         document.getElementById('fill-to-solved-state').style.display = 'none';
         let tmpSide = [];
 
@@ -596,5 +596,11 @@ $('document').ready(function() {
             $('#cube-container > canvas').hide();
             $('#cube-container > div').show();
         }
+    });
+
+    $('#hamburger-menu-icons-container').click(function (e) {
+        $('#hamburger-menu').slideToggle();
+        $('#hamburger-menu-close-icon').toggle();
+        $('#hamburger-menu-icon').toggle();
     });
 });

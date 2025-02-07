@@ -1,12 +1,12 @@
 @extends('layout')
 @section('content')
 <main>
-    <div>
-        {{ __('messages.forgotPasswordSiteInfo') }}
-    </div>
-
-    <form method="POST" action="{{ route('password.email') }}">
+    <form method="POST" class="auth-form" action="{{ route('password.email') }}">
         @csrf
+
+        <div>
+            {{ __('messages.forgotPasswordSiteInfo') }}
+        </div>
 
         <!-- Email Address -->
         <div>

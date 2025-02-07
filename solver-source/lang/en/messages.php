@@ -97,4 +97,14 @@ return [
     'bestUntilNow' => 'Previous best',
     'fasterThanEver' => 'This was faster than your personal best. Would you like to save it?',
     'recordSavedError' => 'Error: Enter a real value!',
+
+    'verifyEmailAddress' => 'Verify Email address',
+    'clickToVerify' => 'Click the button below to verify your email address.',
+    'verifyButton' => 'Verify email',
+    'verificationLinkSent' => 'A new verification link has been sent to the email address you provided during registration.',
+    'resendEmailVerification' => 'Resend verification email',
+    'resendText' => 'Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.',
+
+    'salutation' => 'Sincerely: Zdenkó Gera',
+    'greeting' => 'Hello!',
 ];

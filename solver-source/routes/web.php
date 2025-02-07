@@ -7,6 +7,9 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\TimerController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', function () {
     return view('index');
@@ -19,6 +22,22 @@ Route::get('/classicCube', function () {
 Route::get('/twoByTwoCube', function () {
     return view('twoByTwoCube');
 })->name('twoByTwoCube');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return view('index');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('success', 'Hitelesítő email elküldve!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 //events ***
 Route::get('/events', [RubikEventController::class, 'index'])->name('rubikEvents.index');
@@ -34,7 +53,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

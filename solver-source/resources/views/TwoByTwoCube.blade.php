@@ -43,6 +43,7 @@
             </div>
         </div>
         <div id="cube-container">
+            <div id="cube">
             <div class="side alone-side" id="green-side">
                 <div class="sticker tbt-sticker"></div>
                 <div class="sticker tbt-sticker"></div>
@@ -80,6 +81,7 @@
                 <div class="sticker tbt-sticker"></div>
                 <div class="sticker tbt-sticker"></div>
                 <div class="sticker tbt-sticker"></div>
+            </div>
             </div>
         </div>
         <div id="cube-buttons-container">

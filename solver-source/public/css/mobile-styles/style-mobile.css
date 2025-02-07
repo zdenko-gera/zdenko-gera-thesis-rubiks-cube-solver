@@ -1,0 +1,157 @@
+@media (min-width:320px) and (max-width:768px) {
+    html {
+        max-width: 100%;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+    }
+
+    main {
+        margin-block: 5rem;
+    }
+
+    .event-list-container {
+        flex-direction: column;
+    }
+
+    #event-show-container {
+        width: 95%;
+    }
+
+    #event-show-container div {
+        margin-left: 0;
+    }
+
+    #add-record-form {
+        width: 100%;
+    }
+
+    .upload-form {
+        width: 95%;
+    }
+
+    .timer-add-record-form {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        max-width: 100%;
+    }
+
+    #timer-display {
+        max-width: 100%;
+    }
+
+    #timer p {
+        max-width: 100%;
+        font-size: xx-large;
+    }
+
+    .auth-form {
+        width: 95%;
+    }
+
+    .auth-form div {
+        width: 90%;
+    }
+
+    #hamburger-menu-icons-container, #hamburger-menu-icon, #hamburger-menu-close-icon {
+        display: block;
+        color: white;
+        font-size: x-large;
+        margin-inline: 0.3rem;
+    }
+
+    #hamburger-menu-close-icon {
+        display: none;
+    }
+
+    header div {
+        display: none;
+    }
+
+    #hamburger-menu {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        z-index: 99;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(1.5rem);
+        display: flex;
+        flex-direction: column;
+        padding-top: 2.5rem;
+    }
+
+    #hamburger-menu * {
+        display: block;
+        width: 100%;
+        padding-block: 0.6rem;
+        background-color: transparent;
+        border-bottom: 1px solid rgba(100, 100, 100, 0.6);
+        text-decoration: none;
+        color: white;
+        padding-left: 2rem;
+        letter-spacing: .05rem;
+    }
+
+    #hamburger-menu {
+        display: none;
+    }
+
+    #main-container {
+        flex-direction: column;
+        max-width: 100%;
+        align-items: center;
+    }
+
+    #color-picker, #cube-rotation-buttons-container {
+        flex-direction: row;
+        max-width: 100%;
+    }
+
+    #color-picker p {
+        display: none;
+    }
+
+    .color-sample {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .state {
+        font-size: small;
+    }
+
+    #progress-bar-container {
+        width: 95%;
+    }
+
+    #cube-container {
+        flex-direction: column;
+    }
+
+    #cube-container canvas {
+        width: 90dvw !important;
+        height: 60svh !important;
+    }
+
+    #instructions-bubble {
+        max-width: 80dvw;
+        height: fit-content;
+        text-wrap: wrap;
+        right: .5rem;
+        bottom: .5rem;
+        padding: 0.4rem 1rem;
+    }
+
+    #instructions {
+        overflow-wrap: break-word;
+    }
+}

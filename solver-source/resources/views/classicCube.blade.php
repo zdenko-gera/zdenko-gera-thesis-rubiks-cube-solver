@@ -112,6 +112,7 @@
             <div class="sticker"></div>
             <div class="sticker"></div>
         </div>
+        </div>
     </div>
     <div id="cube-buttons-container">
         <button id="fill-to-solved-state" class="btn btn-outline-primary">TESZT KITÖLTÉS</button>
