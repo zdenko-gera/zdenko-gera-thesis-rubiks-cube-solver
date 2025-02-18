@@ -312,6 +312,11 @@
         font-weight: bold;
         display: none;
         color: whitesmoke;
+        max-width: 70dvw;
+    }
+
+    #instructions {
+        overflow-wrap: break-word;
     }
 
     #phase-title {

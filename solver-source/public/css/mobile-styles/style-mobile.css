@@ -143,16 +143,11 @@
     }
 
     #instructions-bubble {
-        max-width: 80dvw;
         height: fit-content;
         text-wrap: wrap;
         right: .5rem;
         bottom: .5rem;
         padding: 0.4rem 1rem;
-    }
-
-    #instructions {
-        overflow-wrap: break-word;
     }
 
     #logout-form * {

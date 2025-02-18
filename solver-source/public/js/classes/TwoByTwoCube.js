@@ -436,6 +436,8 @@ export class TwoByTwoCube extends Cube {
         let cornersToCheck = [1, 0, 2, 3]
         let rightStickerPos = 0;
         let countOfRightStickers = 0;
+        let rightZero = false;
+        let rightTwo = false;
 
         let limit = 0;
 
@@ -458,7 +460,15 @@ export class TwoByTwoCube extends Cube {
 
             if (limit > 15) break;
 
-            if (countOfRightStickers === 0 || countOfRightStickers === 2 || countOfRightStickers === 3) {
+            if (countOfRightStickers === 0 && !rightZero) {
+                rightZero = true;
+            } else if (countOfRightStickers === 2 && !rightTwo) {
+                rightTwo = true;
+            } else if (countOfRightStickers === 0 || countOfRightStickers === 2 || countOfRightStickers === 3) {
+                if ((countOfRightStickers === 0 && rightZero) || (countOfRightStickers === 2 && rightTwo)) {
+                    this.changeYellowCornersPocket(2); // Nem lényeges, hogy hol futtatjuk, a 2 egy random beégetett érték.
+                    this.changeYellowCornersPocket(2);
+                }
                 this.rotate(this.yellowSide, false);
             } else if (countOfRightStickers === 1) {
                 switch (rightStickerPos) {
