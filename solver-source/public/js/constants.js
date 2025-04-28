@@ -1,7 +1,3 @@
-import {Cube} from "./classes/Cube.js";
-import {Side} from "./classes/Side.js";
-import {Sticker} from "./classes/Sticker.js";
-
 // *** CUBE TYPES ***
 export const MIDDLE_CUBE = 0;
 export const EDGE_CUBE = 1;

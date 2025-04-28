@@ -4,8 +4,8 @@ import 'bootstrap';
 import Alpine from 'alpinejs';
 import * as THREE from 'three';
 // import { createApp } from 'vue';
-import app from './components/app.vue';
-import solver from './components/solver.vue';
+// import app from './components/app.vue';
+// import solver from './components/solver.vue';
 import {TrackballControls} from "three/addons";
 
 // createApp(app).mount('#app');
@@ -1055,42 +1055,7 @@ if (location.pathname == '/classicCube') {
         });
 
         submitCubeButton.addEventListener("click", () => {
-            let stickers = [greenSideStickers, orangeSideStickers, whiteSideStickers, redSideStickers, yellowSideStickers, blueSideStickers];
-
-            let greenSideChildren = document.getElementById('green-side');
-            let orangeSideChildren = document.getElementById('orange-side');
-            let whiteSideChildren = document.getElementById('white-side');
-            let redSideChildren = document.getElementById('red-side');
-            let yellowSideChildren = document.getElementById('yellow-side');
-            let blueSideChildren = document.getElementById('blue-side');
-
-            let htmlSides = [greenSideChildren, orangeSideChildren, whiteSideChildren, redSideChildren, yellowSideChildren, blueSideChildren];
-
-            for (let i = 0; i < htmlSides.length; i++) {
-                for (let j = 0; j < 9; j++) {
-                    switch (htmlSides[i].children[j].style.backgroundColor) {
-                        case 'rgb(134, 213, 134)':
-                            stickers[i][j].material.color = green;
-                            break;
-                        case 'rgb(219, 88, 86)':
-                            stickers[i][j].material.color = red;
-                            break;
-                        case 'rgb(255, 150, 65)':
-                            stickers[i][j].material.color = orange;
-                            break;
-                        case 'rgb(50, 115, 255)':
-                            stickers[i][j].material.color = blue;
-                            break;
-                        case 'rgb(255, 255, 255)':
-                            stickers[i][j].material.color = white;
-                            break;
-                        case 'rgb(255, 255, 153)':
-                            stickers[i][j].material.color = yellow;
-                            break;
-                    }
-                }
-            }
-
+            transferColorsTo3DClassicCube();
         });
 
 
@@ -1099,6 +1064,14 @@ if (location.pathname == '/classicCube') {
         });
 
         const stepsButtons = document.getElementById('steps-btn-container').children;
+
+
+        // átveszi a színeket, de a 3D-s forgatások miatt össze vannak kavarodva az objektumok, így rosszul kapják meg a színeiket.
+
+        /*document.getElementById('validity-check-button').addEventListener('click', () => {
+            document.getElementById('instructions').innerText = '';
+            transferColorsTo3DClassicCube();
+        });*/
 
         for (let i = 0; i < stepsButtons.length;i++) {
             stepsButtons[i].addEventListener('click', () => {
@@ -1111,7 +1084,9 @@ if (location.pathname == '/classicCube') {
             let index = 0;
 
             function executeNext() {
-                if (index >= instructions.length) return; // Ha elfogytak az utasítások, kilépünk
+                if (index >= document.getElementById('instructions').innerText.length) {
+                    return;
+                } // Ha elfogytak az utasítások, kilépünk
 
                 let axis, dist, backwards = false;
 
@@ -1150,13 +1125,50 @@ if (location.pathname == '/classicCube') {
                 if (instructions[index] === "'") index++; // Ha aposztróf van, kihagyjuk
 
                 rotateFace(axis, dist, backwards, () => {
-                    setTimeout(executeNext, 500); // Várunk fél másodpercet, mielőtt a következő mozgást indítjuk
+                    setTimeout(executeNext, 300); // Várunk fél másodpercet, mielőtt a következő mozgást indítjuk
                 });
             }
 
             executeNext(); // Indítjuk a folyamatot
         }
 
+        function transferColorsTo3DClassicCube() {
+            let stickers = [greenSideStickers, orangeSideStickers, whiteSideStickers, redSideStickers, yellowSideStickers, blueSideStickers];
+
+            let greenSideChildren = document.getElementById('green-side');
+            let orangeSideChildren = document.getElementById('orange-side');
+            let whiteSideChildren = document.getElementById('white-side');
+            let redSideChildren = document.getElementById('red-side');
+            let yellowSideChildren = document.getElementById('yellow-side');
+            let blueSideChildren = document.getElementById('blue-side');
+
+            let htmlSides = [greenSideChildren, orangeSideChildren, whiteSideChildren, redSideChildren, yellowSideChildren, blueSideChildren];
+
+            for (let i = 0; i < htmlSides.length; i++) {
+                for (let j = 0; j < 9; j++) {
+                    switch (htmlSides[i].children[j].style.backgroundColor) {
+                        case 'rgb(134, 213, 134)':
+                            stickers[i][j].material.color = green;
+                            break;
+                        case 'rgb(219, 88, 86)':
+                            stickers[i][j].material.color = red;
+                            break;
+                        case 'rgb(255, 150, 65)':
+                            stickers[i][j].material.color = orange;
+                            break;
+                        case 'rgb(50, 115, 255)':
+                            stickers[i][j].material.color = blue;
+                            break;
+                        case 'rgb(255, 255, 255)':
+                            stickers[i][j].material.color = white;
+                            break;
+                        case 'rgb(255, 255, 153)':
+                            stickers[i][j].material.color = yellow;
+                            break;
+                    }
+                }
+            }
+        }
 
         // Animáció
         function animate() {
@@ -1588,7 +1600,6 @@ if (location.pathname == '/classicCube') {
         const resetCamera = document.getElementById("reset-camera-button");
         const submitCubeButton = document.getElementById("submit-cube-button-tbt");
         const mixCubeButton = document.getElementById("mix-cube-button");
-
         let selectedObjects = [];
         let rotating = false;
 
@@ -1617,11 +1628,11 @@ if (location.pathname == '/classicCube') {
             let step = 0;
 
             function animateRotation() {
-                if (step < 20) {
+                if (step < 15) {
                     if (backwards === false) {
-                        sideToRotate.rotation[axis] += (Math.PI / 2) / 20;
+                        sideToRotate.rotation[axis] += (Math.PI / 2) / 15;
                     } else {
-                        sideToRotate.rotation[axis] -= (Math.PI / 2) / 20;
+                        sideToRotate.rotation[axis] -= (Math.PI / 2) / 15;
                     }
                     step++;
                     requestAnimationFrame(animateRotation);
@@ -1692,44 +1703,17 @@ if (location.pathname == '/classicCube') {
         });
 
         submitCubeButton.addEventListener("click", () => {
-            let stickers = [greenSideStickers, orangeSideStickers, whiteSideStickers, redSideStickers, yellowSideStickers, blueSideStickers];
-
-            let greenSideChildren = document.getElementById('green-side');
-            let orangeSideChildren = document.getElementById('orange-side');
-            let whiteSideChildren = document.getElementById('white-side');
-            let redSideChildren = document.getElementById('red-side');
-            let yellowSideChildren = document.getElementById('yellow-side');
-            let blueSideChildren = document.getElementById('blue-side');
-
-            let htmlSides = [greenSideChildren, orangeSideChildren, whiteSideChildren, redSideChildren, yellowSideChildren, blueSideChildren];
-
-            for (let i = 0; i < htmlSides.length; i++) {
-                for (let j = 0; j < 4; j++) {
-                    switch (htmlSides[i].children[j].style.backgroundColor) {
-                        case 'rgb(134, 213, 134)':
-                            stickers[i][j].material.color = green;
-                            break;
-                        case 'rgb(219, 88, 86)':
-                            stickers[i][j].material.color = red;
-                            break;
-                        case 'rgb(255, 150, 65)':
-                            stickers[i][j].material.color = orange;
-                            break;
-                        case 'rgb(50, 115, 255)':
-                            stickers[i][j].material.color = blue;
-                            break;
-                        case 'rgb(255, 255, 255)':
-                            stickers[i][j].material.color = white;
-                            break;
-                        case 'rgb(255, 255, 153)':
-                            stickers[i][j].material.color = yellow;
-                            break;
-                    }
-                }
-            }
-
+            transferColorsTo3DTwoByTwoCube();
         });
 
+        /*stepsButtonContainer.addEventListener('click', (event) => {
+            const isButton = event.target.nodeName === 'BUTTON';
+            if (!isButton) {
+                return;
+            }
+
+            transferColorsTo3DTwoByTwoCube();
+        });*/
 
 
 
@@ -1791,7 +1775,7 @@ if (location.pathname == '/classicCube') {
                 if (instructions[index] === "'") index++;
 
                 rotateFace(axis, dist, backwards, () => {
-                    setTimeout(executeNext, 500);
+                    setTimeout(executeNext, 300);
                 });
             }
 
@@ -1805,6 +1789,44 @@ if (location.pathname == '/classicCube') {
 
 
             controls.update();
+        }
+
+        function transferColorsTo3DTwoByTwoCube() {
+            let stickers = [greenSideStickers, orangeSideStickers, whiteSideStickers, redSideStickers, yellowSideStickers, blueSideStickers];
+
+            let greenSideChildren = document.getElementById('green-side');
+            let orangeSideChildren = document.getElementById('orange-side');
+            let whiteSideChildren = document.getElementById('white-side');
+            let redSideChildren = document.getElementById('red-side');
+            let yellowSideChildren = document.getElementById('yellow-side');
+            let blueSideChildren = document.getElementById('blue-side');
+
+            let htmlSides = [greenSideChildren, orangeSideChildren, whiteSideChildren, redSideChildren, yellowSideChildren, blueSideChildren];
+
+            for (let i = 0; i < htmlSides.length; i++) {
+                for (let j = 0; j < 4; j++) {
+                    switch (htmlSides[i].children[j].style.backgroundColor) {
+                        case 'rgb(134, 213, 134)':
+                            stickers[i][j].material.color = green;
+                            break;
+                        case 'rgb(219, 88, 86)':
+                            stickers[i][j].material.color = red;
+                            break;
+                        case 'rgb(255, 150, 65)':
+                            stickers[i][j].material.color = orange;
+                            break;
+                        case 'rgb(50, 115, 255)':
+                            stickers[i][j].material.color = blue;
+                            break;
+                        case 'rgb(255, 255, 255)':
+                            stickers[i][j].material.color = white;
+                            break;
+                        case 'rgb(255, 255, 153)':
+                            stickers[i][j].material.color = yellow;
+                            break;
+                    }
+                }
+            }
         }
 
         animate();

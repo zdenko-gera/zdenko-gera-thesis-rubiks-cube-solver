@@ -1,12 +1,26 @@
-import {WHITE, RED, GREEN, ORANGE, BLUE, YELLOW, CORNER_CUBE} from "../constants.js";
+import { WHITE, RED, GREEN, ORANGE, BLUE, YELLOW, CORNER_CUBE } from "../constants.js";
 import { eqSet } from "../constants.js";
-import {Cube} from "./Cube.js";
-import {Sticker} from "./Sticker.js";
+import { Cube } from "./Cube.js";
+import { Sticker } from "./Sticker.js";
 
 export class TwoByTwoCube extends Cube {
+    whiteSide;
+    redSide;
+    greenSide;
+    orangeSide;
+    blueSide;
+    yellowSide;
+    sides;
 
     constructor(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide) {
-        super(whiteSide, redSide, greenSide, orangeSide, blueSide, yellowSide);
+        super();
+        this.whiteSide = whiteSide;
+        this.redSide = redSide;
+        this.greenSide = greenSide;
+        this.orangeSide = orangeSide;
+        this.blueSide = blueSide;
+        this.yellowSide = yellowSide;
+        this.sides = [this.blueSide, this.redSide, this.greenSide, this.orangeSide, this.whiteSide, this.yellowSide];
 
         // Matricák szomszédsági viszonyának megadása oldalanként:
         this.whiteSide.stickers[0].neighbors.add(this.orangeSide.stickers[2].color.toString()).add(this.greenSide.stickers[1].color.toString());
@@ -108,6 +122,100 @@ export class TwoByTwoCube extends Cube {
     }
 
     /**
+     * Returns if the cube is solved and validates the stickers.
+     *
+     * @returns {boolean} if cube is solved
+     */
+    isSolved() {
+        const validColors = [WHITE, RED, GREEN, ORANGE, BLUE, YELLOW];
+        let isValid = true;
+        let isSolved = true;
+
+        for (let i = 0; i < this.whiteSide.stickers.length; i++) {
+            if (!validColors.includes(this.whiteSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.whiteSide.stickers[i].color !== this.whiteSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < this.redSide.stickers.length; i++) {
+            if (!validColors.includes(this.redSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.redSide.stickers[i].color !== this.redSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < this.greenSide.stickers.length; i++) {
+            if (!validColors.includes(this.greenSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.greenSide.stickers[i].color !== this.greenSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < this.orangeSide.stickers.length; i++) {
+            if (!validColors.includes(this.orangeSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.orangeSide.stickers[i].color !== this.orangeSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < this.blueSide.stickers.length; i++) {
+            if (!validColors.includes(this.blueSide.stickers[i].color)) {
+                isValid = false;
+
+            }
+            if (this.blueSide.stickers[i].color !== this.blueSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        for (let i = 0; i < this.yellowSide.stickers.length; i++) {
+            if (!validColors.includes(this.yellowSide.stickers[i].color)) {
+                isValid = false;
+            }
+            if (this.yellowSide.stickers[i].color !== this.yellowSide.getMiddleColor()) {
+                isSolved = false;
+            }
+        }
+
+        if (!isValid) {
+            document.getElementById('error-msg').style.display = "block";
+            document.getElementById('error-msg').innerText = 'Add meg minden kocka színét a kiválasztható színekkel!';
+            setTimeout(function () {
+                document.getElementById('error-msg').style.display = 'none'
+            }, 5000);
+            return false;
+        }
+
+        if (isSolved) {
+            document.getElementById('success-msg').style.display = "block";
+            document.getElementById('success-msg').innerText = 'A kocka ki van rakva!';
+            setTimeout(function () {
+                document.getElementById('success-msg').style.display = 'none'
+            }, 5000);
+
+            console.log(this.rotsCount);
+
+            return true;
+        } else {
+            document.getElementById('error-msg').style.display = "block";
+            document.getElementById('error-msg').innerText = 'A kocka nincs kirakva!';
+            setTimeout(function () {
+                document.getElementById('error-msg').style.display = 'none'
+            }, 5000);
+            return false;
+        }
+    }
+
+    /**
      * Returns an array containing the location of the wanted sticker.
      *
      * @param stickerToFind sticker to be found
@@ -141,6 +249,79 @@ export class TwoByTwoCube extends Cube {
      */
     isSolvable() {
         return (this.cornerRotationCheck()/* && this.edgeParityCheck()*/);
+    }
+
+    /**
+     * Mixes the cube using legal rotations. By default, 50 moves are used.
+     *
+     * @param numMoves the number of moves to mix the cube.
+     * @returns {Cube} the mixed cube.
+     */
+    mixCube(numMoves = 50) {
+        this.rotsDone = '';
+        this.rotsToDo = '';
+        for (let i = 0; i < numMoves; i++) {
+            let randomIndex = Math.floor(Math.random() * 6);
+            this.rotate(this.sides[randomIndex], Boolean(Math.round(Math.random())));
+        }
+        this.reRenderCube();
+        this.showRots(this.rotsToDo, document.getElementById('mix-cube-button').innerText);
+
+        this.rotsCount = 0;
+        return this;
+    }
+
+    /**
+     * Renders the 2D cube according to the stored values.
+     */
+    reRenderCube() {
+        let redChildren = document.getElementById('red-side').children;
+        for (let i = 0; i < document.getElementById('red-side').children.length; i++) {
+            redChildren[i].style.backgroundColor = this.redSide.stickers[i].color.toString();
+        }
+        let blueChildren = document.getElementById('blue-side').children;
+        for (let i = 0; i < document.getElementById('blue-side').children.length; i++) {
+            blueChildren[i].style.backgroundColor = this.blueSide.stickers[i].color.toString();
+        }
+        let greenChildren = document.getElementById('green-side').children;
+        for (let i = 0; i < document.getElementById('green-side').children.length; i++) {
+            greenChildren[i].style.backgroundColor = this.greenSide.stickers[i].color.toString();
+        }
+        let yellowChildren = document.getElementById('yellow-side').children;
+        for (let i = 0; i < document.getElementById('yellow-side').children.length; i++) {
+            yellowChildren[i].style.backgroundColor = this.yellowSide.stickers[i].color.toString();
+        }
+        let whiteChildren = document.getElementById('white-side').children;
+        for (let i = 0; i < document.getElementById('white-side').children.length; i++) {
+            whiteChildren[i].style.backgroundColor = this.whiteSide.stickers[i].color.toString();
+        }
+        let orangeChildren = document.getElementById('orange-side').children;
+        for (let i = 0; i < document.getElementById('orange-side').children.length; i++) {
+            orangeChildren[i].style.backgroundColor = this.orangeSide.stickers[i].color.toString();
+        }
+    }
+
+    /**
+     * Shows the instructions message.
+     *
+     * @param instructions list of instructions to get to the shown state
+     * @param phaseTitle title of the phase which is being performed
+     * @param setEmpty if the rotations done on the cube should be set to null
+     */
+    showRots(instructions, phaseTitle = '', setEmpty = true) {
+        document.getElementById('instructions-bubble').style.display = 'block';
+        document.getElementById('instructions').innerText = instructions;
+        document.getElementById('phase-title').innerText = phaseTitle;
+
+        setTimeout(function () {
+            document.getElementById('instructions-bubble').style.display = 'none';
+        }.bind(this), 45000);
+
+        if (setEmpty) {
+            this.rotsDone += instructions + '  -->  ';
+            this.rotsToDo = '';
+        }
+        console.log(this.rotsDone);
     }
 
     /**
@@ -517,6 +698,15 @@ export class TwoByTwoCube extends Cube {
 
         this.yellowToSolve();
         this.showRots(this.rotsToDo, document.getElementById('state-three').getAttribute('data-bs-original-title'));
+    }
+
+    /**
+     * If the last layer is not solved, it solves it with the fewest rotations.
+     */
+    yellowToSolve() {
+        while (!this.isSolved()) {
+            this.rotate(this.yellowSide, false);
+        }
     }
 
     /**

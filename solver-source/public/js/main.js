@@ -1,12 +1,12 @@
 import { Sticker } from './classes/Sticker.js';
 import { Side } from './classes/Side.js';
-import { Cube } from './classes/Cube.js';
+import { ClassicCube } from './classes/ClassicCube.js';
 import { CORNER_CUBE, MIDDLE_CUBE, EDGE_CUBE } from './constants.js';
 import { WHITE, RED, GREEN, ORANGE, BLUE, YELLOW } from './constants.js';
 import {TwoByTwoCube} from "./classes/TwoByTwoCube.js";
 
 let cube = null;
-export const solvedCube = new Cube(
+export const solvedCube = new ClassicCube(
     new Side(WHITE,[
         new Sticker(WHITE, 2, new Set()),
         new Sticker(WHITE, 1, new Set()),
@@ -275,7 +275,7 @@ $('document').ready(function() {
         }
         let yellowSideObj = new Side(YELLOW, tmpSide);
 
-        cube = new Cube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
+        cube = new ClassicCube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
         if (!cube.isSolved()) {
             document.getElementById('submit-cube-button').style.display = 'inline-block';
         }

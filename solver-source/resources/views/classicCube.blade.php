@@ -121,7 +121,7 @@
         <button id="submit-cube-button" class="btn btn-secondary">{{ __('messages.saveCube') }}</button>
         <button id="mix-cube-button" class="btn btn-secondary">{{ __('messages.mixCube') }}</button>
         <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
-        <button id="reset-camera-button" class="btn btn-secondary">Reset camera</button>
+        <button id="reset-camera-button" class="btn btn-secondary">{{ __('messages.resetCamera') }}</button>
     </div>
 </div>
 <div id="progress-bar-container">

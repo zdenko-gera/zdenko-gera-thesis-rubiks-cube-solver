@@ -17,7 +17,7 @@ return [
     'english' => 'English',
     'thesisWork' => 'Thesis work of Zdenkó Gera',
     'szte' => 'University of Szeged',
-    'rubiksCubeGuide' => 'Rubik\'s Cube Guide',
+    'rubiksCubeGuide' => 'Rubik\'s Cube step by step – a visualization of a basic algorithm',
     'begin' => 'Begin',
     'event' => 'Event',
     'events' => 'Events',
@@ -29,7 +29,7 @@ return [
     'continue' => 'Continue',
     'check' => 'Check',
     'saveCube' => 'Save cube',
-    'mixCube' => 'Mix',
+    'mixCube' => 'Scrumble',
     'whiteCross' => 'White cross',
     'whiteCorners' => 'White corners',
     'coloredEdges' => 'Colored edges',
@@ -107,4 +107,6 @@ return [
 
     'salutation' => 'Sincerely: Zdenkó Gera',
     'greeting' => 'Hello!',
+
+    'resetCamera' => 'Reset camera',
 ];

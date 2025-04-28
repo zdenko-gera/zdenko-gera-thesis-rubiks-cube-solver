@@ -90,7 +90,7 @@
             <button id="submit-cube-button-tbt" class="btn btn-secondary">{{ __('messages.saveCube') }}</button>
             <button id="mix-cube-button" class="btn btn-secondary">{{ __('messages.mixCube') }}</button>
             <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
-            <button id="reset-camera-button" class="btn btn-secondary">Reset camera</button>
+            <button id="reset-camera-button" class="btn btn-secondary">{{ __('messages.resetCamera') }}</button>
         </div>
     </div>
     <div id="progress-bar-container">
@@ -105,9 +105,9 @@
         <div id="state-three" class="state inactive-state" data-toggle="tooltip" data-placement="top" title="{{ __('messages.yellowCornersRotation') }}">3</div>
     </div>
     <div id="steps-btn-container">
-        <button id="solve-pocket-button" class="btn btn-primary" title="Fehér oldal kirakása">START<sup>1</sup></button>
-        <button id="yellow-corner-pocket-button" class="btn btn-primary" title="Sárga sarkok elhelyezése">{{ __('messages.continue') }}<sup>2</sup></button>
-        <button id="yellow-rotation-pocket-button" class="btn btn-primary" title="Sárga sarkok beforgatása">{{ __('messages.continue') }}<sup>3</sup></button>
+        <button id="solve-pocket-button" class="btn btn-primary step-btn" title="Fehér oldal kirakása">START<sup>1</sup></button>
+        <button id="yellow-corner-pocket-button" class="btn btn-primary step-btn" title="Sárga sarkok elhelyezése">{{ __('messages.continue') }}<sup>2</sup></button>
+        <button id="yellow-rotation-pocket-button" class="btn btn-primary step-btn" title="Sárga sarkok beforgatása">{{ __('messages.continue') }}<sup>3</sup></button>
     </div>
     <div id="instructions-bubble">
         <div id="phase-title"></div>

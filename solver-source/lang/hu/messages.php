@@ -17,14 +17,14 @@ return [
     'english' => 'Angol',
     'thesisWork' => 'Gera Zdenkó szakdolgozati munkája',
     'szte' => 'Szegedi Tudományegyetem',
-    'rubiksCubeGuide' => 'Rubik kocka útmutató',
+    'rubiksCubeGuide' => 'Rubik-kocka lépésről lépésre – egy alap algoritmus vizualizációja',
     'begin' => 'Kezdés',
 
 
     'event' => 'Esemény',
     'events' => 'Események',
     'records' => 'Rekordjaim',
-    'cubeGuide' => 'Kocka útmutató',
+    'cubeGuide' => 'Útmutató',
     'signup' => 'Regisztráció',
     'logout' => 'Kijelentkezés',
     'colorPicker' => 'Színválasztó',
@@ -108,4 +108,6 @@ return [
 
     'salutation' => 'Üdvözlettel: Gera Zdenkó',
     'greeting' => 'Szia!',
+
+    'resetCamera' => 'Kamera visszaálítása',
     ];
