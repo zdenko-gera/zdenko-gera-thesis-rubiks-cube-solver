@@ -126,33 +126,6 @@ solvedCube.yellowSide.stickers[8].neighbors.add(solvedCube.blueSide.stickers[2].
 $('document').ready(function() {
     $('.state').tooltip();
 
-    $('#fill-to-solved-state').click(function (e) {
-        let redChildren = document.getElementById('red-side').children;
-        for (let i = 0; i < document.getElementById('red-side').children.length; i++) {
-            redChildren[i].style.backgroundColor = RED;
-        }
-        let blueChildren = document.getElementById('blue-side').children;
-        for (let i = 0; i < document.getElementById('blue-side').children.length; i++) {
-            blueChildren[i].style.backgroundColor = BLUE;
-        }
-        let greenChildren = document.getElementById('green-side').children;
-        for (let i = 0; i < document.getElementById('green-side').children.length; i++) {
-            greenChildren[i].style.backgroundColor = GREEN;
-        }
-        let yellowChildren = document.getElementById('yellow-side').children;
-        for (let i = 0; i < document.getElementById('yellow-side').children.length; i++) {
-            yellowChildren[i].style.backgroundColor = YELLOW;
-        }
-        let whiteChildren = document.getElementById('white-side').children;
-        for (let i = 0; i < document.getElementById('white-side').children.length; i++) {
-            whiteChildren[i].style.backgroundColor = WHITE;
-        }
-        let orangeChildren = document.getElementById('orange-side').children;
-        for (let i = 0; i < document.getElementById('orange-side').children.length; i++) {
-            orangeChildren[i].style.backgroundColor = ORANGE;
-        }
-    });
-
     var selectedColor = null;
     let activeColorSample = '';
     // *** SZÍNEZÉS ***
@@ -179,11 +152,25 @@ $('document').ready(function() {
 
     // beolvassuk a kiteritett kockarol a szineket
     $('#submit-cube-button').click(function (e) {
+        let greenChildren = document.getElementById('green-side').children;
+        let orangeChildren = document.getElementById('orange-side').children;
+        let whiteChildren = document.getElementById('white-side').children;
+        let redChildren = document.getElementById('red-side').children;
+        let yellowChildren = document.getElementById('yellow-side').children;
+        let blueChildren = document.getElementById('blue-side').children;
+
+        let sides = [greenChildren, orangeChildren, whiteChildren, redChildren, yellowChildren, blueChildren];
+        let colors = [GREEN, ORANGE, WHITE, RED, YELLOW, BLUE];
+
+        for (let i = 0; i < sides.length; i++) {
+            sides[i][4].style.backgroundColor = colors[i];
+        }
+        console.log(document.getElementById('red-side').children[4].style.backgroundColor);
+
         document.getElementById('solve-button').style.display = 'block';
         document.getElementById('submit-cube-button').style.display = 'none';
         document.getElementById('color-picker').style.display = 'none';
         document.getElementById('cube-rotation-buttons-container').style.display = 'flex';
-        document.getElementById('fill-to-solved-state').style.display = 'none';
         let tmpSide = [];
 
         let whiteSideHtml = document.getElementById('white-side');
@@ -278,6 +265,8 @@ $('document').ready(function() {
         cube = new ClassicCube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
         if (!cube.isSolved()) {
             document.getElementById('submit-cube-button').style.display = 'inline-block';
+            document.getElementById('color-picker').style.display = 'flex';
+            document.getElementById('cube-rotation-buttons-container').style.display = 'none';
         }
     });
 
@@ -387,18 +376,6 @@ $('document').ready(function() {
         $(this).hide();
     });
 
-    $('#mix-cube-button').click(function (e) {
-        $('.state').removeClass('active-state');
-        cube.mixCube(20);
-        $('#solve-button').show();
-        $('#white-corners-button').hide();
-        $('#color-edges-button').hide();
-    });
-
-    $('#validity-check-button').click(function (e) {
-        console.log(cube.isSolvable());
-    });
-
     // *** TwoByTwo Cube functions ***
     $('#submit-cube-button-tbt').click(function (e) {
         $('#solve-pocket-button').show();
@@ -406,7 +383,6 @@ $('document').ready(function() {
         document.getElementById('submit-cube-button-tbt').style.display = 'none';
         document.getElementById('color-picker').style.display = 'none';
         document.getElementById('cube-rotation-buttons-container').style.display = 'flex';
-        document.getElementById('fill-to-solved-state').style.display = 'none';
         let tmpSide = [];
 
         let whiteSideHtml = document.getElementById('white-side');

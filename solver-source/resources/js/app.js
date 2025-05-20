@@ -938,7 +938,6 @@ if (location.pathname == '/classicCube') {
         const bottomBackwards = document.getElementById("down-backwards");
         const resetCamera = document.getElementById("reset-camera-button");
         const submitCubeButton = document.getElementById("submit-cube-button");
-        const mixCubeButton = document.getElementById("mix-cube-button");
 
         let sum = 0;
         let selectedObjects = [];
@@ -1056,11 +1055,6 @@ if (location.pathname == '/classicCube') {
 
         submitCubeButton.addEventListener("click", () => {
             transferColorsTo3DClassicCube();
-        });
-
-
-        mixCubeButton.addEventListener('click', () => {
-            followInstructions();
         });
 
         const stepsButtons = document.getElementById('steps-btn-container').children;
@@ -1599,7 +1593,6 @@ if (location.pathname == '/classicCube') {
         const bottomBackwards = document.getElementById("down-backwards");
         const resetCamera = document.getElementById("reset-camera-button");
         const submitCubeButton = document.getElementById("submit-cube-button-tbt");
-        const mixCubeButton = document.getElementById("mix-cube-button");
         let selectedObjects = [];
         let rotating = false;
 
@@ -1704,23 +1697,6 @@ if (location.pathname == '/classicCube') {
 
         submitCubeButton.addEventListener("click", () => {
             transferColorsTo3DTwoByTwoCube();
-        });
-
-        /*stepsButtonContainer.addEventListener('click', (event) => {
-            const isButton = event.target.nodeName === 'BUTTON';
-            if (!isButton) {
-                return;
-            }
-
-            transferColorsTo3DTwoByTwoCube();
-        });*/
-
-
-
-
-
-        mixCubeButton.addEventListener('click', () => {
-            followInstructions();
         });
 
         const stepsButtons = document.getElementById('steps-btn-container').children;

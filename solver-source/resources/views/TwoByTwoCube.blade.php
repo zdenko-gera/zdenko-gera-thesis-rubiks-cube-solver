@@ -85,11 +85,7 @@
             </div>
         </div>
         <div id="cube-buttons-container">
-            <button id="fill-to-solved-state" class="btn btn-outline-primary">TESZT KITÖLTÉS</button>
-            <button id="check-cube" class="btn btn-outline-success">{{ __('messages.check') }}</button>
             <button id="submit-cube-button-tbt" class="btn btn-secondary">{{ __('messages.saveCube') }}</button>
-            <button id="mix-cube-button" class="btn btn-secondary">{{ __('messages.mixCube') }}</button>
-            <button id="validity-check-button" class="btn btn-secondary">Solvable?</button>
             <button id="reset-camera-button" class="btn btn-secondary">{{ __('messages.resetCamera') }}</button>
         </div>
     </div>
@@ -112,17 +108,6 @@
     <div id="instructions-bubble">
         <div id="phase-title"></div>
         <div id="instructions"></div>
-    </div>
-    <a id="popup" class="btn btn-outline-info">Használati útmutató</a>
-    <div id="usage-info-modal">
-        <h3><i class="fa fa-info-circle"></i>  Használati útmutató</h3>
-        <ol>
-            <li>"TESZT KITÖLTÉS" gomb megnyomása / a színek segítségével a kockánk állásának megadása</li>
-            <li>"Kocka mentése" gomb megnyomása</li>
-            <li>Ha saját kockát adtunk meg, ezt nem kell: "Keverés" gomb megnyomása</li>
-            <li>"START!" gomb megnyomása</li>
-        </ol>
-        <p>(Vannak még hibák a kódban, ezért ha végtelen ciklusba esik, vagy nem sikerül elsőre kiraknia, meg kell próbálni újból.)</p>
     </div>
     <div id="three-container" style="width: 50vw; height: 50vh;"></div>
 </main>
