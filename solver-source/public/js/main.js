@@ -125,6 +125,7 @@ solvedCube.yellowSide.stickers[8].neighbors.add(solvedCube.blueSide.stickers[2].
 
 $('document').ready(function() {
     $('.state').tooltip();
+    $('#mix-cube-button').hide();
 
     var selectedColor = null;
     let activeColorSample = '';
@@ -149,6 +150,14 @@ $('document').ready(function() {
         }
     });
     // *** SZÍNEZÉS END ***
+
+    $('#mix-cube-button').click(function (e) {
+        $('.state').removeClass('active-state');
+        cube.mixCube(20);
+        $('#solve-button').show();
+        $('#white-corners-button').hide();
+        $('#color-edges-button').hide();
+    });
 
     // beolvassuk a kiteritett kockarol a szineket
     $('#submit-cube-button').click(function (e) {
@@ -267,6 +276,8 @@ $('document').ready(function() {
             document.getElementById('submit-cube-button').style.display = 'inline-block';
             document.getElementById('color-picker').style.display = 'flex';
             document.getElementById('cube-rotation-buttons-container').style.display = 'none';
+        } else {
+            $('#mix-cube-button').show();
         }
     });
 
@@ -327,6 +338,7 @@ $('document').ready(function() {
         cube.whiteCross();
         $(this).hide();
         $('#white-corners-button').show();
+        $('#submit-cube-button').hide();
     });
 
     $('#white-corners-button').click(function (e) {
@@ -427,9 +439,13 @@ $('document').ready(function() {
         let yellowSideObj = new Side(YELLOW, tmpSide);
 
         cube = new TwoByTwoCube(whiteSideObj, redSideObj, greenSideObj, orangeSideObj, blueSideObj, yellowSideObj);
-        /* if (!cube.isSolved()) {
+        if (!cube.isSolved()) {
             document.getElementById('submit-cube-button-tbt').style.display = 'inline-block';
-        } */
+            document.getElementById('color-picker').style.display = 'flex';
+            document.getElementById('cube-rotation-buttons-container').style.display = 'none';
+        } else {
+            $('#mix-cube-button').show();
+        }
     });
 
     $('#solve-pocket-button').click(function (e) {

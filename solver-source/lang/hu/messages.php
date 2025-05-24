@@ -29,6 +29,7 @@ return [
     'logout' => 'Kijelentkezés',
     'colorPicker' => 'Színválasztó',
     'continue' => 'Tovább',
+    'mixCube' => 'Keverés',
     'saveCube' => 'Kocka mentése',
     'whiteCross' => 'Fehér kereszt',
     'whiteCorners' => 'Fehér sarkok',

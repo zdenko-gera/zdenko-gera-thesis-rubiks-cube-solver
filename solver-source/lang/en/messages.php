@@ -27,6 +27,7 @@ return [
     'logout' => 'Log out',
     'colorPicker' => 'Color picker',
     'continue' => 'Continue',
+    'mixCube' => 'Scramble',
     'saveCube' => 'Save cube',
     'whiteCross' => 'White cross',
     'whiteCorners' => 'White corners',

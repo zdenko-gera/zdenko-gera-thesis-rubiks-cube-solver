@@ -85,6 +85,7 @@
             </div>
         </div>
         <div id="cube-buttons-container">
+            <button id="mix-cube-button" class="btn btn-secondary">{{ __('messages.mixCube') }}</button>
             <button id="submit-cube-button-tbt" class="btn btn-secondary">{{ __('messages.saveCube') }}</button>
             <button id="reset-camera-button" class="btn btn-secondary">{{ __('messages.resetCamera') }}</button>
         </div>

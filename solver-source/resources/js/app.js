@@ -3,16 +3,9 @@ import 'bootstrap';
 
 import Alpine from 'alpinejs';
 import * as THREE from 'three';
-// import { createApp } from 'vue';
-// import app from './components/app.vue';
-// import solver from './components/solver.vue';
 import {TrackballControls} from "three/addons";
 
-// createApp(app).mount('#app');
-// createApp(solver).mount('#solver');
-
 window.Alpine = Alpine;
-
 Alpine.start();
 
 let whiteSideStickers = [];
@@ -313,9 +306,6 @@ if (location.pathname == '/classicCube') {
 
         let hLight = new THREE.HemisphereLight(0x343434, 0x000000, 80);
         scene.add(hLight);
-
-        // Az ablak későbbi átméretezése esetén visszahívható függvény megadása
-        //window.addEventListener('resize', handleWindowResize, false);
 
         // Kamera vezérlés
         controls = new TrackballControls(camera, renderer.domElement);
@@ -923,7 +913,6 @@ if (location.pathname == '/classicCube') {
 
         // kék matricák vége
 
-
         const front = document.getElementById("front");
         const frontBackwards = document.getElementById("front-backwards");
         const back = document.getElementById("back");
@@ -938,6 +927,7 @@ if (location.pathname == '/classicCube') {
         const bottomBackwards = document.getElementById("down-backwards");
         const resetCamera = document.getElementById("reset-camera-button");
         const submitCubeButton = document.getElementById("submit-cube-button");
+        const mixCubeButton = document.getElementById("mix-cube-button");
 
         let sum = 0;
         let selectedObjects = [];
@@ -965,7 +955,6 @@ if (location.pathname == '/classicCube') {
                     }
                 }
             }
-            // console.log(sum);
             for (let i = 0; i < selectedObjects.length; i++) {
                 sideToRotate.add(selectedObjects[i]);
             }
@@ -986,14 +975,9 @@ if (location.pathname == '/classicCube') {
                     for (let i = 0; i < selectedObjects.length; i++) {
                         scene.attach(selectedObjects[i]);
                     }
-                    //sideToRotate.rotation.set(0, 0, 0);
-                    //sideToRotate.updateMatrixWorld(true);
 
                     selectedObjects = [];
-                    //scene.remove(sideToRotate);
                     rotating = false;
-                    // console.log('Children: ' + sideToRotate.children);
-                    //sideToRotate = null;
                     if (callback) callback();
                 }
             }
@@ -1057,15 +1041,12 @@ if (location.pathname == '/classicCube') {
             transferColorsTo3DClassicCube();
         });
 
+
+        mixCubeButton.addEventListener('click', () => {
+            followInstructions();
+        });
+
         const stepsButtons = document.getElementById('steps-btn-container').children;
-
-
-        // átveszi a színeket, de a 3D-s forgatások miatt össze vannak kavarodva az objektumok, így rosszul kapják meg a színeiket.
-
-        /*document.getElementById('validity-check-button').addEventListener('click', () => {
-            document.getElementById('instructions').innerText = '';
-            transferColorsTo3DClassicCube();
-        });*/
 
         for (let i = 0; i < stepsButtons.length;i++) {
             stepsButtons[i].addEventListener('click', () => {
@@ -1291,9 +1272,6 @@ if (location.pathname == '/classicCube') {
 
         let hLight = new THREE.HemisphereLight(0x343434, 0x000000, 80);
         scene.add(hLight);
-
-        // Az ablak későbbi átméretezése esetén visszahívható függvény megadása
-        //window.addEventListener('resize', handleWindowResize, false);
 
         // Kamera vezérlés
         controls = new TrackballControls(camera, renderer.domElement);
@@ -1593,6 +1571,7 @@ if (location.pathname == '/classicCube') {
         const bottomBackwards = document.getElementById("down-backwards");
         const resetCamera = document.getElementById("reset-camera-button");
         const submitCubeButton = document.getElementById("submit-cube-button-tbt");
+        const mixCubeButton = document.getElementById("mix-cube-button");
         let selectedObjects = [];
         let rotating = false;
 
@@ -1699,6 +1678,10 @@ if (location.pathname == '/classicCube') {
             transferColorsTo3DTwoByTwoCube();
         });
 
+        mixCubeButton.addEventListener('click', () => {
+            followInstructions();
+        });
+
         const stepsButtons = document.getElementById('steps-btn-container').children;
 
         for (let i = 0; i < stepsButtons.length;i++) {
@@ -1762,7 +1745,6 @@ if (location.pathname == '/classicCube') {
         function animate() {
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
-
 
             controls.update();
         }
