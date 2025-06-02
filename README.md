@@ -1,7 +1,7 @@
 # Gera Zdenkó - Szakdolgozat:
 # RUBIK'S CUBE SOLVER (Útmutató)
 
-## Az applikáció futtatása:
+## Az applikáció futtatása (Docker nélkül):
 1. Nyisd meg a XAMPP-ot és indítsd el MySQL-t és az Apache webszervert.
 2. Terminálban lépj a projekt könyvtárába, majd itt:
 3. Telepítsd az [NPM](https://nodejs.org/en/download/package-manager)-et. (Alternatíva: add ki az `npm install` parancsot. [Több infó](https://docs.npmjs.com/cli/v10/commands/npm-install))
